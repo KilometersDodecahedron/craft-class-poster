@@ -1,1 +1,48 @@
-<h1>Class Submitter</h1>
+{{!-- the tag related inputs --}}
+<div class="container-md p-3" id="tag-holder">
+    <div class="input-group mb-2" id="tag-submit">
+        <span class="input-group-text">Add New Tag</span>
+        <input type="text" class="form-control" placeholder="New Tag">
+        <button class="btn-primary" type="button">Add</button>
+    </div>
+    <div class="input-group mb-2" id="tag-remove">
+        <span class="input-group-text">Remove Existing Tag</span>
+        <select class="form-select">
+            <option selected>Choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <button class="btn-primary" type="button">Remove</button>
+    </div>
+</div>
+
+<div class="container-md p-3">
+    <div class="row">
+        <div class="input-group mb-2 col-lg" id="class-name">
+            <span class="input-group-text">Class Name</span>
+            <input type="text" class="form-control" placeholder="Learn to Fly">
+        </div>
+        <div class="input-group mb-2 col-lg" id="class-duration">
+            <span class="input-group-text">Duration</span>
+            <input type="text" class="form-control" placeholder="For Description" data-toggle="tooltip" data-placement="top" title="Text that goes in the actual description. Users WILL see this information.">
+            <input type="number" class="form-control" placeholder="For Search" data-toggle="tooltip" data-placement="top" title="The approximate duration of the class, in hours. This information is used internally by search and sort functions. Users will NOT see this information">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-toggle="tooltip" data-placement="top" title="What are the options for taking the class?">
+            <div class="form-check form-check">
+                <input class="form-check-input" type="checkbox" id="available-virtual">
+                <label class="form-check-label" for="available-virtual">Available Virtual</label>
+            </div>
+            <div class="form-check form-check">
+                <input class="form-check-input" type="checkbox" id="available-virtual-no-kit">
+                <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: No Kit</label>
+            </div>   
+            <div class="form-check form-check">
+                <input class="form-check-input" type="checkbox" id="available-in-person">
+                <label class="form-check-label" for="available-in-person">Available In Person</label>
+            </div> 
+        </div>
+    </div>
+</div>

@@ -29,9 +29,10 @@ const classSchema = new Schema({
     customVenue: Boolean,
   },
   price: {
-    hasOnePrice: Boolean,
-    singlePrice: String,
-    priceForSearchFunction: Number,
+    priceForSearchFunction: {
+      lowRange: Number,
+      highRange: Number,
+    },
     multiplePrices: {
       virtual: {
         available: Boolean,
@@ -42,6 +43,10 @@ const classSchema = new Schema({
         price: String,
       },
       inPerson: {
+        available: Boolean,
+        price: String,
+      },
+      addOn: {
         available: Boolean,
         price: String,
       },
