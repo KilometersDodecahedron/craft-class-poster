@@ -6,7 +6,7 @@ const tagSchema = new Schema({
     type: String,
     required: true,
   },
-  date: { type: Date, default: Date.now },
+  dateCreated: { type: Date },
 })
 
 const Tag = mongoose.model("Tag", tagSchema)

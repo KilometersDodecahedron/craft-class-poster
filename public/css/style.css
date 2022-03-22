@@ -1,0 +1,13 @@
+
+
+.tag-selected--display {
+  display: flex;
+  background-color: lightblue;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  width: max-content;
+  border-radius: 10px;
+  font-weight: bold;
+  border: 1px solid black;
+}

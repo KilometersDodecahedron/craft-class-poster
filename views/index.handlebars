@@ -1,48 +1,298 @@
-{{!-- the tag related inputs --}}
+{{! the tag related inputs }}
 <div class="container-md p-3" id="tag-holder">
-    <div class="input-group mb-2" id="tag-submit">
-        <span class="input-group-text">Add New Tag</span>
-        <input type="text" class="form-control" placeholder="New Tag">
-        <button class="btn-primary" type="button">Add</button>
-    </div>
-    <div class="input-group mb-2" id="tag-remove">
-        <span class="input-group-text">Remove Existing Tag</span>
-        <select class="form-select">
-            <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-        <button class="btn-primary" type="button">Remove</button>
-    </div>
+  <div class="input-group mb-2" id="tag-select">
+    <span class="input-group-text">Select Tag</span>
+    <select class="form-select">
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <button class="btn-primary" type="button">Select</button>
+  </div>
+  <div class="input-group mb-2" id="tag-submit">
+    <span class="input-group-text">Add New Tag</span>
+    <input type="text" class="form-control" placeholder="New Tag" />
+    <button class="btn-primary" type="button">Add</button>
+  </div>
+  <div class="input-group mb-2" id="tag-delete">
+    <span class="input-group-text">Delete Existing Tag</span>
+    <select class="form-select">
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <button class="btn-primary" type="button">Delete</button>
+  </div>
+</div>
+
+<div class="container-md" id="tag-selected--holder">
+  <div class="tag-selected--display">
+    <span class="tag-selected--name">Name of Tag Selected</span>
+    <button type="button" class="btn-close tag-selected--button" aria-label="Close"></button>
+  </div>
+  <div class="tag-selected--display ">
+    <span class="tag-selected--name">Name of Tag Selected</span>
+    <button type="button" class="btn-close tag-selected--button" aria-label="Close"></button>
+  </div>
 </div>
 
 <div class="container-md p-3">
-    <div class="row">
-        <div class="input-group mb-2 col-lg" id="class-name">
-            <span class="input-group-text">Class Name</span>
-            <input type="text" class="form-control" placeholder="Learn to Fly">
-        </div>
-        <div class="input-group mb-2 col-lg" id="class-duration">
-            <span class="input-group-text">Duration</span>
-            <input type="text" class="form-control" placeholder="For Description" data-toggle="tooltip" data-placement="top" title="Text that goes in the actual description. Users WILL see this information.">
-            <input type="number" class="form-control" placeholder="For Search" data-toggle="tooltip" data-placement="top" title="The approximate duration of the class, in hours. This information is used internally by search and sort functions. Users will NOT see this information">
-        </div>
+  <div>* hover an input field for a few seconds to see a tooltip</div>
+  <div class="row">
+    {{! name }}
+    <div class="input-group mb-2 col-lg" id="class-name">
+      <span class="input-group-text">Class Name</span>
+      <input
+        type="text"
+        class="form-control"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Name of the class"
+        placeholder="Learn to Fly"
+      />
     </div>
-    <div class="row">
-        <div class="col" data-toggle="tooltip" data-placement="top" title="What are the options for taking the class?">
-            <div class="form-check form-check">
-                <input class="form-check-input" type="checkbox" id="available-virtual">
-                <label class="form-check-label" for="available-virtual">Available Virtual</label>
-            </div>
-            <div class="form-check form-check">
-                <input class="form-check-input" type="checkbox" id="available-virtual-no-kit">
-                <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: No Kit</label>
-            </div>   
-            <div class="form-check form-check">
-                <input class="form-check-input" type="checkbox" id="available-in-person">
-                <label class="form-check-label" for="available-in-person">Available In Person</label>
-            </div> 
-        </div>
+    {{! duration }}
+    <div class="input-group mb-2 col-lg" id="class-duration">
+      <span class="input-group-text">Duration</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="For Description"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Text that goes in the actual description. Users WILL see this information."
+      />
+      <input
+        type="number"
+        class="form-control"
+        placeholder="For Search"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The approximate duration of the class, in hours. This information is used internally by search and sort functions. Users will NOT see this information"
+      />
     </div>
+  </div>
+  <div class="row">
+    <div
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="What are the options for taking the class?"
+    >
+      {{! virtual, virtual no kit, in person }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-virtual" />
+        <label class="form-check-label" for="available-virtual">Available Virtual</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-virtual-no-kit" />
+        <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: No Kit</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-in-person" />
+        <label class="form-check-label" for="available-in-person">Available In Person</label>
+      </div>
+    </div>
+    <div
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Which age groups are the class designed for?"
+    >
+      {{! virtual, virtual no kit, in person }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-adult" />
+        <label class="form-check-label" for="age-adult">Age Group: Adult</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-child" />
+        <label class="form-check-label" for="age-child">Age Group: Children</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-mixed" />
+        <label class="form-check-label" for="age-mixed">Age Group: Mixed</label>
+      </div>
+    </div>
+    <div
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Physical locations available for the class. Leave blank if Virtual only"
+    >
+      {{! physical location, if applicable }}
+      {{! TODO link check boxes to price fields }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="location-boutique" />
+        <label class="form-check-label" for="location-boutique">Location Option: Boutique</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="location-club" />
+        <label class="form-check-label" for="location-club">Location Option: Woman's Club</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="location-custom" />
+        <label class="form-check-label" for="location-custom">Location Option: Custom Venue</label>
+      </div>
+    </div>
+  </div>
+  {{! price (internal) }}
+  <div class="row">
+    <div class="input-group mb-2 col-lg" id="price-sorting">
+      <span class="input-group-text">Price (Internal)</span>
+      <input
+        type="number"
+        class="form-control"
+        id="price-sorting--low"
+        placeholder="Low Range"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Lowest $ amount you would pay for this class. Value applied when sorting by lowest price. Internal only, users will NOT see this data"
+      />
+      <input
+        type="number"
+        class="form-control"
+        id="price-sorting--high"
+        placeholder="High Range"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Highest $ amount you would pay for this class. Value applied when sorting by highest price. Internal only, users will NOT see this data"
+      />
+    </div>
+  </div>
+  {{! prices (display) }}
+  <div class="row">
+    <div class="input-group mb-2" id="price-display--virtual-kit">
+      <span class="input-group-text">Price for Virtual with Kit (Display)</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="$135 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+    <div class="input-group mb-2" id="price-display--virtual-no-kit">
+      <span class="input-group-text">Price for Virtual with NO Kit (Display)</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="$105 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+    <div class="input-group mb-2" id="price-display--in-person">
+      <span class="input-group-text">Price for In Person (Display)</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="$85 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+    <div class="input-group mb-2" id="price-display--add-on">
+      <span class="input-group-text">Addons: leave blank if unapplicable (Display)</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="+$35 for a basic tool kit"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+  </div>
+  {{! minimum participants }}
+  <div class="row">
+    <div
+      class="col-3"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Do a minimum number of people need to sign up for this class to take place?"
+    >
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="minimum-paticipants--checkbox" />
+        <label class="form-check-label" for="minimum-paticipants--checkbox">Requires minimum
+          paticipants</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-2" id="minimum-paticipants--text">
+        <span class="input-group-text">Minimum Participants</span>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="5"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Minimum participants required. Applies only if the box has been checked"
+        />
+      </div>
+    </div>
+  </div>
+  {{! video link }}
+  <div class="row">
+    <div class="col-3" data-toggle="tooltip" data-placement="top" title="Is there a preview video?">
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="video--checkbox" />
+        <label class="form-check-label" for="video--checkbox">Has Video</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-2" id="minimum-paticipants--text">
+        <span class="input-group-text">Video URL (IMPORTANT: Check Tooltip)</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="https://www.youtube.com/embed/MpvLitYWUVU"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="To get the Embed URL off YouTube, 1. Click 'Share', 2. Click 'Embed', 3. Copy the URL that's displayed after 'src='"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="description">Class Description</label>
+      <div
+        class="form-control"
+        id="description"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The class overview"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="row">
+    <div class="test-pitcure-upload">
+      <form action="/api/imgbb/test" method="POST" id="test-form" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Example file input</label>
+          <input type="file" class="form-control-file" id="exampleFormControlFile1" name="test" />
+        </div>
+        <div class="form-group">
+          <label for="testOther">Example file input</label>
+          <input type="text" class="form-control-text" id="testOther" name="test-text" />
+        </div>
+        <button type="button" class="btn btn-primary" id="img-submit-button">Submit</button>
+      </form>
+    </div>
+  </div>
 </div>
+
+<img src="" alt="" id="test-path" />
+
+<button id="test">Test</button>
