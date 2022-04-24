@@ -1,3 +1,28 @@
+const classLoaderForm = {
+  currentClassID: "",
+  classLoaderDropdownHolder: document.querySelector("#class-loader-dropdown-holder"),
+  newClassButton: document.querySelector("#new-class-button"),
+  currentClassDisplayName: document.querySelector("#current-class-display").querySelector("span"),
+  templateClassDropdownOpen: document.querySelector("#template-class-dropdown-option"),
+  newClassButtonFunction: () => {
+    // TODO reset current class
+    classLoaderForm.resetClassID()
+    tagForm.removeAllTags()
+    imageForm.resetInputFields()
+    classForm.resetInputFields()
+    warning.resetWarnings()
+  },
+  resetClassID: () => {
+    classLoaderForm.currentClassID = ""
+    classLoaderForm.currentClassDisplayName.innerHTML = "None"
+    classForm.updateButton.disabled = true
+    classForm.deleteButton.disabled = true
+  },
+  enableButtonFunctions: () => {
+    classLoaderForm.newClassButton.addEventListener("click", classLoaderForm.newClassButtonFunction)
+  },
+}
+
 const tagForm = {
   selectedTagList: [],
   totalTagList: [],
@@ -136,9 +161,13 @@ const tagForm = {
       return _remove != tagToRemove
     })
   },
+  removeAllTags: () => {
+    tagForm.selectedTagList = []
+    tagForm.displayHolder.innerHTML = ""
+  },
 }
 
-let imageForm = {
+const imageForm = {
   mainImageUrl: {
     src: "",
     alt: "",
@@ -222,6 +251,16 @@ let imageForm = {
 
     return newCard
   },
+  resetInputFields: () => {
+    imageForm.mainCardHolder.innerHTML = ""
+    imageForm.additionalCardHolder.innerHTML = ""
+    imageForm.mainImageUrl = { src: "", alt: "" }
+    imageForm.additionalImageUrlArray = []
+    imageForm.mainImageSubmit.srcInput.value = ""
+    imageForm.mainImageSubmit.altInput.value = ""
+    imageForm.additionalImageSubmit.srcInput.value = ""
+    imageForm.additionalImageSubmit.altInput.value = ""
+  },
   enableButtonFunctions: () => {
     imageForm.mainImageSubmit.button.addEventListener("click", imageForm.mainImageSubmit.method)
     imageForm.additionalImageSubmit.button.addEventListener(
@@ -271,7 +310,7 @@ let classForm = {
       virtual: document.querySelector("#price-display--virtual-kit").querySelector("input"),
       virtualNoKit: document.querySelector("#price-display--virtual-no-kit").querySelector("input"),
       inPerson: document.querySelector("#price-display--in-person").querySelector("input"),
-      addOnly: document.querySelector("#price-display--add-on").querySelector("input"),
+      addOn: document.querySelector("#price-display--add-on").querySelector("input"),
     },
   },
   minimumParticipantsField: document
@@ -282,6 +321,8 @@ let classForm = {
   videoPreviewButton: document.querySelector("#video--text").querySelector("button"),
   videoPreviewDisplayTemplate: document.querySelector("#template-video-preview-iframe"),
   submitButton: document.querySelector("#class-submit-button"),
+  updateButton: document.querySelector("#class-update-button"),
+  deleteButton: document.querySelector("#class-delete-button"),
   formatDataFromClassInputForm: () => {
     // remember that empty values == false
     let newClass = {}
@@ -328,8 +369,8 @@ let classForm = {
           price: classForm.priceFields.multiplePrices.inPerson.value,
         },
         addOn: {
-          available: classForm.priceFields.multiplePrices.addOnly.value != "",
-          price: classForm.priceFields.multiplePrices.addOnly.value,
+          available: classForm.priceFields.multiplePrices.addOn.value != "",
+          price: classForm.priceFields.multiplePrices.addOn.value,
         },
       },
     }
@@ -378,6 +419,34 @@ let classForm = {
   },
   submitClassCallbackMethod: response => {
     console.log(response)
+  },
+  resetInputFields: () => {
+    classForm.toggle.virtualPrice.classList.add("d-none")
+    classForm.toggle.virtualNoKitPrice.classList.add("d-none")
+    classForm.toggle.inPersonPrice.classList.add("d-none")
+    classForm.classNameInput.value = ""
+    classForm.description.innerHTML = "<p><br></p>"
+    classForm.disclaimer.value = ""
+    classForm.durationFields.string.value = ""
+    classForm.durationFields.num.value = ""
+    classForm.availableCheckboxes.virtual.checked = false
+    classForm.availableCheckboxes.virtualNoKit.checked = false
+    classForm.availableCheckboxes.inPerson.checked = false
+    classForm.ageCheckboxes.adult.checked = false
+    classForm.ageCheckboxes.child.checked = false
+    classForm.ageCheckboxes.mixed.checked = false
+    classForm.locationCheckboxes.boutique.checked = false
+    classForm.locationCheckboxes.montclairWomanClub.checked = false
+    classForm.locationCheckboxes.customVenue.checked = false
+    classForm.priceFields.priceForSearchFunction.lowRange.value = ""
+    classForm.priceFields.priceForSearchFunction.highRange.value = ""
+    classForm.priceFields.multiplePrices.virtual.value = ""
+    classForm.priceFields.multiplePrices.virtualNoKit.value = ""
+    classForm.priceFields.multiplePrices.inPerson.value = ""
+    classForm.priceFields.multiplePrices.addOn.value = ""
+    classForm.minimumParticipantsField.value = ""
+    classForm.videoField.value = ""
+    classForm.videoPreviewHolder.innerHTML = ""
   },
 }
 
@@ -534,6 +603,7 @@ classForm.submitButton.addEventListener("click", classForm.submitButtonFunction)
 classForm.videoPreviewButton.addEventListener("click", classForm.previewVideoButtonFunction)
 
 imageForm.enableButtonFunctions()
+classLoaderForm.enableButtonFunctions()
 
 // toggle price inputs
 classForm.availableCheckboxes.virtual.addEventListener("change", e => {
