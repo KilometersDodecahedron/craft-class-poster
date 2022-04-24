@@ -20,6 +20,7 @@ const uploadImage = data => {
     url: "/api/imgbb/upload",
     processData: false, // tell jQuery not to process the data
     contentType: false, // tell jQuery not to set contentType
+    enctype: "multipart/form-data",
     data: data,
     async: true,
   })

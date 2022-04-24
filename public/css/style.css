@@ -1,4 +1,6 @@
-
+em { 
+  font-style: italic;
+}
 
 .tag-selected--display {
   display: flex;
@@ -10,4 +12,39 @@
   border-radius: 10px;
   font-weight: bold;
   border: 1px solid black;
+}
+
+#imgBbInstructions{
+  margin-left: 2rem;
+}
+
+.card{
+  padding: 0;
+  width: 24rem;
+}
+
+.card-holder{
+  margin-left: 2rem;
+  padding: 1rem;
+}
+
+.image-selected--button{
+  position: absolute;
+  right: 8%;
+  top: 6%;
+}
+
+.d-inline-flex button {
+  margin-right: 2rem;
+}
+
+#preview-video-holder {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#preview-video-holder iframe{
+  width: 800px;
+  height: calc((800px * 9) / 16);
 }

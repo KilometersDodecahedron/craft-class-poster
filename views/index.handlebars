@@ -1,8 +1,25 @@
-{{! the tag related inputs }}
 <div class="container-md p-3" id="tag-holder">
+  <h1>ECB Class Uploader</h1>
+  {{! Class Loader }}
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><div class="dropdown-item">Action</div></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
+  {{! the tag related inputs }}
   <div class="input-group mb-2" id="tag-select">
     <span class="input-group-text">Select Tag</span>
-    <select class="form-select">
+    <select
+      class="form-select"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Select a tag you that can be used to search this class."
+    >
       <option selected>Choose...</option>
       <option value="1">One</option>
       <option value="2">Two</option>
@@ -12,12 +29,24 @@
   </div>
   <div class="input-group mb-2" id="tag-submit">
     <span class="input-group-text">Add New Tag</span>
-    <input type="text" class="form-control" placeholder="New Tag" />
+    <input
+      type="text"
+      class="form-control"
+      placeholder="New Tag"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Add a new tag option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
+    />
     <button class="btn-primary" type="button">Add</button>
   </div>
   <div class="input-group mb-2" id="tag-delete">
     <span class="input-group-text">Delete Existing Tag</span>
-    <select class="form-select">
+    <select
+      class="form-select"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="PERMANENTLY Remove tag option. This will also prevent users from searching this tag on the app"
+    >
       <option selected>Choose...</option>
       <option value="1">One</option>
       <option value="2">Two</option>
@@ -28,18 +57,16 @@
 </div>
 
 <div class="container-md" id="tag-selected--holder">
-  <div class="tag-selected--display">
-    <span class="tag-selected--name">Name of Tag Selected</span>
-    <button type="button" class="btn-close tag-selected--button" aria-label="Close"></button>
-  </div>
-  <div class="tag-selected--display ">
-    <span class="tag-selected--name">Name of Tag Selected</span>
-    <button type="button" class="btn-close tag-selected--button" aria-label="Close"></button>
-  </div>
+  {{! selected tags are displayed here }}
 </div>
 
 <div class="container-md p-3">
   <div>* hover an input field for a few seconds to see a tooltip</div>
+  <div id="error-explanation" class="d-none">
+    <div class="text-danger">*Field must be filled out (correctly)</div>
+    <div class="text-warning">*Must select at least 1 of the options</div>
+    <div class="text-info">*The field is optional, but has been filled out incorrectly</div>
+  </div>
   <div class="row">
     {{! name }}
     <div class="input-group mb-2 col-lg" id="class-name">
@@ -57,6 +84,7 @@
     <div class="input-group mb-2 col-lg" id="class-duration">
       <span class="input-group-text">Duration</span>
       <input
+        id="class-duration--text"
         type="text"
         class="form-control"
         placeholder="For Description"
@@ -65,21 +93,23 @@
         title="Text that goes in the actual description. Users WILL see this information."
       />
       <input
+        id="class-duration--number"
         type="number"
         class="form-control"
         placeholder="For Search"
         data-toggle="tooltip"
         data-placement="top"
-        title="The approximate duration of the class, in hours. This information is used internally by search and sort functions. Users will NOT see this information"
+        title="The approximate duration of the class, in hours. This information is used internally by search and sort functions. Decimal values are allowed. Users will NOT see this information"
       />
     </div>
   </div>
   <div class="row">
     <div
+      id="available-holder"
       class="col"
       data-toggle="tooltip"
       data-placement="top"
-      title="What are the options for taking the class?"
+      title="What are the options for taking the class? Must select at least one"
     >
       {{! virtual, virtual no kit, in person }}
       <div class="form-check form-check">
@@ -96,12 +126,13 @@
       </div>
     </div>
     <div
+      id="age-holder"
       class="col"
       data-toggle="tooltip"
       data-placement="top"
-      title="Which age groups are the class designed for?"
+      title="Which age groups are the class designed for? Must select at least one"
     >
-      {{! virtual, virtual no kit, in person }}
+      {{! adult, child, mixed }}
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="age-adult" />
         <label class="form-check-label" for="age-adult">Age Group: Adult</label>
@@ -116,13 +147,13 @@
       </div>
     </div>
     <div
+      id="location-holder"
       class="col"
       data-toggle="tooltip"
       data-placement="top"
-      title="Physical locations available for the class. Leave blank if Virtual only"
+      title="Physical locations available for the class. If 'In Person' is an option, you must select at least 1. Leave blank if Virtual only"
     >
       {{! physical location, if applicable }}
-      {{! TODO link check boxes to price fields }}
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="location-boutique" />
         <label class="form-check-label" for="location-boutique">Location Option: Boutique</label>
@@ -148,7 +179,7 @@
         placeholder="Low Range"
         data-toggle="tooltip"
         data-placement="top"
-        title="Lowest $ amount you would pay for this class. Value applied when sorting by lowest price. Internal only, users will NOT see this data"
+        title="Lowest $ amount you would pay for this class. Make sure lower value is Actually lower than the higher one. Set them = is only one price. Value applied when sorting by lowest price. Internal only, users will NOT see this data"
       />
       <input
         type="number"
@@ -157,13 +188,13 @@
         placeholder="High Range"
         data-toggle="tooltip"
         data-placement="top"
-        title="Highest $ amount you would pay for this class. Value applied when sorting by highest price. Internal only, users will NOT see this data"
+        title="Highest $ amount you would pay for this class. Make sure higher value is Actually higher than the lower one. Set them = is only one price. Value applied when sorting by highest price. Internal only, users will NOT see this data"
       />
     </div>
   </div>
   {{! prices (display) }}
   <div class="row">
-    <div class="input-group mb-2" id="price-display--virtual-kit">
+    <div class="input-group mb-2 d-none" id="price-display--virtual-kit">
       <span class="input-group-text">Price for Virtual with Kit (Display)</span>
       <input
         type="text"
@@ -174,7 +205,7 @@
         title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
       />
     </div>
-    <div class="input-group mb-2" id="price-display--virtual-no-kit">
+    <div class="input-group mb-2 d-none" id="price-display--virtual-no-kit">
       <span class="input-group-text">Price for Virtual with NO Kit (Display)</span>
       <input
         type="text"
@@ -185,7 +216,7 @@
         title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
       />
     </div>
-    <div class="input-group mb-2" id="price-display--in-person">
+    <div class="input-group mb-2 d-none" id="price-display--in-person">
       <span class="input-group-text">Price for In Person (Display)</span>
       <input
         type="text"
@@ -210,43 +241,28 @@
   </div>
   {{! minimum participants }}
   <div class="row">
-    <div
-      class="col-3"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Do a minimum number of people need to sign up for this class to take place?"
-    >
-      <div class="form-check form-check">
-        <input class="form-check-input" type="checkbox" id="minimum-paticipants--checkbox" />
-        <label class="form-check-label" for="minimum-paticipants--checkbox">Requires minimum
-          paticipants</label>
-      </div>
-    </div>
+
     <div class="col">
       <div class="input-group mb-2" id="minimum-paticipants--text">
-        <span class="input-group-text">Minimum Participants</span>
+        <span class="input-group-text">Minimum Participants (Optional)</span>
         <input
           type="number"
+          min="0"
+          step="1"
           class="form-control"
           placeholder="5"
           data-toggle="tooltip"
           data-placement="top"
-          title="Minimum participants required. Applies only if the box has been checked"
+          title="Minimum participants required. Leave blank if inapplicable"
         />
       </div>
     </div>
   </div>
   {{! video link }}
   <div class="row">
-    <div class="col-3" data-toggle="tooltip" data-placement="top" title="Is there a preview video?">
-      <div class="form-check form-check">
-        <input class="form-check-input" type="checkbox" id="video--checkbox" />
-        <label class="form-check-label" for="video--checkbox">Has Video</label>
-      </div>
-    </div>
     <div class="col">
-      <div class="input-group mb-2" id="minimum-paticipants--text">
-        <span class="input-group-text">Video URL (IMPORTANT: Check Tooltip)</span>
+      <div class="input-group mb-2" id="video--text">
+        <span class="input-group-text">Video URL (Optional) (IMPORTANT: Check Tooltip)</span>
         <input
           type="text"
           class="form-control"
@@ -255,12 +271,89 @@
           data-placement="top"
           title="To get the Embed URL off YouTube, 1. Click 'Share', 2. Click 'Embed', 3. Copy the URL that's displayed after 'src='"
         />
+        <button class="btn-secondary" type="button">Preview</button>
       </div>
     </div>
   </div>
+  <div id="preview-video-holder"></div>
+  {{! images }}
+  <div class="row">
+    <a href="https://imgbb.com/" rel="noopener noreferrer" target="_blank">Upload files onto ImgBB
+      to be displayed</a>
+    <div class="row" id="imgBbInstructions">
+      <p>
+        <ol class="list-group list-group-numbered">
+          How to use the image uploader:
+          <li class="list-group-item">click the link above to open ImbBB in a new tab</li>
+          <li class="list-group-item">sign in or create an account</li>
+          <li class="list-group-item">click "Upload" on the nav bar, and select "browse from your
+            computer"</li>
+          <li class="list-group-item">*if you save it to an album, be sure to select an album that's
+            set to Public. DON'T MOVE FILES ONCE THEY'RE UPLOADED, THIS BREAKS THE LINK</li>
+          <li class="list-group-item">click "Embed Codes" and select "Direct Links" (it should be
+            formatted like the placeholder)</li>
+          <li class="list-group-item">click "copy", then paste the url into respective input field,
+            and click the button</li>
+        </ol>
+      </p>
+    </div>
+    <div class="input-group mb-2" id="main-image-submit">
+      <span class="input-group-text">Select Main Image</span>
+      <input
+        id="main-image-submit--link"
+        type="text"
+        class="form-control"
+        placeholder="https://i.ibb.co/<key>/<file_name>"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Link to the image. If it's not showing up in the preview, that means the link isn't working. See above text for details"
+      />
+      <input
+        id="main-image-submit--alt"
+        type="text"
+        class="form-control"
+        placeholder="A description of the image"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="This will placed in the 'alt' property to assist screen readers, so make it accurate but concise"
+      />
+      <button class="btn-primary" type="button">Select</button>
+    </div>
+    {{! diplay main image preview }}
+    <div class="row" id="main-card-holder">
+
+    </div>
+    <div class="input-group mb-2" id="additional-image-submit">
+      <span class="input-group-text">Add Additional Images (optional)</span>
+      <input
+        id="additional-image-submit--link"
+        type="text"
+        class="form-control"
+        placeholder="https://i.ibb.co/<key>/<file_name>"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Link to the image. See above text for details"
+      />
+      <input
+        id="additional-image-submit--alt"
+        type="text"
+        class="form-control"
+        placeholder="A description of the image"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="This will placed in the 'alt' property to assist screen readers, so make it accurate but concise"
+      />
+      <button class="btn-primary" type="button">Add</button>
+    </div>
+    {{! diplay additional image preview }}
+    <div class="row" id="additional-card-holder">
+
+    </div>
+  </div>
+  {{! description }}
   <div class="row">
     <div class="form-group">
-      <label for="description">Class Description</label>
+      <label id="description-label" for="description">Class Description</label>
       <div
         class="form-control"
         id="description"
@@ -275,24 +368,63 @@
   <br />
   <br />
   <br />
-  <br />
-  <div class="row">
-    <div class="test-pitcure-upload">
-      <form action="/api/imgbb/test" method="POST" id="test-form" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Example file input</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1" name="test" />
-        </div>
-        <div class="form-group">
-          <label for="testOther">Example file input</label>
-          <input type="text" class="form-control-text" id="testOther" name="test-text" />
-        </div>
-        <button type="button" class="btn btn-primary" id="img-submit-button">Submit</button>
-      </form>
-    </div>
+  <div class="input-group mb-2 col-lg" id="disclaimer">
+    <span class="input-group-text">Disclaimer (Optional)</span>
+    <input
+      type="text"
+      class="form-control"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Disclaimer about the class"
+      placeholder="Final product may appear different from images"
+    />
   </div>
+  <div class="d-inline-flex">
+    <button type="button" class="btn btn-primary" id="class-update-button" disabled>Update Existing
+      Class</button>
+    <button type="button" class="btn btn-primary" id="class-submit-button">Submit as New Class</button>
+    <button type="button" class="btn btn-primary" id="class-delete-button" disabled>Delete Current
+      Class</button>
+  </div>
+  <br />
+  <br />
 </div>
-
-<img src="" alt="" id="test-path" />
+<img src="https://i.ibb.co/dMRXq1D/bat.png" alt="" />
 
 <button id="test">Test</button>
+
+<template id="template-tag-selected">
+  <div
+    class="tag-selected--display"
+    data-toggle="tooltip"
+    data-placement="top"
+    title="A tag assigned to this class. Click the 'X' button on the right to remove it"
+  >
+    <span class="tag-selected--name">Name of Tag Selected</span>
+    <button type="button" class="btn-close tag-selected--button" aria-label="Close"></button>
+  </div>
+</template>
+
+<template id="template-video-preview-iframe">
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/SquJqkblwDE"></iframe>
+  </div>
+</template>
+
+<template id="template-image-selected">
+  <div class="col-4 image-card-holder">
+    <div class="card">
+      <button
+        type="button"
+        data-src=""
+        data-alt=""
+        class="btn-close image-selected--button"
+        aria-label="Close"
+      ></button>
+      <img class="card-img-top" src="https://i.ibb.co/r6BjhCh/llama.jpg" alt="Card image cap" />
+      <div class="card-body">
+        <p class="card-text">A description of the image for the alt tag</p>
+      </div>
+    </div>
+  </div>
+</template>
