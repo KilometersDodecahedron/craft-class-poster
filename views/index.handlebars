@@ -14,7 +14,11 @@
       >
         Load Existing Class
       </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="class-loader-dropdown-holder">
+      <ul
+        class="dropdown-menu"
+        aria-labelledby="dropdownMenuButton"
+        id="class-loader-dropdown-holder"
+      >
         <li><div class="dropdown-item">Action</div></li>
         <li><a class="dropdown-item" href="#">Another action</a></li>
         <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -403,6 +407,7 @@
     <button type="button" class="btn btn-primary" id="class-submit-button">Submit as New Class</button>
     <button type="button" class="btn btn-primary" id="class-delete-button" disabled>Delete Current
       Class</button>
+    <button type="button" class="btn btn-danger d-none" id="class-delete-doublecheck-button">That wasn't a misclick, I want to delete this entry</button>
   </div>
   <br />
   <br />
@@ -410,6 +415,12 @@
 <img src="https://i.ibb.co/dMRXq1D/bat.png" alt="" />
 
 <button id="test">Test</button>
+
+<div class="overlay d-none">
+  <div class="overlay-message">
+    Processing your request...
+  </div>
+</div>
 
 <template id="template-tag-selected">
   <div
@@ -448,5 +459,5 @@
 </template>
 
 <template id="template-class-dropdown-option">
-  <li><div class="dropdown-item">Action</div></li>
+  <li><div class="dropdown-item class-select-dropdown-item" data-id="i">Action</div></li>
 </template>

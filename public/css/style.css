@@ -2,6 +2,29 @@ em {
   font-style: italic;
 }
 
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+}
+
+.overlay-message {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding: 3rem;
+  background-color: white;
+  border: 0.5rem solid black;
+  border-radius: .5rem;
+  font-size: 1.5rem;
+}
+
 .tag-selected--display {
   display: flex;
   background-color: lightblue;

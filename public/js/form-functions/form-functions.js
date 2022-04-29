@@ -1,5 +1,6 @@
 const classLoaderForm = {
   currentClassID: "",
+  loadedClasses: [],
   classLoaderDropdownHolder: document.querySelector("#class-loader-dropdown-holder"),
   newClassButton: document.querySelector("#new-class-button"),
   currentClassDisplayName: document.querySelector("#current-class-display").querySelector("span"),
@@ -17,9 +18,46 @@ const classLoaderForm = {
     classLoaderForm.currentClassDisplayName.innerHTML = "None"
     classForm.updateButton.disabled = true
     classForm.deleteButton.disabled = true
+    classForm.deleteDoublecheckButton.classList.add("d-none")
+  },
+  classSelectButtonFunction: e => {
+    if (!e.target.classList.contains("class-select-dropdown-item")) {
+      return
+    }
+    for (let i = 0; i < classLoaderForm.loadedClasses.length; i++) {
+      if (e.target.dataset.id == classLoaderForm.loadedClasses[i]._id) {
+        classLoaderForm.currentClassID = e.target.dataset.id
+        classForm.populateExistingClass(classLoaderForm.loadedClasses[i])
+        classForm.updateButton.disabled = false
+        classForm.deleteButton.disabled = false
+        classForm.deleteDoublecheckButton.classList.add("d-none")
+        break
+      }
+    }
+  },
+  populateOptions: _classes => {
+    console.log(_classes)
+    classLoaderForm.classLoaderDropdownHolder.innerHTML = ""
+    _classes.forEach(item => {
+      let newItem = classLoaderForm.templateClassDropdownOpen.content.cloneNode(true)
+      // what actually gets clicked on
+      let eTarget = newItem.querySelector(".dropdown-item")
+
+      eTarget.innerHTML = item.name
+      eTarget.dataset.id = item._id
+
+      classLoaderForm.classLoaderDropdownHolder.append(newItem)
+    })
+  },
+  fetchData: () => {
+    getAllClasses(data => {
+      classLoaderForm.loadedClasses = data
+      classLoaderForm.populateOptions(classLoaderForm.loadedClasses)
+    })
   },
   enableButtonFunctions: () => {
     classLoaderForm.newClassButton.addEventListener("click", classLoaderForm.newClassButtonFunction)
+    classLoaderForm.fetchData()
   },
 }
 
@@ -272,7 +310,8 @@ const imageForm = {
 
 console.log(imageForm)
 
-let classForm = {
+const classForm = {
+  processingMessageOverlay: document.querySelector(".overlay"),
   // show or hide based on check boxes
   toggle: {
     virtualPrice: document.querySelector("#price-display--virtual-kit"),
@@ -323,7 +362,19 @@ let classForm = {
   submitButton: document.querySelector("#class-submit-button"),
   updateButton: document.querySelector("#class-update-button"),
   deleteButton: document.querySelector("#class-delete-button"),
-  formatDataFromClassInputForm: () => {
+  deleteDoublecheckButton: document.querySelector("#class-delete-doublecheck-button"),
+  toggleDisplaysMethod: () => {
+    classForm.availableCheckboxes.virtual.checked
+      ? classForm.toggle.virtualPrice.classList.remove(warning.hidingClass)
+      : classForm.toggle.virtualPrice.classList.add(warning.hidingClass)
+    classForm.availableCheckboxes.virtualNoKit.checked
+      ? classForm.toggle.virtualNoKitPrice.classList.remove(warning.hidingClass)
+      : classForm.toggle.virtualNoKitPrice.classList.add(warning.hidingClass)
+    classForm.availableCheckboxes.inPerson.checked
+      ? classForm.toggle.inPersonPrice.classList.remove(warning.hidingClass)
+      : classForm.toggle.inPersonPrice.classList.add(warning.hidingClass)
+  },
+  formatDataFromClassInputForm: isUpdate => {
     // remember that empty values == false
     let newClass = {}
     newClass.name = classForm.classNameInput.value
@@ -395,7 +446,7 @@ let classForm = {
       })
     }
     console.log(newClass)
-    warning.checkFormDataIsFormatted(newClass)
+    warning.checkFormDataIsFormatted(newClass, isUpdate)
   },
   rejectClassUpload: problem => {
     alert(problem)
@@ -415,10 +466,29 @@ let classForm = {
     classForm.videoPreviewHolder.append(newVideoPlayer)
   },
   submitButtonFunction: () => {
-    classForm.formatDataFromClassInputForm()
+    classForm.formatDataFromClassInputForm(false)
+  },
+  updateButtonFunction: () => {
+    classForm.formatDataFromClassInputForm(true)
+  },
+  deleteButtonFunction: () => {
+    classForm.deleteDoublecheckButton.classList.remove("d-none")
+  },
+  deleteDoublecheckButtonFunction: () => {
+    deleteClass(classLoaderForm.currentClassID, classForm.submitClassCallbackMethod)
+  },
+  showOverlay: () => {
+    classForm.processingMessageOverlay.classList.remove("d-none")
+  },
+  hideOverlay: () => {
+    classForm.processingMessageOverlay.classList.add("d-none")
   },
   submitClassCallbackMethod: response => {
     console.log(response)
+    window.scrollTo(0, 0)
+    classLoaderForm.newClassButtonFunction()
+    classLoaderForm.fetchData()
+    classForm.hideOverlay()
   },
   resetInputFields: () => {
     classForm.toggle.virtualPrice.classList.add("d-none")
@@ -447,6 +517,76 @@ let classForm = {
     classForm.minimumParticipantsField.value = ""
     classForm.videoField.value = ""
     classForm.videoPreviewHolder.innerHTML = ""
+  },
+  populateExistingClass: _classEntry => {
+    classLoaderForm.currentClassDisplayName.innerHTML = _classEntry.name
+    tagForm.removeAllTags()
+    imageForm.resetInputFields()
+    classForm.resetInputFields()
+    warning.resetWarnings()
+    classForm.classNameInput.value = _classEntry.name
+    classForm.description.innerHTML = _classEntry.description
+    classForm.disclaimer.value = _classEntry.disclaimer
+    classForm.durationFields.string.value = _classEntry.duration.string
+    classForm.durationFields.num.value = _classEntry.duration.num
+    classForm.availableCheckboxes.virtual.checked = _classEntry.availability.virtual
+    classForm.availableCheckboxes.virtualNoKit.checked = _classEntry.availability.virtualNoKit
+    classForm.availableCheckboxes.inPerson.checked = _classEntry.availability.inPerson
+    classForm.toggleDisplaysMethod()
+    classForm.ageCheckboxes.adult.checked = _classEntry.ageGroup.adult
+    classForm.ageCheckboxes.child.checked = _classEntry.ageGroup.child
+    classForm.ageCheckboxes.mixed.checked = _classEntry.ageGroup.mixed
+    classForm.locationCheckboxes.boutique.checked = _classEntry.allowedLocations.boutique
+    classForm.locationCheckboxes.montclairWomanClub.checked =
+      _classEntry.allowedLocations.montclairWomanClub
+    classForm.locationCheckboxes.customVenue.checked = _classEntry.allowedLocations.customVenue
+    classForm.priceFields.priceForSearchFunction.lowRange.value =
+      _classEntry?.price?.priceForSearchFunction?.lowRange
+    classForm.priceFields.priceForSearchFunction.highRange.value =
+      _classEntry?.price?.priceForSearchFunction?.highRange
+    classForm.priceFields.multiplePrices.virtual.value =
+      _classEntry.price.multiplePrices.virtual.price
+    classForm.priceFields.multiplePrices.virtualNoKit.value =
+      _classEntry.price.multiplePrices.virtualNoKit.price
+    classForm.priceFields.multiplePrices.inPerson.value =
+      _classEntry.price.multiplePrices.inPerson.price
+    if (_classEntry?.price?.multiplePrices?.addOn?.price) {
+      classForm.priceFields.multiplePrices.addOn.value =
+        _classEntry?.price?.multiplePrices?.addOn?.price
+    }
+    if (_classEntry.minimumParticipants.hasMinimum) {
+      classForm.minimumParticipantsField.value = _classEntry.minimumParticipants.minimum
+    }
+    if (_classEntry.video.hasVideo) {
+      classForm.videoField.value = _classEntry.video.link
+      classForm.previewVideoButtonFunction()
+    }
+    // add images
+    imageForm.mainImageSubmit.srcInput.value = _classEntry.photos[0].src
+    imageForm.mainImageSubmit.altInput.value = _classEntry.photos[0].alt
+    imageForm.mainImageSubmit.method()
+    if (_classEntry.photos.length > 1) {
+      for (let i = 1; i < _classEntry.photos.length; i++) {
+        imageForm.additionalImageSubmit.srcInput.value = _classEntry.photos[i].src
+        imageForm.additionalImageSubmit.altInput.value = _classEntry.photos[i].alt
+        imageForm.additionalImageSubmit.method()
+      }
+    }
+    // add tags
+    if (_classEntry.tags.length > 0) {
+      tagForm.selectedTagList = [..._classEntry.tags]
+      tagForm.populateCurrentTags()
+    }
+  },
+  enableButtonFunctions: () => {
+    classForm.submitButton.addEventListener("click", classForm.submitButtonFunction)
+    classForm.updateButton.addEventListener("click", classForm.updateButtonFunction)
+    classForm.deleteButton.addEventListener("click", classForm.deleteButtonFunction)
+    classForm.deleteDoublecheckButton.addEventListener(
+      "click",
+      classForm.deleteDoublecheckButtonFunction
+    )
+    classForm.videoPreviewButton.addEventListener("click", classForm.previewVideoButtonFunction)
   },
 }
 
@@ -493,7 +633,7 @@ const warning = {
     warning.description.classList.remove(warning.mandatoryColor)
     warning.mainImage.classList.remove(warning.mandatoryColor)
   },
-  checkFormDataIsFormatted: formData => {
+  checkFormDataIsFormatted: (formData, isUpdate) => {
     warning.resetWarnings()
     let noErrors = true
     // has at least 1 tag
@@ -589,18 +729,24 @@ const warning = {
     // What to do if there's an error
     if (!noErrors) {
       warning.explanation.classList.remove(warning.hidingClass)
+      warning.explanation.scrollIntoView()
       return
     }
 
-    postClass(formData, classForm.submitClassCallbackMethod)
+    if (isUpdate) {
+      classForm.showOverlay()
+      updateClass(formData, classLoaderForm.currentClassID, classForm.submitClassCallbackMethod)
+    } else {
+      classForm.showOverlay()
+      postClass(formData, classForm.submitClassCallbackMethod)
+    }
   },
 }
 
 tagForm.enableButtonFunctions()
 tagForm.fetchTotalTags()
+classForm.enableButtonFunctions()
 console.log(classForm)
-classForm.submitButton.addEventListener("click", classForm.submitButtonFunction)
-classForm.videoPreviewButton.addEventListener("click", classForm.previewVideoButtonFunction)
 
 imageForm.enableButtonFunctions()
 classLoaderForm.enableButtonFunctions()
@@ -629,4 +775,5 @@ getAllClasses(data => {
 
 document.querySelector("body").addEventListener("click", e => {
   tagForm.xButtonFunction(e)
+  classLoaderForm.classSelectButtonFunction(e)
 })
