@@ -16,7 +16,10 @@ const postClass = (_data, callback) => {
         callback(data)
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.warn(err)
+      callback()
+    })
 }
 
 const getAllClasses = callback => {
@@ -31,7 +34,10 @@ const getAllClasses = callback => {
         callback(data)
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.warn(err)
+      callback()
+    })
 }
 
 const updateClass = (newData, id, callback) => {
@@ -47,7 +53,10 @@ const updateClass = (newData, id, callback) => {
         callback(data)
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.warn(err)
+      callback()
+    })
 }
 
 const deleteClass = (id, callback) => {
@@ -62,7 +71,10 @@ const deleteClass = (id, callback) => {
         callback(data)
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.warn(err)
+      callback()
+    })
 }
 
 var testingClassData = undefined

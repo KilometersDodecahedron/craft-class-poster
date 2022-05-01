@@ -36,7 +36,6 @@ const classLoaderForm = {
     }
   },
   populateOptions: _classes => {
-    console.log(_classes)
     classLoaderForm.classLoaderDropdownHolder.innerHTML = ""
     _classes.forEach(item => {
       let newItem = classLoaderForm.templateClassDropdownOpen.content.cloneNode(true)
@@ -112,20 +111,28 @@ const tagForm = {
       selectField.value = "Choose..."
       return
     }
-    console.log(tagForm.tagDisplayTemplate)
     tagForm.addCurrentTag(selectedTag)
-    tagForm.createTagDisplayFromTemplate(selectedTag)
+    // tagForm.createTagDisplayFromTemplate(selectedTag)
+    tagForm.populateCurrentTags()
     selectField.value = "Choose..."
   },
-  createTagDisplayFromTemplate: selectedTag => {
-    // TODO create new tag from tagForm.tagDisplayTemplate
+  createTagDisplayFromTemplate: (selectedTag, index) => {
     let newTagDisplay = tagForm.tagDisplayTemplate.content.cloneNode(true)
+    let tagBackground = newTagDisplay.querySelector(".tag-selected--display")
     let nameDisplay = newTagDisplay.querySelector(".tag-selected--name")
-    let closeButton = newTagDisplay.querySelector("button")
+    let closeButton = newTagDisplay.querySelector(".tag-selected--x-button")
+    let displayButton = newTagDisplay.querySelector(".tag-selected--display-button")
     nameDisplay.innerHTML = selectedTag
     // the tag is stored in the data attribute of the close button it can be removed from the list if x is clicked
     closeButton.setAttribute("data-tag", selectedTag)
-    console.log(closeButton)
+    displayButton.setAttribute("data-tag", selectedTag)
+
+    // set first index as display tag
+    if (index == 0) {
+      displayButton.classList.add("d-none")
+      tagBackground.classList.add("tag-selected--display--main")
+    }
+
     tagForm.displayHolder.append(newTagDisplay)
   },
   submitTagMethod: () => {
@@ -150,7 +157,6 @@ const tagForm = {
           name: newTagText,
         },
         data => {
-          console.log(data)
           submitField.value = ""
           tagForm.fetchTotalTags()
         }
@@ -164,25 +170,35 @@ const tagForm = {
       return
     }
     deleteTag(selectedTagID, data => {
-      console.log(data)
       tagForm.fetchTotalTags()
       deleteField.value = "Choose..."
     })
   },
   xButtonFunction: e => {
-    if (e.target.classList.contains("tag-selected--button")) {
+    if (e.target.classList.contains("tag-selected--x-button")) {
       const tagHolder = e.target.parentElement
       const currentTag = tagHolder.querySelector("span").innerHTML
-      console.log(currentTag)
-      console.log(e.target.dataset.tag)
       tagForm.removeCurrentTag(currentTag)
       tagForm.populateCurrentTags()
+    }
+  },
+  displayButtonFunction: e => {
+    if (e.target.classList.contains("tag-selected--display-button")) {
+      for (let i = 0; i < tagForm.selectedTagList.length; i++) {
+        if (e.target.dataset.tag == tagForm.selectedTagList[i]) {
+          let newMainTag = tagForm.selectedTagList.splice(i, 1)
+          // tagForm.selectedTagList.unshift(newMainTag)
+          tagForm.selectedTagList = [...newMainTag, ...tagForm.selectedTagList]
+          tagForm.populateCurrentTags()
+          console.log(tagForm.selectedTagList)
+        }
+      }
     }
   },
   populateCurrentTags: () => {
     tagForm.displayHolder.innerHTML = ""
     for (let i = 0; i < tagForm.selectedTagList.length; i++) {
-      tagForm.createTagDisplayFromTemplate(tagForm.selectedTagList[i])
+      tagForm.createTagDisplayFromTemplate(tagForm.selectedTagList[i], i)
     }
   },
   enableButtonFunctions: () => {
@@ -307,8 +323,6 @@ const imageForm = {
     )
   },
 }
-
-console.log(imageForm)
 
 const classForm = {
   processingMessageOverlay: document.querySelector(".overlay"),
@@ -445,7 +459,6 @@ const classForm = {
         newClass.photos.push(item)
       })
     }
-    console.log(newClass)
     warning.checkFormDataIsFormatted(newClass, isUpdate)
   },
   rejectClassUpload: problem => {
@@ -484,7 +497,6 @@ const classForm = {
     classForm.processingMessageOverlay.classList.add("d-none")
   },
   submitClassCallbackMethod: response => {
-    console.log(response)
     window.scrollTo(0, 0)
     classLoaderForm.newClassButtonFunction()
     classLoaderForm.fetchData()
@@ -680,8 +692,8 @@ const warning = {
     if (
       !formData.price.priceForSearchFunction.lowRange ||
       !formData.price.priceForSearchFunction.highRange ||
-      formData.price.priceForSearchFunction.lowRange >
-        formData.price.priceForSearchFunction.highRange
+      parseInt(formData.price.priceForSearchFunction.lowRange) >
+        parseInt(formData.price.priceForSearchFunction.highRange)
     ) {
       noErrors = false
       warning.priceInternal.classList.add(warning.mandatoryColor)
@@ -746,7 +758,6 @@ const warning = {
 tagForm.enableButtonFunctions()
 tagForm.fetchTotalTags()
 classForm.enableButtonFunctions()
-console.log(classForm)
 
 imageForm.enableButtonFunctions()
 classLoaderForm.enableButtonFunctions()
@@ -768,12 +779,8 @@ classForm.availableCheckboxes.inPerson.addEventListener("change", e => {
     : classForm.toggle.inPersonPrice.classList.add(warning.hidingClass)
 })
 
-console.log(warning)
-getAllClasses(data => {
-  console.log(data)
-})
-
 document.querySelector("body").addEventListener("click", e => {
   tagForm.xButtonFunction(e)
+  tagForm.displayButtonFunction(e)
   classLoaderForm.classSelectButtonFunction(e)
 })

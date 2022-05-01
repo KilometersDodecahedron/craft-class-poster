@@ -37,6 +37,10 @@ em {
   border: 1px solid black;
 }
 
+.tag-selected--display--main {
+  background-color: gold;
+}
+
 #imgBbInstructions{
   margin-left: 2rem;
 }
@@ -59,6 +63,12 @@ em {
 
 .d-inline-flex button {
   margin-right: 2rem;
+}
+
+.tag-selected--display-button {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: gold;
 }
 
 #preview-video-holder {

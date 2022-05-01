@@ -193,7 +193,7 @@
   {{! price (internal) }}
   <div class="row">
     <div class="input-group mb-2 col-lg" id="price-sorting">
-      <span class="input-group-text">Price (Internal)</span>
+      <span class="input-group-text">Price (Internal, and display on preview)</span>
       <input
         type="number"
         class="form-control"
@@ -201,7 +201,7 @@
         placeholder="Low Range"
         data-toggle="tooltip"
         data-placement="top"
-        title="Lowest $ amount you would pay for this class. Make sure lower value is Actually lower than the higher one. Set them = is only one price. Value applied when sorting by lowest price. Internal only, users will NOT see this data"
+        title="Lowest $ amount you would pay for this class. Make sure lower value is Actually lower than the higher one. Set them = is only one price. Value applied when sorting by lowest price. This will also be formatted in the thumbnail for the price range"
       />
       <input
         type="number"
@@ -427,10 +427,11 @@
     class="tag-selected--display"
     data-toggle="tooltip"
     data-placement="top"
-    title="A tag assigned to this class. Click the 'X' button on the right to remove it"
+    title="A tag assigned to this class. Click the 'X' button on the right to remove it. Click the Display button to select is as the preview"
   >
     <span class="tag-selected--name">Name of Tag Selected</span>
-    <button type="button" class="btn-close tag-selected--button" aria-label="Close"></button>
+    <button type="button" class="btn-close tag-selected--x-button" aria-label="Close"></button>
+    <button class="tag-selected--display-button" type="button">Display</button>
   </div>
 </template>
 
