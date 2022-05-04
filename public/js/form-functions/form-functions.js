@@ -326,6 +326,7 @@ const imageForm = {
 
 const classForm = {
   processingMessageOverlay: document.querySelector(".overlay"),
+  difficultyOptionsSet: new Set(["Beginner", "Intermediate", "Advanced"]),
   // show or hide based on check boxes
   toggle: {
     virtualPrice: document.querySelector("#price-display--virtual-kit"),
@@ -354,6 +355,7 @@ const classForm = {
     montclairWomanClub: document.querySelector("#location-club"),
     customVenue: document.querySelector("#location-custom"),
   },
+  difficultyRadioButtons: document.querySelectorAll("input[name='difficulty']"),
   priceFields: {
     priceForSearchFunction: {
       lowRange: document.querySelector("#price-sorting--low"),
@@ -415,6 +417,11 @@ const classForm = {
           ? false
           : true,
     }
+    classForm.difficultyRadioButtons.forEach(item => {
+      if (item.checked == true) {
+        newClass.difficulty = item.value
+      }
+    })
     newClass.price = {
       priceForSearchFunction: {
         lowRange: classForm.priceFields.priceForSearchFunction.lowRange.value,
@@ -520,6 +527,12 @@ const classForm = {
     classForm.locationCheckboxes.boutique.checked = false
     classForm.locationCheckboxes.montclairWomanClub.checked = false
     classForm.locationCheckboxes.customVenue.checked = false
+
+    // difficulty
+    classForm.difficultyRadioButtons.forEach(_input => {
+      _input.checked = false
+    })
+
     classForm.priceFields.priceForSearchFunction.lowRange.value = ""
     classForm.priceFields.priceForSearchFunction.highRange.value = ""
     classForm.priceFields.multiplePrices.virtual.value = ""
@@ -552,6 +565,11 @@ const classForm = {
     classForm.locationCheckboxes.montclairWomanClub.checked =
       _classEntry.allowedLocations.montclairWomanClub
     classForm.locationCheckboxes.customVenue.checked = _classEntry.allowedLocations.customVenue
+    classForm.difficultyRadioButtons.forEach(item => {
+      if (_classEntry.difficulty == item.value) {
+        item.checked = true
+      }
+    })
     classForm.priceFields.priceForSearchFunction.lowRange.value =
       _classEntry?.price?.priceForSearchFunction?.lowRange
     classForm.priceFields.priceForSearchFunction.highRange.value =
@@ -573,6 +591,13 @@ const classForm = {
       classForm.videoField.value = _classEntry.video.link
       classForm.previewVideoButtonFunction()
     }
+    // difficulty
+    classForm.difficultyRadioButtons.forEach(_input => {
+      if (_input.value == _classEntry.difficulty) {
+        _input.checked = true
+      }
+    })
+
     // add images
     imageForm.mainImageSubmit.srcInput.value = _classEntry.photos[0].src
     imageForm.mainImageSubmit.altInput.value = _classEntry.photos[0].alt
@@ -614,6 +639,7 @@ const warning = {
   availableArray: document.querySelector("#available-holder").querySelectorAll(".form-check-label"),
   ageGroupArray: document.querySelector("#age-holder").querySelectorAll(".form-check-label"),
   locationArray: document.querySelector("#location-holder").querySelectorAll(".form-check-label"),
+  difficultyArray: document.querySelectorAll(".difficulty-label"),
   priceInternal: document.querySelector("#price-sorting").querySelector("span"),
   priceVirtual: document.querySelector("#price-display--virtual-kit").querySelector("span"),
   priceVirtualNoKit: document.querySelector("#price-display--virtual-no-kit").querySelector("span"),
@@ -634,6 +660,9 @@ const warning = {
       item.classList.remove(warning.atLeastOneColor)
     })
     warning.locationArray.forEach(item => {
+      item.classList.remove(warning.atLeastOneColor)
+    })
+    warning.difficultyArray.forEach(item => {
       item.classList.remove(warning.atLeastOneColor)
     })
     warning.priceInternal.classList.remove(warning.mandatoryColor)
@@ -688,13 +717,20 @@ const warning = {
         item.classList.add(warning.atLeastOneColor)
       })
     }
-    // has price interval, low range <= high range
+    // difficulty selected
+    if (!classForm.difficultyOptionsSet.has(formData.difficulty)) {
+      noErrors = false
+      warning.difficultyArray.forEach(item => {
+        item.classList.add(warning.atLeastOneColor)
+      })
+    }
     if (
       !formData.price.priceForSearchFunction.lowRange ||
       !formData.price.priceForSearchFunction.highRange ||
       parseInt(formData.price.priceForSearchFunction.lowRange) >
         parseInt(formData.price.priceForSearchFunction.highRange)
     ) {
+      // has price interval, low range <= high range
       noErrors = false
       warning.priceInternal.classList.add(warning.mandatoryColor)
     }

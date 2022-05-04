@@ -17,6 +17,10 @@ const classSchema = new Schema({
     num: Number,
   },
   disclaimer: String,
+  difficulty: {
+    type: String,
+    required: true,
+  },
   availability: {
     virtual: Boolean,
     virtualNoKit: Boolean,

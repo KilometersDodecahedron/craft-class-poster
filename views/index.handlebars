@@ -189,6 +189,51 @@
         <label class="form-check-label" for="location-custom">Location Option: Custom Venue</label>
       </div>
     </div>
+    {{! How difficult is the class? }}
+    <div
+      id="difficulty-holder"
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="How hard is the class? This is displayed in the preview"
+    >
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="difficulty"
+          id="difficulty-beginner"
+          value="Beginner"
+        />
+        <label class="form-check-label difficulty-label" for="difficulty-beginner">
+          Difficulty: Beginner
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="difficulty"
+          id="difficulty-intermediate"
+          value="Intermediate"
+        />
+        <label class="form-check-label difficulty-label" for="difficulty-intermediate">
+          Difficulty: Intermediate
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="difficulty"
+          id="difficulty-advanced"
+          value="Advanced"
+        />
+        <label class="form-check-label difficulty-label" for="difficulty-advanced">
+          Difficulty: Advanced
+        </label>
+      </div>
+    </div>
   </div>
   {{! price (internal) }}
   <div class="row">
@@ -407,7 +452,8 @@
     <button type="button" class="btn btn-primary" id="class-submit-button">Submit as New Class</button>
     <button type="button" class="btn btn-primary" id="class-delete-button" disabled>Delete Current
       Class</button>
-    <button type="button" class="btn btn-danger d-none" id="class-delete-doublecheck-button">That wasn't a misclick, I want to delete this entry</button>
+    <button type="button" class="btn btn-danger d-none" id="class-delete-doublecheck-button">That
+      wasn't a misclick, I want to delete this entry</button>
   </div>
   <br />
   <br />
