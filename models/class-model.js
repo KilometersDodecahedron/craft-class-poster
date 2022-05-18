@@ -12,6 +12,8 @@ const classSchema = new Schema({
     required: true,
   },
   description: String,
+  whatsIncluded: String,
+  whatDoParticipantsNeedToBring: String,
   duration: {
     string: String,
     num: Number,
@@ -69,6 +71,10 @@ const classSchema = new Schema({
   video: {
     hasVideo: Boolean,
     link: String,
+  },
+  category: {
+    type: String,
+    required: true,
   },
   tags: [String],
   dateCreated: { type: Date },

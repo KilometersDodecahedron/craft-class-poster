@@ -41,6 +41,18 @@ em {
   background-color: gold;
 }
 
+.category-selected--display {
+  display: flex;
+  background-color: lightgreen;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  width: max-content;
+  border-radius: 10px;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
 #imgBbInstructions{
   margin-left: 2rem;
 }

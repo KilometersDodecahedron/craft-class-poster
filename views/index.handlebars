@@ -32,6 +32,56 @@
 <div class="container-md">
   <h2 id="current-class-display">Current Class: <span>None</span></h2>
 </div>
+<div class="container-md p-3" id="category-holder">
+  {{! the category related inputs }}
+  <div class="input-group mb-2" id="category-select">
+    <span class="input-group-text">Select Category</span>
+    <select
+      class="form-select"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Select a category you that can be used to search this class."
+    >
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <button class="btn-primary" type="button">Select</button>
+  </div>
+  <div class="input-group mb-2" id="category-submit">
+    <span class="input-group-text">Add New Category</span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="New Category"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Add a new category option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
+    />
+    <button class="btn-primary" type="button">Add</button>
+  </div>
+  <div class="input-group mb-2" id="category-delete">
+    <span class="input-group-text">Delete Existing Category</span>
+    <select
+      class="form-select"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="PERMANENTLY Remove category option. This will also prevent users from searching this category on the app"
+    >
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <button class="btn-primary" type="button">Delete</button>
+  </div>
+</div>
+
+<div class="container-md" id="category-selected--holder">
+  {{! selected category is displayed here }}
+</div>
+
 <div class="container-md p-3" id="tag-holder">
   {{! the tag related inputs }}
   <div class="input-group mb-2" id="tag-select">
@@ -427,7 +477,43 @@
         rows="8"
         data-toggle="tooltip"
         data-placement="top"
-        title="The class overview"
+        title="The class overview. DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  {{! description - what's included }}
+  <div class="row">
+    <div class="form-group">
+      <label id="description-whats-included-label" for="description-whats-included">What's included?</label>
+      <div
+        class="form-control"
+        id="description-whats-included"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="What will the participants recieve in their kits? DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  {{! description - what do participants need to bring }}
+  <div class="row">
+    <div class="form-group">
+      <label id="description-need-to-bring-label" for="description-need-to-bring">What do participants need to bring?</label>
+      <div
+        class="form-control"
+        id="description-need-to-bring"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="What will the participant need to privide for the class? [materials, tools, appliances, etc] DON'T USE H1 HEADERS"
       >
       </div>
     </div>
@@ -458,15 +544,24 @@
   <br />
   <br />
 </div>
-<img src="https://i.ibb.co/dMRXq1D/bat.png" alt="" />
-
-<button id="test">Test</button>
 
 <div class="overlay d-none">
   <div class="overlay-message">
     Processing your request...
   </div>
 </div>
+
+<template id="template-category-selected">
+  <div
+    class="category-selected--display"
+    data-toggle="tooltip"
+    data-placement="top"
+    title="The category assigned to this class. Click the 'X' button on the right to remove it"
+  >
+    <span class="category-selected--name">Name of Tag Selected</span>
+    <button type="button" class="btn-close category-selected--x-button" aria-label="Close"></button>
+  </div>
+</template>
 
 <template id="template-tag-selected">
   <div
