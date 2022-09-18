@@ -57,6 +57,7 @@ const classForm = {
   updateButton: document.querySelector("#class-update-button"),
   deleteButton: document.querySelector("#class-delete-button"),
   deleteDoublecheckButton: document.querySelector("#class-delete-doublecheck-button"),
+  featuredToggle: document.querySelector("#featured-checkbox"),
   toggleDisplaysMethod: () => {
     classForm.availableCheckboxes.virtual.checked
       ? classForm.toggle.virtualPrice.classList.remove(warning.hidingClass)
@@ -147,6 +148,7 @@ const classForm = {
         newClass.photos.push(item)
       })
     }
+    newClass.featured = classForm.featuredToggle.checked
     warning.checkFormDataIsFormatted(newClass, isUpdate)
   },
   rejectClassUpload: problem => {
@@ -210,6 +212,7 @@ const classForm = {
     classForm.locationCheckboxes.boutique.checked = false
     classForm.locationCheckboxes.montclairWomanClub.checked = false
     classForm.locationCheckboxes.customVenue.checked = false
+    classForm.featuredToggle.checked = false
 
     // difficulty
     classForm.difficultyRadioButtons.forEach(_input => {
@@ -277,6 +280,9 @@ const classForm = {
       classForm.videoField.value = _classEntry.video.link
       classForm.previewVideoButtonFunction()
     }
+
+    classForm.featuredToggle.checked = _classEntry.featured
+
     // difficulty
     classForm.difficultyRadioButtons.forEach(_input => {
       if (_input.value == _classEntry.difficulty) {

@@ -1,0 +1,2 @@
+featuredDropdown.startFunctions()
+featuredSelected.startFunctions()

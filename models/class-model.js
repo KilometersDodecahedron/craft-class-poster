@@ -19,6 +19,7 @@ const classSchema = new Schema({
     num: Number,
   },
   disclaimer: String,
+  // label will be something else
   difficulty: {
     type: String,
     required: true,
@@ -77,6 +78,11 @@ const classSchema = new Schema({
     required: true,
   },
   tags: [String],
+  numberOfInquiriesSent: Number,
+  featured: {
+    type: Boolean,
+    default: false,
+  },
   dateCreated: { type: Date },
   dateLastUpdated: { type: Date, default: Date.now },
 })

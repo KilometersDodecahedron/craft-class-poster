@@ -1,5 +1,3 @@
-const testButton2 = document.querySelector("#test-connection-class")
-
 const postClass = (_data, callback) => {
   let postData = _data
   postData.dateCreated = Date.now()
@@ -81,13 +79,3 @@ var testingClassData = undefined
 const newVideoData = {
   name: "Second Test",
 }
-
-// testButton2.addEventListener("click", () => {
-//     console.log(testStructuredData)
-//   postClass(testStructuredData)
-//   updateClass(
-//     { video: { hasVideo: true, link: "https://www.youtube.com/embed/sshZ8B7YQDY" } },
-//     "61ba590e4e20d61e13070509"
-//   )
-//   getAllClasses()
-// })

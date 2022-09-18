@@ -1,0 +1,182 @@
+<div class="container-md">
+    <h1>Featured Media Sliders</h1>
+    <div class="d-flex">
+        <div class="d-flex justify-content-start">
+            <div class="dropdown">
+                <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="featured-dropdown--category"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    Categories
+                </button>
+                <ul
+                    class="dropdown-menu"
+                    aria-labelledby="featured-dropdown--category"
+                    id="featured-dropdown--category-holder"
+                >
+                    <li><div class="dropdown-item">Action</div></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start">
+            <div class="dropdown">
+            <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="featured-dropdown--tag"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                Tags
+            </button>
+            <ul
+                class="dropdown-menu"
+                aria-labelledby="featured-dropdown--tag"
+                id="featured-dropdown--tag-holder"
+            >
+                <li><div class="dropdown-item">Action</div></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start">
+            <div class="dropdown">
+            <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="featured-dropdown--other"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                Other
+            </button>
+            <ul
+                class="dropdown-menu"
+                aria-labelledby="featured-dropdown--other"
+                id="featured-dropdown--other-holder"
+            >
+                <li>
+                    <div class="dropdown-item" data-key="other" data-value="Popular">
+                        <span class="featured-dropdown--item-other">Popular</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown-item" data-key="other" data-value="Price">
+                        <span class="featured-dropdown--item-other">Price</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown-item" data-key="other" data-value="Experience Level">
+                        <span class="featured-dropdown--item-other">Experience Level</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown-item" data-key="other" data-value="Age Group">
+                        <span class="featured-dropdown--item-other">Age Group</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown-item" data-key="other" data-value="Newest">
+                        <span class="featured-dropdown--item-other">Newest</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown-item" data-key="other" data-value="Best Sellers">
+                        <span class="featured-dropdown--item-other">Best Sellers</span> <span id="featured-dropdown--best-sellers-number"></span>
+                    </div>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <ul id="featured-ul">
+        {{!-- populated by featured-selected.js --}}
+        <li>
+            <div class="featured-selected">
+                <button type="button" class="btn-close featured-selected--x-button" aria-label="Close"></button>
+                <span class="featured-selected--name">Name of Tag Selected</span>
+                <input class="featured-selected--number" type="number" placeholder="Set Programatically">
+                <span class="dropdown">
+                    <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        Categories
+                    </button>
+                    <ul
+                        class="dropdown-menu"
+                        aria-labelledby="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
+                        id="featured-dropdown--category-holder"
+                    >
+                        <li><div class="dropdown-item">Action</div></li>
+                    </ul>
+                </span>
+                <input class="featured-selected--randomize-checkbox" type="checkbox" id="featured-SET-PROGRAMATICALLY" />
+                <label for="featured-SET-PROGRAMATICALLY">Randomize Display Order</label>
+                <span>Total Classes: </span><span class="featured-selected--results-display">#####</span>
+                <button class="featured-selected--up-button">&#8593;</button>
+                <button class="featured-selected--down-button">&darr;</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<template id="featured-selected--item-template">
+    <li>
+        <div class="featured-selected">
+            <button type="button" class="btn-close featured-selected--x-button" aria-label="Close"></button>
+            <span class="featured-selected--name">Name of Tag Selected</span>
+            <input class="featured-selected--number d-none" type="number" placeholder="Set Programatically">
+            <span class="dropdown featured-selected--dropdown-option--holder d-none">
+                <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    Categories
+                </button>
+                <ul
+                    class="dropdown-menu"
+                    aria-labelledby="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
+                    id="featured-dropdown--category-holder"
+                >
+                    <li><div class="dropdown-item">Action</div></li>
+                </ul>
+            </span>
+            <span class="featured-selected--randomize-checkbox--holder">
+                <input class="featured-selected--randomize-checkbox" type="checkbox" id="featured-SET-PROGRAMATICALLY" />
+                <label for="featured-SET-PROGRAMATICALLY">Randomize Display Order</label>
+            </span>
+            <span>Total Classes: </span><span class="featured-selected--results-display">#####</span>
+            <button class="featured-selected--up-button">&#8593;</button>
+            <button class="featured-selected--down-button">&darr;</button>
+        </div>
+    </li>
+</template>
+
+<template id="featured-dropdown--category-template">
+    <li>
+        <div class="dropdown-item" data-key="category" data-value="">
+            <span class="featured-dropdown--item">Action</span> <span class="featured-dropdown--item-number"></span>
+        </div>
+    </li>
+</template>
+
+<template id="featured-dropdown--tag-template">
+    <li>
+        <div class="dropdown-item" data-key="tag" data-value="">
+            <span class="featured-dropdown--item">Action</span> <span class="featured-dropdown--item-number"></span>
+        </div>
+    </li>
+</template>

@@ -1,0 +1,35 @@
+.featured-selected {
+    border: 2px solid black;
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.3em 0;
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+.featured-selected--up-button{
+    background-color: green;
+    border-radius: 15px;
+}
+
+.featured-selected--down-button{
+    background-color: red;
+    border-radius: 15px;
+}
+
+.featured-selected--x-button{
+    border: 1px dashed black;
+    background-color: lightyellow;
+}
+
+.featured-selected--name{
+    font-weight: bold;
+}
+
+.featured-selected--name,
+.featured-selected--number,
+.featured-selected label,
+.featured-selected--results-display{
+    margin-right: 1rem;
+
+}
