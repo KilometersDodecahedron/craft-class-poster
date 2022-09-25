@@ -26,6 +26,15 @@
     font-weight: bold;
 }
 
+.featured-selected .form-select{
+    display: inline-block;
+    width: 220px;
+}
+
+.featured-selected--cant-submitt{
+    background-color: lightcoral;
+}
+
 .featured-selected--name,
 .featured-selected--number,
 .featured-selected label,

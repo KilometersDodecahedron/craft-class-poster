@@ -35,6 +35,10 @@ const featuredDropdown = {
       let nameDisplay = newItem.querySelector(".featured-dropdown--item")
       let numberDisplay = newItem.querySelector(".featured-dropdown--item-number")
 
+      let dataHolder = newItem.querySelector(".dropdown-item")
+      dataHolder.setAttribute("data-value", _name)
+      dataHolder.setAttribute("data-number", _number)
+
       nameDisplay.innerHTML = _name
       numberDisplay.innerHTML = `(${_number})`
 
@@ -45,15 +49,21 @@ const featuredDropdown = {
       let nameDisplay = newItem.querySelector(".featured-dropdown--item")
       let numberDisplay = newItem.querySelector(".featured-dropdown--item-number")
 
+      let dataHolder = newItem.querySelector(".dropdown-item")
+      dataHolder.setAttribute("data-value", _name)
+      dataHolder.setAttribute("data-number", _number)
+
       nameDisplay.innerHTML = _name
       numberDisplay.innerHTML = `(${_number})`
 
       return newItem
     },
+    other: (_name, _number) => {},
   },
   selectClickFunction: {
     master: _target => {
       key = _target.dataset.key
+      value = _target.dataset.value
       if (key == "category") {
         featuredDropdown.selectClickFunction.category(_target)
       } else if (key == "tag") {
@@ -63,16 +73,35 @@ const featuredDropdown = {
       }
     },
     category: _target => {
-      console.log("category")
+      number = _target.dataset.number
+      featuredSelected.addToDisplayArray({
+        key: key,
+        value: value,
+        number: parseInt(number),
+        randomize: false,
+      })
     },
     tag: _target => {
-      console.log("tag")
+      number = _target.dataset.number
+      featuredSelected.addToDisplayArray({
+        key: key,
+        value: value,
+        number: parseInt(number),
+        randomize: false,
+      })
     },
     other: _target => {
       console.log("other")
+      number = _target.dataset.number
+      featuredSelected.addToDisplayArray({
+        key: key,
+        value: value,
+        number: parseInt(number),
+        randomize: false,
+      })
     },
   },
-  startFunctions: () => {
+  populateOptions: () => {
     getAllClasses(_classData => {
       featuredDropdown.classArray = _classData
 
@@ -80,9 +109,18 @@ const featuredDropdown = {
       featuredDropdown.classArray.forEach(classEntry => {
         if (classEntry.featured) numberOfFeatured++
       })
+
+      // display # of best sellers
       document.querySelector(
         "#featured-dropdown--best-sellers-number"
       ).innerHTML = `(${numberOfFeatured})`
+
+      // store  # of best sellers on element
+      document
+        .querySelector("[data-value='Best Sellers']")
+        .setAttribute("data-number", numberOfFeatured)
+
+      console.log(document.querySelector("[data-value='Best Sellers']"))
 
       getAllCategories(_categoryData => {
         featuredDropdown.categoryHolder.innerHTML = ""
@@ -108,7 +146,12 @@ const featuredDropdown = {
           )
         })
       })
+
+      featuredSelected.populateDBArray()
     })
+  },
+  startFunctions: () => {
+    featuredDropdown.populateOptions()
 
     document.addEventListener("click", e => {
       if (e.target.classList.contains("dropdown-item")) {

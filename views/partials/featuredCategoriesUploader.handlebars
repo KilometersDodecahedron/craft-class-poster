@@ -97,38 +97,13 @@
     </div>
     <ul id="featured-ul">
         {{!-- populated by featured-selected.js --}}
-        <li>
-            <div class="featured-selected">
-                <button type="button" class="btn-close featured-selected--x-button" aria-label="Close"></button>
-                <span class="featured-selected--name">Name of Tag Selected</span>
-                <input class="featured-selected--number" type="number" placeholder="Set Programatically">
-                <span class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        Categories
-                    </button>
-                    <ul
-                        class="dropdown-menu"
-                        aria-labelledby="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
-                        id="featured-dropdown--category-holder"
-                    >
-                        <li><div class="dropdown-item">Action</div></li>
-                    </ul>
-                </span>
-                <input class="featured-selected--randomize-checkbox" type="checkbox" id="featured-SET-PROGRAMATICALLY" />
-                <label for="featured-SET-PROGRAMATICALLY">Randomize Display Order</label>
-                <span>Total Classes: </span><span class="featured-selected--results-display">#####</span>
-                <button class="featured-selected--up-button">&#8593;</button>
-                <button class="featured-selected--down-button">&darr;</button>
-            </div>
-        </li>
     </ul>
+    <div class="d-inline-flex">
+        <button class="btn btn-primary" id="featured-selected--set-as-display-button" disabled>Set as Display</button>
+        <button class="btn btn-primary" id="featured-selected--revert-button" disabled>Revert to Previous</button>
+    </div>
 </div>
+
 
 <template id="featured-selected--item-template">
     <li>
@@ -137,28 +112,20 @@
             <span class="featured-selected--name">Name of Tag Selected</span>
             <input class="featured-selected--number d-none" type="number" placeholder="Set Programatically">
             <span class="dropdown featured-selected--dropdown-option--holder d-none">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    Categories
-                </button>
-                <ul
-                    class="dropdown-menu"
-                    aria-labelledby="featured-selected--dropdown-option--SET-PROGRAMATICALLY"
-                    id="featured-dropdown--category-holder"
-                >
-                    <li><div class="dropdown-item">Action</div></li>
-                </ul>
+                <select class="form-select featured-selected--dropdown-option" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
             </span>
             <span class="featured-selected--randomize-checkbox--holder">
                 <input class="featured-selected--randomize-checkbox" type="checkbox" id="featured-SET-PROGRAMATICALLY" />
                 <label for="featured-SET-PROGRAMATICALLY">Randomize Display Order</label>
             </span>
-            <span>Total Classes: </span><span class="featured-selected--results-display">#####</span>
+            <span class="featured-selected--total-classes-display">
+                <span>Total Classes: </span><span class="featured-selected--results-display">#####</span>
+            </span>
             <button class="featured-selected--up-button">&#8593;</button>
             <button class="featured-selected--down-button">&darr;</button>
         </div>
@@ -175,7 +142,7 @@
 
 <template id="featured-dropdown--tag-template">
     <li>
-        <div class="dropdown-item" data-key="tag" data-value="">
+        <div class="dropdown-item" data-key="tag" data-value="" data-number="">
             <span class="featured-dropdown--item">Action</span> <span class="featured-dropdown--item-number"></span>
         </div>
     </li>

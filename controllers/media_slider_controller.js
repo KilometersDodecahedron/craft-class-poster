@@ -26,4 +26,9 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
+  deleteAllFeatured: function (req, res) {
+    db.MediaSlider.deleteMany()
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
 }
