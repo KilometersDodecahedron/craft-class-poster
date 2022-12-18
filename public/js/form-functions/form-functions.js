@@ -142,12 +142,13 @@ const classForm = {
     }
     newClass.tags = tagForm.selectedTagList
     newClass.category = categoryForm.currentCategory
-    newClass.photos = [imageForm.mainImageUrl]
-    if (imageForm.additionalImageUrlArray.length > 0) {
-      imageForm.additionalImageUrlArray.forEach(item => {
-        newClass.photos.push(item)
-      })
-    }
+    // TODO redo photos
+    // newClass.photos = [imageForm.mainImageUrl]
+    // if (imageForm.additionalImageUrlArray.length > 0) {
+    //   imageForm.additionalImageUrlArray.forEach(item => {
+    //     newClass.photos.push(item)
+    //   })
+    // }
     newClass.featured = classForm.featuredToggle.checked
     warning.checkFormDataIsFormatted(newClass, isUpdate)
   },
@@ -178,7 +179,17 @@ const classForm = {
     classForm.deleteDoublecheckButton.classList.remove("d-none")
   },
   deleteDoublecheckButtonFunction: () => {
-    deleteClass(classLoaderForm.currentClassID, classForm.submitClassCallbackMethod)
+    // TODO add imageFileFunctions.manageImageFilesBeforeClassData
+    let targetClass = classLoaderForm.loadedClasses.find(
+      target => target._id === classLoaderForm.currentClassID
+    )
+    imageFileFunctions.manageImageFilesBeforeClassData(
+      "delete",
+      targetClass,
+      classForm.submitClassCallbackMethod,
+      classLoaderForm.currentClassID
+    )
+    // deleteClass(classLoaderForm.currentClassID, classForm.submitClassCallbackMethod)
   },
   showOverlay: () => {
     classForm.processingMessageOverlay.classList.remove("d-none")
@@ -233,7 +244,8 @@ const classForm = {
     classLoaderForm.currentClassDisplayName.innerHTML = _classEntry.name
     categoryForm.resetCategory()
     tagForm.removeAllTags()
-    imageForm.resetInputFields()
+    // imageForm.resetInputFields()
+    imageFileFunctions.resetEverything()
     classForm.resetInputFields()
     warning.resetWarnings()
     classForm.classNameInput.value = _classEntry.name
@@ -291,16 +303,21 @@ const classForm = {
     })
 
     // add images
-    imageForm.mainImageSubmit.srcInput.value = _classEntry.photos[0].src
-    imageForm.mainImageSubmit.altInput.value = _classEntry.photos[0].alt
-    imageForm.mainImageSubmit.method()
-    if (_classEntry.photos.length > 1) {
-      for (let i = 1; i < _classEntry.photos.length; i++) {
-        imageForm.additionalImageSubmit.srcInput.value = _classEntry.photos[i].src
-        imageForm.additionalImageSubmit.altInput.value = _classEntry.photos[i].alt
-        imageForm.additionalImageSubmit.method()
-      }
-    }
+    // imageForm.mainImageSubmit.srcInput.value = _classEntry.photos[0].src
+    // imageForm.mainImageSubmit.altInput.value = _classEntry.photos[0].alt
+    // imageForm.mainImageSubmit.method()
+    // if (_classEntry.photos.length > 1) {
+    //   for (let i = 1; i < _classEntry.photos.length; i++) {
+    //     imageForm.additionalImageSubmit.srcInput.value = _classEntry.photos[i].src
+    //     imageForm.additionalImageSubmit.altInput.value = _classEntry.photos[i].alt
+    //     imageForm.additionalImageSubmit.method()
+    //   }
+    // }
+
+    // UPDATED add images
+    imageFileFunctions.mainImage.populateFromExistingClassData(_classEntry)
+    imageFileFunctions.additionalImages.populateFromExistingClassData(_classEntry)
+
     // add tags
     if (_classEntry.tags.length > 0) {
       tagForm.selectedTagList = [..._classEntry.tags]

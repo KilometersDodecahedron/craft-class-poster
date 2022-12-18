@@ -4,9 +4,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.1241.0",
     "axios": "^0.25.0",
+    "body-parser": "^1.20.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "express-form-data": "^2.0.19",
     "express-handlebars": "^6.0.2",
     "handlebars": "^4.7.7",
     "image-to-base64": "^2.2.0",
@@ -19,5 +22,20 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "name": "craft-class-poster",
+  "version": "1.0.0",
+  "main": "env.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KilometersDodecahedron/craft-class-poster.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KilometersDodecahedron/craft-class-poster/issues"
+  },
+  "homepage": "https://github.com/KilometersDodecahedron/craft-class-poster#readme",
+  "description": ""
 }

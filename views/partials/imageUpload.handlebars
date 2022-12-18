@@ -1,0 +1,26 @@
+<form id="primary-image-form" action="/files/images/test" enctype="multipart/form-data" method="post">
+  <div class="form-group">
+    <input type="file" class="form-control-file" id="test-image-input" name="uploaded_file">
+    <input type="text" class="form-control" placeholder="Number of speakers" id="test-description-input" name="description">
+    <input type="submit" value="Get me the stats!" class="btn btn-default">            
+  </div>
+</form>
+{{!-- to display Primary images, use ../static_images__primary/<Name Of File> --}}
+{{!-- <img src="../static_images__primary/ac94c76b35954df2a0e42735d3af07e5"> --}}
+<div class="image-preview-holder">
+  <img class="image-preview" src="https://class-uploader-file-storage.s3.amazonaws.com/--16706656686942.png" alt="biuobk">
+</div>
+<div class="container">
+  <div class="input-group mb-2">
+    <span class="input-group-text">Select Main Image</span>
+    <input class="form-control" type="file" id="formFile">
+    <input 
+      type="text" 
+      class="form-control" placeholder="A description of the image"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="This will be placed in the 'alt' property to assist screen readers, so make it accurate but concise"
+    />
+  </div>
+</div>
+<button id="test-xml">XML</button>

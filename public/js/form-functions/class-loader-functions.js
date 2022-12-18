@@ -9,7 +9,7 @@ const classLoaderForm = {
     classLoaderForm.resetClassID()
     categoryForm.resetCategory()
     tagForm.removeAllTags()
-    imageForm.resetInputFields()
+    // imageForm.resetInputFields()
     classForm.resetInputFields()
     warning.resetWarnings()
   },
@@ -19,6 +19,8 @@ const classLoaderForm = {
     classForm.updateButton.disabled = true
     classForm.deleteButton.disabled = true
     classForm.deleteDoublecheckButton.classList.add("d-none")
+    // for images
+    imageFileFunctions.resetFunction()
   },
   classSelectButtonFunction: e => {
     if (!e.target.classList.contains("class-select-dropdown-item")) {
@@ -27,10 +29,12 @@ const classLoaderForm = {
     for (let i = 0; i < classLoaderForm.loadedClasses.length; i++) {
       if (e.target.dataset.id == classLoaderForm.loadedClasses[i]._id) {
         classLoaderForm.currentClassID = e.target.dataset.id
-        classForm.populateExistingClass(classLoaderForm.loadedClasses[i])
+        classForm.populateExistingClass({ ...classLoaderForm.loadedClasses[i] })
         classForm.updateButton.disabled = false
         classForm.deleteButton.disabled = false
         classForm.deleteDoublecheckButton.classList.add("d-none")
+        // for images
+        // imageFileFunctions.setCurrentClassPhotos({ ...classLoaderForm.loadedClasses[i] })
         break
       }
     }

@@ -4,8 +4,10 @@ tagForm.enableButtonFunctions()
 tagForm.fetchTotalTags()
 classForm.enableButtonFunctions()
 
-imageForm.enableButtonFunctions()
+// imageForm.enableButtonFunctions()
 classLoaderForm.enableButtonFunctions()
+
+imageFileFunctions.startFunctions()
 
 // toggle price inputs
 classForm.availableCheckboxes.virtual.addEventListener("change", e => {

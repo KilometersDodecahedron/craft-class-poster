@@ -74,8 +74,3 @@ const deleteClass = (id, callback) => {
       callback()
     })
 }
-
-var testingClassData = undefined
-const newVideoData = {
-  name: "Second Test",
-}

@@ -1,6 +1,8 @@
 var express = require("express")
 var exphbs = require("express-handlebars")
 const mongoose = require("mongoose")
+const formData = require("express-form-data")
+
 //
 require("dotenv").config()
 
@@ -15,6 +17,7 @@ app.use(express.static("public"))
 // Parse application body as JSON
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(formData.parse())
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")

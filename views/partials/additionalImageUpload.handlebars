@@ -1,0 +1,22 @@
+<div class="container" id="additional-image-submit">
+  <div class="input-group mb-2">
+    <span class="input-group-text">Add Additional Images</span>
+    {{!-- image file --}}
+    <input 
+      id="image-file-input--additional"
+      accept="image/png, image/jpeg, image/tiff, image/webp"
+      class="form-control" 
+      type="file"
+    />
+    {{!-- alt text --}}
+    <input 
+      id="image-alt-input--additional"
+      type="text" 
+      class="form-control" placeholder="A description of the image"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="This will be placed in the 'alt' property to assist screen readers, so make it accurate but concise"
+    />
+    <button class="btn-primary" type="button" data-index="" id="image-select-button--additional">Add</button>
+  </div>
+</div>

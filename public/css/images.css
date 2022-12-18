@@ -1,0 +1,33 @@
+.image-preview-holder{
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image-preview{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-preview-holder{
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card-preview-holder .card-body{
+    width: 300px;
+    border: 1px solid black;
+  }
+  
+  .x-button{
+    position: relative;
+    background: rgba(255, 255, 255, 0.30);
+    border-radius: 10000px;
+    border: none;
+    top: 30px;
+    left: 270px;
+  }

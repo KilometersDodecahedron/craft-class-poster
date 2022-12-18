@@ -146,14 +146,13 @@ const warning = {
       warning.video.classList.add(warning.incorrectlyFormattedColor)
     }
 
-    // at least one image
-    if (formData.photos[0].src == "") {
+    // has main image
+    if (imageFileFunctions.mainImage.src == "" || imageFileFunctions.mainImage.alt == "") {
       noErrors = false
       warning.mainImage.classList.add(warning.mandatoryColor)
     }
-
-    // has description
     if (formData.description == "<p><br></p>" || formData.description == null) {
+      // has description
       noErrors = false
       warning.description.classList.add(warning.mandatoryColor)
     }
@@ -182,10 +181,21 @@ const warning = {
 
     if (isUpdate) {
       classForm.showOverlay()
-      updateClass(formData, classLoaderForm.currentClassID, classForm.submitClassCallbackMethod)
+      // updateClass(formData, classLoaderForm.currentClassID, classForm.submitClassCallbackMethod)
+      imageFileFunctions.manageImageFilesBeforeClassData(
+        "update",
+        formData,
+        classForm.submitClassCallbackMethod,
+        classLoaderForm.currentClassID
+      )
     } else {
       classForm.showOverlay()
-      postClass(formData, classForm.submitClassCallbackMethod)
+      // postClass(formData, classForm.submitClassCallbackMethod)
+      imageFileFunctions.manageImageFilesBeforeClassData(
+        "create",
+        formData,
+        classForm.submitClassCallbackMethod
+      )
     }
   },
 }

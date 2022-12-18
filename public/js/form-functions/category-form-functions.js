@@ -44,7 +44,6 @@ const categoryForm = {
   },
   selectCategoryMethod: () => {
     const selectField = categoryForm.select.querySelector("select")
-    console.log()
     const selectedCategory = selectField.value
     if (selectedCategory == "Choose...") {
       selectField.value = "Choose..."
@@ -52,6 +51,10 @@ const categoryForm = {
     }
     categoryForm.createCategoryDisplayFromTemplate(selectedCategory)
     selectField.value = "Choose..."
+  },
+  xButtonFunction: e => {
+    if (!e.target.classList.contains("category-selected--x-button")) return
+    categoryForm.resetCategory()
   },
   // called by Select Class
   createCategoryDisplayFromTemplate: selectedCategory => {
@@ -114,6 +117,7 @@ const categoryForm = {
     categoryForm.delete
       .querySelector("button")
       .addEventListener("click", categoryForm.deleteCategoryMethod)
+    document.addEventListener("click", categoryForm.xButtonFunction)
   },
   resetCategory: () => {
     categoryForm.displayHolder.innerHTML = ""

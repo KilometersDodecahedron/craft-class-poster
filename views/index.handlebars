@@ -395,7 +395,7 @@
   <div id="preview-video-holder"></div>
   {{! images }}
   <div class="row">
-    <a href="https://imgbb.com/" rel="noopener noreferrer" target="_blank">Upload files onto ImgBB
+    {{!-- <a href="https://imgbb.com/" rel="noopener noreferrer" target="_blank">Upload files onto ImgBB
       to be displayed</a>
     <div class="row" id="imgBbInstructions">
       <p>
@@ -413,8 +413,8 @@
             and click the button</li>
         </ol>
       </p>
-    </div>
-    <div class="input-group mb-2" id="main-image-submit">
+    </div> --}}
+    {{!-- <div class="input-group mb-2" id="main-image-submit">
       <span class="input-group-text">Select Main Image</span>
       <input
         id="main-image-submit--link"
@@ -435,12 +435,13 @@
         title="This will placed in the 'alt' property to assist screen readers, so make it accurate but concise"
       />
       <button class="btn-primary" type="button">Select</button>
-    </div>
+    </div> --}}
+    {{> mainImageUpload}}
     {{! diplay main image preview }}
     <div class="row" id="main-card-holder">
 
     </div>
-    <div class="input-group mb-2" id="additional-image-submit">
+    {{!-- <div class="input-group mb-2" id="additional-image-submit">
       <span class="input-group-text">Add Additional Images (optional)</span>
       <input
         id="additional-image-submit--link"
@@ -461,7 +462,8 @@
         title="This will placed in the 'alt' property to assist screen readers, so make it accurate but concise"
       />
       <button class="btn-primary" type="button">Add</button>
-    </div>
+    </div> --}}
+    {{> additionalImageUpload}}
     {{! diplay additional image preview }}
     <div class="row" id="additional-card-holder">
 
