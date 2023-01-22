@@ -124,6 +124,7 @@ const featuredDropdown = {
 
       getAllCategories(_categoryData => {
         featuredDropdown.categoryHolder.innerHTML = ""
+        featuredDropdown.categoryArray = []
         _categoryData.forEach(item => {
           featuredDropdown.categoryArray.push(item.name)
           featuredDropdown.categoryHolder.append(
@@ -136,6 +137,7 @@ const featuredDropdown = {
       })
       getAllTags(_tagData => {
         featuredDropdown.tagHolder.innerHTML = ""
+        featuredDropdown.tagArray = []
         _tagData.forEach(item => {
           featuredDropdown.tagArray.push(item.name)
           featuredDropdown.tagHolder.append(

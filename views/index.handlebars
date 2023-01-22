@@ -32,105 +32,6 @@
 <div class="container-md">
   <h2 id="current-class-display">Current Class: <span>None</span></h2>
 </div>
-<div class="container-md p-3" id="category-holder">
-  {{! the category related inputs }}
-  <div class="input-group mb-2" id="category-select">
-    <span class="input-group-text">Select Category</span>
-    <select
-      class="form-select"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Select a category you that can be used to search this class."
-    >
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <button class="btn-primary" type="button">Select</button>
-  </div>
-  <div class="input-group mb-2" id="category-submit">
-    <span class="input-group-text">Add New Category</span>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="New Category"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Add a new category option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
-    />
-    <button class="btn-primary" type="button">Add</button>
-  </div>
-  <div class="input-group mb-2" id="category-delete">
-    <span class="input-group-text">Delete Existing Category</span>
-    <select
-      class="form-select"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="PERMANENTLY Remove category option. This will also prevent users from searching this category on the app"
-    >
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <button class="btn-primary" type="button">Delete</button>
-  </div>
-</div>
-
-<div class="container-md" id="category-selected--holder">
-  {{! selected category is displayed here }}
-</div>
-
-<div class="container-md p-3" id="tag-holder">
-  {{! the tag related inputs }}
-  <div class="input-group mb-2" id="tag-select">
-    <span class="input-group-text">Select Tag</span>
-    <select
-      class="form-select"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Select a tag you that can be used to search this class."
-    >
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <button class="btn-primary" type="button">Select</button>
-  </div>
-  <div class="input-group mb-2" id="tag-submit">
-    <span class="input-group-text">Add New Tag</span>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="New Tag"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Add a new tag option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
-    />
-    <button class="btn-primary" type="button">Add</button>
-  </div>
-  <div class="input-group mb-2" id="tag-delete">
-    <span class="input-group-text">Delete Existing Tag</span>
-    <select
-      class="form-select"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="PERMANENTLY Remove tag option. This will also prevent users from searching this tag on the app"
-    >
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <button class="btn-primary" type="button">Delete</button>
-  </div>
-</div>
-
-<div class="container-md" id="tag-selected--holder">
-  {{! selected tags are displayed here }}
-</div>
 
 <div class="container-md p-3">
   <div>* hover an input field for a few seconds to see a tooltip</div>
@@ -144,6 +45,7 @@
     <div class="input-group mb-2 col-lg" id="class-name">
       <span class="input-group-text">Class Name</span>
       <input
+        maxlength="200"
         type="text"
         class="form-control"
         data-toggle="tooltip"
@@ -156,6 +58,7 @@
     <div class="input-group mb-2 col-lg" id="class-duration">
       <span class="input-group-text">Duration</span>
       <input
+        maxlength="50"
         id="class-duration--text"
         type="text"
         class="form-control"
@@ -165,6 +68,8 @@
         title="Text that goes in the actual description. Users WILL see this information."
       />
       <input
+        min="0"
+        max="10000"
         id="class-duration--number"
         type="number"
         class="form-control"
@@ -186,11 +91,11 @@
       {{! virtual, virtual no kit, in person }}
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="available-virtual" />
-        <label class="form-check-label" for="available-virtual">Available Virtual</label>
+        <label class="form-check-label" for="available-virtual">Available Virtual with DIY Kit</label>
       </div>
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="available-virtual-no-kit" />
-        <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: No Kit</label>
+        <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: Shopping List</label>
       </div>
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="available-in-person" />
@@ -290,6 +195,8 @@
     <div class="input-group mb-2 col-lg" id="price-sorting">
       <span class="input-group-text">Price (Internal, and display on preview)</span>
       <input
+        min="0"
+        max="100000000"
         type="number"
         class="form-control"
         id="price-sorting--low"
@@ -299,6 +206,8 @@
         title="Lowest $ amount you would pay for this class. Make sure lower value is Actually lower than the higher one. Set them = is only one price. Value applied when sorting by lowest price. This will also be formatted in the thumbnail for the price range"
       />
       <input
+        min="0"
+        max="100000000"
         type="number"
         class="form-control"
         id="price-sorting--high"
@@ -314,6 +223,7 @@
     <div class="input-group mb-2 d-none" id="price-display--virtual-kit">
       <span class="input-group-text">Price for Virtual with Kit (Display)</span>
       <input
+        maxlength="300"
         type="text"
         class="form-control"
         placeholder="$135 per participant"
@@ -325,6 +235,7 @@
     <div class="input-group mb-2 d-none" id="price-display--virtual-no-kit">
       <span class="input-group-text">Price for Virtual with NO Kit (Display)</span>
       <input
+        maxlength="300"
         type="text"
         class="form-control"
         placeholder="$105 per participant"
@@ -336,6 +247,7 @@
     <div class="input-group mb-2 d-none" id="price-display--in-person">
       <span class="input-group-text">Price for In Person (Display)</span>
       <input
+        maxlength="300"
         type="text"
         class="form-control"
         placeholder="$85 per participant"
@@ -345,8 +257,9 @@
       />
     </div>
     <div class="input-group mb-2" id="price-display--add-on">
-      <span class="input-group-text">Addons: leave blank if unapplicable (Display)</span>
+      <span class="input-group-text">Addons/Modifiers: leave blank if unapplicable (Display)</span>
       <input
+        maxlength="300"
         type="text"
         class="form-control"
         placeholder="+$35 for a basic tool kit"
@@ -365,6 +278,7 @@
         <input
           type="number"
           min="0"
+          max="10000000000"
           step="1"
           class="form-control"
           placeholder="5"
@@ -395,74 +309,12 @@
   <div id="preview-video-holder"></div>
   {{! images }}
   <div class="row">
-    {{!-- <a href="https://imgbb.com/" rel="noopener noreferrer" target="_blank">Upload files onto ImgBB
-      to be displayed</a>
-    <div class="row" id="imgBbInstructions">
-      <p>
-        <ol class="list-group list-group-numbered">
-          How to use the image uploader:
-          <li class="list-group-item">click the link above to open ImbBB in a new tab</li>
-          <li class="list-group-item">sign in or create an account</li>
-          <li class="list-group-item">click "Upload" on the nav bar, and select "browse from your
-            computer"</li>
-          <li class="list-group-item">*if you save it to an album, be sure to select an album that's
-            set to Public. DON'T MOVE FILES ONCE THEY'RE UPLOADED, THIS BREAKS THE LINK</li>
-          <li class="list-group-item">click "Embed Codes" and select "Direct Links" (it should be
-            formatted like the placeholder)</li>
-          <li class="list-group-item">click "copy", then paste the url into respective input field,
-            and click the button</li>
-        </ol>
-      </p>
-    </div> --}}
-    {{!-- <div class="input-group mb-2" id="main-image-submit">
-      <span class="input-group-text">Select Main Image</span>
-      <input
-        id="main-image-submit--link"
-        type="text"
-        class="form-control"
-        placeholder="https://i.ibb.co/<key>/<file_name>"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Link to the image. If it's not showing up in the preview, that means the link isn't working. See above text for details"
-      />
-      <input
-        id="main-image-submit--alt"
-        type="text"
-        class="form-control"
-        placeholder="A description of the image"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="This will placed in the 'alt' property to assist screen readers, so make it accurate but concise"
-      />
-      <button class="btn-primary" type="button">Select</button>
-    </div> --}}
     {{> mainImageUpload}}
     {{! diplay main image preview }}
     <div class="row" id="main-card-holder">
 
     </div>
-    {{!-- <div class="input-group mb-2" id="additional-image-submit">
-      <span class="input-group-text">Add Additional Images (optional)</span>
-      <input
-        id="additional-image-submit--link"
-        type="text"
-        class="form-control"
-        placeholder="https://i.ibb.co/<key>/<file_name>"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Link to the image. See above text for details"
-      />
-      <input
-        id="additional-image-submit--alt"
-        type="text"
-        class="form-control"
-        placeholder="A description of the image"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="This will placed in the 'alt' property to assist screen readers, so make it accurate but concise"
-      />
-      <button class="btn-primary" type="button">Add</button>
-    </div> --}}
+
     {{> additionalImageUpload}}
     {{! diplay additional image preview }}
     <div class="row" id="additional-card-holder">
@@ -545,6 +397,10 @@
     <label class="form-check-label" for="featured-checkbox">Feature on Best Sellers</label>
   </div>
 
+
+  {{> categoryMenu}}
+  {{> tagMenu}}
+
   <div class="d-inline-flex">
     <button type="button" class="btn btn-primary" id="class-update-button" disabled>Update Existing
       Class</button>
@@ -558,61 +414,4 @@
   <br />
 </div>
 
-<div class="overlay d-none">
-  <div class="overlay-message">
-    Processing your request...
-  </div>
-</div>
-
-<template id="template-category-selected">
-  <div
-    class="category-selected--display"
-    data-toggle="tooltip"
-    data-placement="top"
-    title="The category assigned to this class. Click the 'X' button on the right to remove it"
-  >
-    <span class="category-selected--name">Name of Tag Selected</span>
-    <button type="button" class="btn-close category-selected--x-button" aria-label="Close"></button>
-  </div>
-</template>
-
-<template id="template-tag-selected">
-  <div
-    class="tag-selected--display"
-    data-toggle="tooltip"
-    data-placement="top"
-    title="A tag assigned to this class. Click the 'X' button on the right to remove it. Click the Display button to select is as the preview"
-  >
-    <span class="tag-selected--name">Name of Tag Selected</span>
-    <button type="button" class="btn-close tag-selected--x-button" aria-label="Close"></button>
-    <button class="tag-selected--display-button" type="button">Display</button>
-  </div>
-</template>
-
-<template id="template-video-preview-iframe">
-  <div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/SquJqkblwDE"></iframe>
-  </div>
-</template>
-
-<template id="template-image-selected">
-  <div class="col-4 image-card-holder">
-    <div class="card">
-      <button
-        type="button"
-        data-src=""
-        data-alt=""
-        class="btn-close image-selected--button"
-        aria-label="Close"
-      ></button>
-      <img class="card-img-top" src="https://i.ibb.co/r6BjhCh/llama.jpg" alt="Card image cap" />
-      <div class="card-body">
-        <p class="card-text">A description of the image for the alt tag</p>
-      </div>
-    </div>
-  </div>
-</template>
-
-<template id="template-class-dropdown-option">
-  <li><div class="dropdown-item class-select-dropdown-item" data-id="i">Action</div></li>
-</template>
+{{> overlayMessages}}

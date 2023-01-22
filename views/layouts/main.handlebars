@@ -17,7 +17,9 @@
     <script src="./js/server-functions/craft-class-server-functions.js"></script>
     <script src="./js/server-functions/media-slider-server-functions.js"></script>
     <script src="./js/server-functions/aws-server-functions.js"></script>
+    <script defer src="./js/form-functions/staticData.js"></script>
     <script defer src="./js/form-functions/form-functions.js"></script>
+    <script defer src="./js/form-functions/meta/input-field-limiters.js"></script>
     <script defer src="./js/form-functions/warning-functions.js"></script>
     <script defer src="./js/form-functions/tag-form-functions.js"></script>
     {{!-- <script defer src="./js/form-functions/image-form-functions.js"></script> --}}
@@ -61,14 +63,11 @@
     <span class="d-none" id="holder--featured-uploader">
       {{> featuredCategoriesUploader}}
     </span>
-    {{> imageUpload}}
-    {{> image-preview-template}}
-    {{> testButton}}
     <script>
-      var quill = new Quill('#description', { theme: 'snow' });
-      var quill = new Quill('#description-whats-included', { theme: 'snow' });
-      var quill = new Quill('#description-need-to-bring', { theme: 'snow' });
+      const quillDescription = new Quill('#description', { theme: 'snow' });
+      const quillWhatsIncluded = new Quill('#description-whats-included', { theme: 'snow' });
+      const quillNeedToBring = new Quill('#description-need-to-bring', { theme: 'snow' });
     </script>
+    {{> templates}}
   </body>
-
 </html>

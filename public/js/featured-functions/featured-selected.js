@@ -119,9 +119,31 @@ const featuredSelected = {
   checkAllDisplayedAreValid: () => {
     let invalidEntry = false
     featuredSelected.featuredDisplayArray.forEach(item => {
+      // check if no classes fit the criteriea
       if (item.number <= 0) invalidEntry = true
+
+      // check if the category/tag to display has been deleted
+      if (item.key === "category") {
+        if (
+          featuredDropdown.categoryArray.findIndex(_category => {
+            return _category === item.value
+          }) == -1
+        ) {
+          console.log(featuredDropdown.categoryArray)
+          invalidEntry = true
+        }
+      } else if (item.key === "tag") {
+        if (
+          featuredDropdown.tagArray.findIndex(_tag => {
+            return _tag === item.value
+          }) == -1
+        ) {
+          invalidEntry = true
+        }
+      }
     })
 
+    // check that at least 1 field has been selected
     if (featuredSelected.featuredDisplayArray.length === 0) invalidEntry = true
 
     return invalidEntry
@@ -300,6 +322,29 @@ const featuredSelected = {
     if (data.key === "category" || data.key === "tag") {
       dataDisplayComponents.nameDisplay.innerHTML = `${data.value} (${data.key})`
       dataDisplayComponents.numberDisplay.innerHTML = data.number
+      // check if the category/tag has been deleted
+      if (data.key === "category") {
+        // TODO check against
+        if (
+          featuredDropdown.categoryArray.findIndex(_category => {
+            return _category === data.value
+          }) == -1
+        ) {
+          _newItem.querySelector(".featured-selected").classList.add(featuredSelected.cantSubmitCSS)
+          dataDisplayComponents.numberDisplay.innerHTML = "CATEGORY DELETED"
+        }
+      } else if (data.key === "tag") {
+        // TODO check against
+        if (
+          featuredDropdown.tagArray.findIndex(_tag => {
+            return _tag === data.value
+          }) == -1
+        ) {
+          _newItem.querySelector(".featured-selected").classList.add(featuredSelected.cantSubmitCSS)
+          dataDisplayComponents.numberDisplay.innerHTML = "TAG DELETED"
+        }
+        // _newItem.querySelector(".featured-selected").classList.add(featuredSelected.cantSubmitCSS)
+      }
     }
     // best sellers
     else if (data.key === "other" && data.value === "Best Sellers") {

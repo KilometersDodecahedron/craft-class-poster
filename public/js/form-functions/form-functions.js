@@ -1,5 +1,5 @@
 const classForm = {
-  processingMessageOverlay: document.querySelector(".overlay"),
+  processingMessageOverlay: document.querySelector("#overlay-processing-request"),
   difficultyOptionsSet: new Set(["Beginner", "Intermediate", "Advanced"]),
   // show or hide based on check boxes
   toggle: {
@@ -239,6 +239,7 @@ const classForm = {
     classForm.minimumParticipantsField.value = ""
     classForm.videoField.value = ""
     classForm.videoPreviewHolder.innerHTML = ""
+    classForm.populateDefaultDisclaimer()
   },
   populateExistingClass: _classEntry => {
     classLoaderForm.currentClassDisplayName.innerHTML = _classEntry.name
@@ -320,13 +321,16 @@ const classForm = {
 
     // add tags
     if (_classEntry.tags.length > 0) {
-      tagForm.selectedTagList = [..._classEntry.tags]
-      tagForm.populateCurrentTags()
+      let tagList = [..._classEntry.tags]
+      tagForm.determineWhichTagsHaveBeenDeleted(tagList)
+      // tagForm.selectedTagList = [..._classEntry.tags]
+      // tagForm.populateCurrentTags()
     }
 
     // add class
     if (_classEntry.category) {
-      categoryForm.createCategoryDisplayFromTemplate(_classEntry.category)
+      categoryForm.determineIfCategoryHasBeenDeletedWhenLoadingClass(_classEntry.category)
+      // categoryForm.createCategoryDisplayFromTemplate(_classEntry.category)
     }
   },
   enableButtonFunctions: () => {
@@ -338,5 +342,12 @@ const classForm = {
       classForm.deleteDoublecheckButtonFunction
     )
     classForm.videoPreviewButton.addEventListener("click", classForm.previewVideoButtonFunction)
+  },
+  populateDefaultDisclaimer: () => {
+    classForm.disclaimer.value = staticData.defaultDisclaimer
+  },
+  startFunctions: () => {
+    classForm.enableButtonFunctions()
+    classForm.populateDefaultDisclaimer()
   },
 }

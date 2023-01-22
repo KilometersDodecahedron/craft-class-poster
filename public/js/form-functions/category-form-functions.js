@@ -6,10 +6,14 @@ const categoryForm = {
   delete: document.querySelector("#category-delete"),
   displayHolder: document.querySelector("#category-selected--holder"),
   categoryDisplayTemplate: document.querySelector("#template-category-selected"),
-  fetchTotalCategories: () => {
+  categoryMissingDisplayTemplate: document.querySelector("#template-category-missing-warning"),
+  fetchTotalCategories: _callback => {
     getAllCategories(data => {
       categoryForm.totalCategoryList = data
       categoryForm.populateOptions()
+      if (_callback) {
+        _callback(data)
+      }
     })
   },
   populateOptions: () => {
@@ -57,6 +61,29 @@ const categoryForm = {
     categoryForm.resetCategory()
   },
   // called by Select Class
+  determineIfCategoryHasBeenDeletedWhenLoadingClass: selectedCategory => {
+    if (
+      categoryForm.totalCategoryList.findIndex(obj => {
+        return obj.name == selectedCategory
+      }) > -1
+    ) {
+      categoryForm.createCategoryDisplayFromTemplate(selectedCategory)
+      console.log("Category Exists")
+    } else {
+      categoryForm.createDeletedCategoryWarning(selectedCategory)
+      console.log("Category No Longer Exists")
+    }
+  },
+  // called by determineIfCategoryHasBeenDeletedWhenLoadingClass
+  createDeletedCategoryWarning: missingCategory => {
+    categoryForm.displayHolder.innerHTML = ""
+
+    let createdWarning = categoryForm.categoryMissingDisplayTemplate.content.cloneNode(true)
+    let warningText = createdWarning.querySelector(".category-selected--name")
+    warningText.innerHTML = warningText.innerHTML.replace("###", missingCategory)
+
+    categoryForm.displayHolder.append(createdWarning)
+  },
   createCategoryDisplayFromTemplate: selectedCategory => {
     categoryForm.displayHolder.innerHTML = ""
     categoryForm.currentCategory = selectedCategory
@@ -70,11 +97,14 @@ const categoryForm = {
 
     categoryForm.displayHolder.append(newCategoryDisplay)
   },
+  dbCallbackMethod: data => {
+    featuredDropdown.populateOptions()
+  },
   submitCategoryMethod: () => {
     const submitField = categoryForm.submit.querySelector("input")
     const newCategoryText = submitField.value
     let checkingIfAlreadyUsed = false
-    for (let i = 0; i < categoryForm.currentCategory.length; i++) {
+    for (let i = 0; i < categoryForm.totalCategoryList.length; i++) {
       if (
         newCategoryText == categoryForm.totalCategoryList[i].name ||
         newCategoryText == "That one's already on the list"
@@ -94,6 +124,7 @@ const categoryForm = {
         data => {
           submitField.value = ""
           categoryForm.fetchTotalCategories()
+          categoryForm.dbCallbackMethod()
         }
       )
     }
@@ -104,9 +135,20 @@ const categoryForm = {
     if (selectedCategoryID == "Choose...") {
       return
     }
+    const deletedCategoryName = deleteField.querySelector(
+      `[value="${selectedCategoryID}"]`
+    ).innerHTML
+
     deleteCategory(selectedCategoryID, data => {
-      categoryForm.fetchTotalCategories()
+      categoryForm.fetchTotalCategories(() => {
+        classLoaderForm.populateOptions(classLoaderForm.loadedClasses)
+      })
       deleteField.value = "Choose..."
+      // removes if selected
+      if (categoryForm.currentCategory == deletedCategoryName) {
+        categoryForm.resetCategory()
+      }
+      categoryForm.dbCallbackMethod()
     })
   },
   enableButtonFunctions: () => {

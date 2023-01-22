@@ -13,6 +13,7 @@ const dbSwapping = {
       if (dbSwapping.onClassUploader) {
         classForm.showOverlay()
         featuredDropdown.populateOptions()
+        featuredSelected.enableDisableSetRevertButtons(true)
         dbSwapping.classUploaderHolder.classList.add("d-none")
         dbSwapping.featuredUploaderHolder.classList.remove("d-none")
         dbSwapping.swapButton.innerHTML = dbSwapping.classUploaderText

@@ -53,6 +53,11 @@ em {
   border: 1px solid black;
 }
 
+.category-selected--display.danger,
+.tag-selected--display.danger {
+  background-color: red;
+}
+
 #imgBbInstructions{
   margin-left: 2rem;
 }
@@ -81,6 +86,19 @@ em {
   border: 1px solid black;
   border-radius: 10px;
   background-color: gold;
+}
+
+.dropdown-item--warning{
+  background-color: red;
+}
+
+.dropdown-item--warning::before,
+.dropdown-item--warning::after{
+  content: "⚠️"
+}
+
+.dropdown-item--warning:hover{
+  background-color: darkred;
 }
 
 #preview-video-holder {

@@ -1,11 +1,24 @@
-categoryForm.fetchTotalCategories()
+const startFunctionHelpers = {
+  trackingNumber: 0,
+  synchronizeTagsAndCategoriesWithClasses: () => {
+    startFunctionHelpers.trackingNumber++
+    if (startFunctionHelpers.trackingNumber >= 2) {
+      startFunctionHelpers.trackingNumber = 0
+      classLoaderForm.enableButtonFunctions()
+    }
+  },
+}
+
+inputFieldLimiter.startFunction()
+categoryForm.fetchTotalCategories(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
 categoryForm.enableButtonFunctions()
 tagForm.enableButtonFunctions()
-tagForm.fetchTotalTags()
-classForm.enableButtonFunctions()
+tagForm.fetchTotalTags(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
+classForm.startFunctions()
 
 // imageForm.enableButtonFunctions()
-classLoaderForm.enableButtonFunctions()
+// TODO set as callback
+// classLoaderForm.enableButtonFunctions()
 
 imageFileFunctions.startFunctions()
 

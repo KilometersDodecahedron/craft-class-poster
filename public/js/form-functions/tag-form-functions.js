@@ -6,10 +6,14 @@ const tagForm = {
   delete: document.querySelector("#tag-delete"),
   displayHolder: document.querySelector("#tag-selected--holder"),
   tagDisplayTemplate: document.querySelector("#template-tag-selected"),
-  fetchTotalTags: () => {
+  tagMissingDisplayTemplate: document.querySelector("#template-tag-missing-warning"),
+  fetchTotalTags: _callback => {
     getAllTags(data => {
       tagForm.totalTagList = data
       tagForm.populateOptions()
+      if (_callback) {
+        _callback(data)
+      }
     })
   },
   populateOptions: () => {
@@ -73,6 +77,9 @@ const tagForm = {
 
     tagForm.displayHolder.append(newTagDisplay)
   },
+  dbCallbackMethod: data => {
+    featuredDropdown.populateOptions()
+  },
   submitTagMethod: () => {
     const submitField = tagForm.submit.querySelector("input")
     const newTagText = submitField.value
@@ -97,6 +104,7 @@ const tagForm = {
         data => {
           submitField.value = ""
           tagForm.fetchTotalTags()
+          tagForm.dbCallbackMethod()
         }
       )
     }
@@ -107,10 +115,24 @@ const tagForm = {
     if (selectedTagID == "Choose...") {
       return
     }
+    const deletedTagName = deleteField.querySelector(`[value="${selectedTagID}"]`).innerHTML
+    // TODO check if Tag is active, then delete
     deleteTag(selectedTagID, data => {
-      tagForm.fetchTotalTags()
+      tagForm.fetchTotalTags(() => {
+        classLoaderForm.populateOptions(classLoaderForm.loadedClasses)
+      })
       deleteField.value = "Choose..."
+      tagForm.dbCallbackMethod()
+      let modifiedSelectedTagList = []
+      tagForm.selectedTagList.forEach(tag => {
+        if (tag != deletedTagName) {
+          modifiedSelectedTagList.push(tag)
+        }
+      })
+      tagForm.selectedTagList = modifiedSelectedTagList
+      tagForm.populateCurrentTags()
     })
+    console.log(tagForm.selectedTagList)
   },
   xButtonFunction: e => {
     if (e.target.classList.contains("tag-selected--x-button")) {
@@ -132,6 +154,35 @@ const tagForm = {
         }
       }
     }
+  },
+  // called by form-functions
+  determineWhichTagsHaveBeenDeleted: tagList => {
+    let remainingTags = []
+    console.log(tagList)
+    console.log(tagForm.totalTagList)
+    for (let i = 0; i < tagList.length; i++) {
+      if (
+        tagForm.totalTagList.findIndex(obj => {
+          return obj.name == tagList[i]
+        }) > -1
+      ) {
+        remainingTags.push(tagList[i])
+      }
+    }
+    tagForm.selectedTagList = remainingTags
+    console.log(remainingTags)
+
+    if (tagForm.selectedTagList.length > 0) {
+      tagForm.populateCurrentTags()
+    } else {
+      tagForm.createDeletedTagWarning()
+    }
+  },
+  // called by determineWhichTagsHaveBeenDeleted
+  createDeletedTagWarning: () => {
+    tagForm.displayHolder.innerHTML = ""
+    let createdWarning = tagForm.tagMissingDisplayTemplate.content.cloneNode(true)
+    tagForm.displayHolder.append(createdWarning)
   },
   populateCurrentTags: () => {
     tagForm.displayHolder.innerHTML = ""

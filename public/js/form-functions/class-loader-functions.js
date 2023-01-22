@@ -49,8 +49,38 @@ const classLoaderForm = {
       eTarget.innerHTML = item.name
       eTarget.dataset.id = item._id
 
+      if (classLoaderForm.checkClassFormMissingCategoryOrTag(item)) {
+        eTarget.classList.add("dropdown-item--warning")
+      }
+
       classLoaderForm.classLoaderDropdownHolder.append(newItem)
     })
+  },
+  checkClassFormMissingCategoryOrTag: _class => {
+    let problemDetected = false
+    // check categories
+    if (
+      categoryForm.totalCategoryList.findIndex(obj => {
+        return obj.name == _class.category
+      }) === -1
+    ) {
+      problemDetected = true
+    }
+    // check tags
+    if (problemDetected === false) {
+      let noMatchingTags = true
+      _class.tags.forEach(tag => {
+        if (
+          tagForm.totalTagList.findIndex(obj => {
+            return obj.name == tag
+          }) > -1
+        ) {
+          noMatchingTags = false
+        }
+      })
+      problemDetected = noMatchingTags
+    }
+    return problemDetected
   },
   fetchData: () => {
     getAllClasses(data => {
