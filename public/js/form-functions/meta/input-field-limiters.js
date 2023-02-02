@@ -10,6 +10,8 @@ const inputFieldLimiter = {
     // for all 4 fields
     priceDescription: 400,
     minimumParticipantsField: 1000000,
+    categoryTagLimit: 100,
+    imageDescriptionsLimit: 200,
   },
   inputs: {
     classNameInput: document.querySelector("#class-name").querySelector("input"),
@@ -38,6 +40,10 @@ const inputFieldLimiter = {
     minimumParticipantsField: document
       .querySelector("#minimum-paticipants--text")
       .querySelector("input"),
+    categorySubmit: document.querySelector("#category-submit").querySelector("input"),
+    tagSubmit: document.querySelector("#tag-submit").querySelector("input"),
+    imageAltMain: document.querySelector("#image-alt-input--main"),
+    imageAltAdditional: document.querySelector("#image-alt-input--additional"),
   },
   applyEvents: () => {
     // these are on main.handlebars
@@ -86,6 +92,12 @@ const inputFieldLimiter = {
     inputFieldLimiter.inputs.minimumParticipantsField.min = 0
     inputFieldLimiter.inputs.minimumParticipantsField.max =
       inputFieldLimiter.limits.minimumParticipantsField
+    inputFieldLimiter.inputs.categorySubmit.maxLength = inputFieldLimiter.limits.categoryTagLimit
+    inputFieldLimiter.inputs.tagSubmit.maxLength = inputFieldLimiter.limits.categoryTagLimit
+    inputFieldLimiter.inputs.imageAltMain.maxLength =
+      inputFieldLimiter.limits.imageDescriptionsLimit
+    inputFieldLimiter.inputs.imageAltAdditional.maxLength =
+      inputFieldLimiter.limits.imageDescriptionsLimit
   },
   startFunction: () => {
     inputFieldLimiter.applyLimits()

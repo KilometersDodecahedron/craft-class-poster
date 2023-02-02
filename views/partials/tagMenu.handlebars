@@ -15,32 +15,41 @@
     </select>
     <button class="btn-primary" type="button">Select</button>
   </div>
-  <div class="input-group mb-2" id="tag-submit">
-    <span class="input-group-text">Add New Tag</span>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="New Tag"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Add a new tag option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
-    />
-    <button class="btn-primary" type="button">Add</button>
-  </div>
-  <div class="input-group mb-2" id="tag-delete">
-    <span class="input-group-text">Delete Existing Tag</span>
-    <select
-      class="form-select"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="PERMANENTLY Remove tag option. This will also prevent users from searching this tag on the app"
-    >
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <button class="btn-primary" type="button">Delete</button>
+  <div class="pos-f-t">
+    <div class="collapse" id="tag-collapse">
+      <div class="input-group mb-2" id="tag-submit">
+        <span class="input-group-text">Add New Tag</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="New Tag"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Add a new tag option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
+        />
+        <button class="btn-primary" type="button">Add</button>
+      </div>
+      <div class="input-group mb-2" id="tag-delete">
+        <span class="input-group-text">Delete Existing Tag</span>
+        <select
+          class="form-select"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="PERMANENTLY Remove tag option. This will also prevent users from searching this tag on the app"
+        >
+          <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <button class="btn-primary" type="button">Delete</button>
+      </div>
+    </div>
+    <nav class="navbar">
+      <button class="navbar-toggler bg-dark text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#tag-collapse" aria-controls="tag-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="">Add/Delete Tags</span>
+      </button>
+    </nav>
   </div>
 </div>
 

@@ -15,6 +15,7 @@ categoryForm.enableButtonFunctions()
 tagForm.enableButtonFunctions()
 tagForm.fetchTotalTags(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
 classForm.startFunctions()
+changeChecker.startFunctions()
 
 // imageForm.enableButtonFunctions()
 // TODO set as callback

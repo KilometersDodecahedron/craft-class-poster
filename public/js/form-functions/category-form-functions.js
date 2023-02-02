@@ -55,10 +55,12 @@ const categoryForm = {
     }
     categoryForm.createCategoryDisplayFromTemplate(selectedCategory)
     selectField.value = "Choose..."
+    changeChecker.changeFunction()
   },
   xButtonFunction: e => {
     if (!e.target.classList.contains("category-selected--x-button")) return
     categoryForm.resetCategory()
+    changeChecker.changeFunction()
   },
   // called by Select Class
   determineIfCategoryHasBeenDeletedWhenLoadingClass: selectedCategory => {

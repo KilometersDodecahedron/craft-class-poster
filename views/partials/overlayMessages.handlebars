@@ -6,6 +6,22 @@
 
 <div class="overlay d-none" id="overlay-unsaved-data-warning">
   <div class="overlay-message">
-    Processing your request...
+    You have unsaved changes. <br>
+    Are you sure you want to leave this page?
+    <br>
+    <br>
+    <div class="d-flex p-6 justify-content-around">
+      <button class="btn btn-success" id="overlay-unsaved-data-warning--cancel">Cancel</button>
+      <button class="btn btn-danger" id="overlay-unsaved-data-warning--leave">Leave</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay d-none" id="overlay-update-photos-warning">
+  <div class="overlay-message">
+    <div id="overlay-update-photos-warning-message">Photos are already being used for another class. Please upload new photos.</div>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary" id="overlay-update-photos-warning-btn">Got It</button>
+    </div>
   </div>
 </div>

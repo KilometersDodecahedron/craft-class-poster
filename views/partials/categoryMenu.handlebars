@@ -15,32 +15,42 @@
     </select>
     <button class="btn-primary" type="button">Select</button>
   </div>
-  <div class="input-group mb-2" id="category-submit">
-    <span class="input-group-text">Add New Category</span>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="New Category"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Add a new category option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
-    />
-    <button class="btn-primary" type="button">Add</button>
-  </div>
-  <div class="input-group mb-2" id="category-delete">
-    <span class="input-group-text">Delete Existing Category</span>
-    <select
-      class="form-select"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="PERMANENTLY Remove category option. This will also prevent users from searching this category on the app"
-    >
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <button class="btn-primary" type="button">Delete</button>
+  {{!-- collapsible section --}}
+  <div class="pos-f-t">
+    <div class="collapse" id="category-collapse">
+      <div class="input-group mb-2" id="category-submit">
+        <span class="input-group-text">Add New Category</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="New Category"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Add a new category option. These values will also be offered to customers on the app to sort by, so don't add ones you're not going to use"
+        />
+        <button class="btn-primary" type="button">Add</button>
+      </div>
+      <div class="input-group mb-2" id="category-delete">
+        <span class="input-group-text">Delete Existing Category</span>
+        <select
+          class="form-select"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="PERMANENTLY Remove category option. This will also prevent users from searching this category on the app"
+        >
+          <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <button class="btn-primary" type="button">Delete</button>
+      </div>
+    </div>
+    <nav class="navbar">
+      <button class="navbar-toggler bg-dark text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-controls="category-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="">Add/Delete Categories</span>
+      </button>
+    </nav>
   </div>
 </div>
 

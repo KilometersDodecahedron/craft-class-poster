@@ -6,6 +6,12 @@ const classLoaderForm = {
   currentClassDisplayName: document.querySelector("#current-class-display").querySelector("span"),
   templateClassDropdownOpen: document.querySelector("#template-class-dropdown-option"),
   newClassButtonFunction: () => {
+    changeChecker.checkForUnsavedChanges(() => {
+      classLoaderForm.resetAllClassProperties()
+    })
+  },
+  // called by classForm.submitClassCallbackMethod
+  resetAllClassProperties: () => {
     classLoaderForm.resetClassID()
     categoryForm.resetCategory()
     tagForm.removeAllTags()
@@ -26,18 +32,20 @@ const classLoaderForm = {
     if (!e.target.classList.contains("class-select-dropdown-item")) {
       return
     }
-    for (let i = 0; i < classLoaderForm.loadedClasses.length; i++) {
-      if (e.target.dataset.id == classLoaderForm.loadedClasses[i]._id) {
-        classLoaderForm.currentClassID = e.target.dataset.id
-        classForm.populateExistingClass({ ...classLoaderForm.loadedClasses[i] })
-        classForm.updateButton.disabled = false
-        classForm.deleteButton.disabled = false
-        classForm.deleteDoublecheckButton.classList.add("d-none")
-        // for images
-        // imageFileFunctions.setCurrentClassPhotos({ ...classLoaderForm.loadedClasses[i] })
-        break
+    changeChecker.checkForUnsavedChanges(() => {
+      for (let i = 0; i < classLoaderForm.loadedClasses.length; i++) {
+        if (e.target.dataset.id == classLoaderForm.loadedClasses[i]._id) {
+          classLoaderForm.currentClassID = e.target.dataset.id
+          classForm.populateExistingClass({ ...classLoaderForm.loadedClasses[i] })
+          classForm.updateButton.disabled = false
+          classForm.deleteButton.disabled = false
+          classForm.deleteDoublecheckButton.classList.add("d-none")
+          // for images
+          // imageFileFunctions.setCurrentClassPhotos({ ...classLoaderForm.loadedClasses[i] })
+          break
+        }
       }
-    }
+    })
   },
   populateOptions: _classes => {
     classLoaderForm.classLoaderDropdownHolder.innerHTML = ""

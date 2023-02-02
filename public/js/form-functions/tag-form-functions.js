@@ -189,6 +189,7 @@ const tagForm = {
     for (let i = 0; i < tagForm.selectedTagList.length; i++) {
       tagForm.createTagDisplayFromTemplate(tagForm.selectedTagList[i], i)
     }
+    changeChecker.changeFunction()
   },
   enableButtonFunctions: () => {
     tagForm.select.querySelector("button").addEventListener("click", tagForm.selectTagMethod)

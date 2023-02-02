@@ -1,4 +1,6 @@
 const imageFileFunctions = {
+  updatePhotosWarning: "Photos are already being used for another class. Please upload new photos.",
+  updatePhotosWarningPopup: document.querySelector("#overlay-update-photos-warning"),
   linkPrefix: "https://class-uploader-file-storage.s3.amazonaws.com/",
   // TODO set selectors so they get the correct elements
   currentClassPhotos: [],
@@ -33,6 +35,7 @@ const imageFileFunctions = {
         imageFileFunctions.mainImage.alt = imageFileFunctions.mainImage.altInput.value
         if (imageFileFunctions.mainImage.alt != "") {
           imageFileFunctions.mainImage.preview()
+          changeChecker.changeFunction()
         }
       }
     },
@@ -42,6 +45,7 @@ const imageFileFunctions = {
       imageFileFunctions.mainImage.src = ""
       imageFileFunctions.mainImage.alt = ""
       imageFileFunctions.imagePreview.clearMain()
+      changeChecker.changeFunction()
     },
     preview: () => {
       imageFileFunctions.imagePreview.clearMain()
@@ -107,6 +111,7 @@ const imageFileFunctions = {
           )
         )
       }
+      changeChecker.changeFunction()
     },
     reset: () => {
       imageFileFunctions.additionalImages.fileHolder = ""
@@ -176,6 +181,29 @@ const imageFileFunctions = {
       imageFileFunctions.imagePreview.additionalHolder.innerHTML = ""
     },
   },
+  updatePhotosWarning: {
+    text: "Photos are already being used for another class. Please upload new photos.",
+    popup: document.querySelector("#overlay-update-photos-warning"),
+    message: document.querySelector("#overlay-update-photos-warning-message"),
+    button: document.querySelector("#overlay-update-photos-warning-btn"),
+    checkForMissingFilesMethod: _fileArray => {
+      let noMissingFiles = true
+      _fileArray.every(file => {
+        if (file == "") {
+          classForm.hideOverlay()
+          imageFileFunctions.updatePhotosWarning.popup.classList.remove("d-none")
+          noMissingFiles = false
+          return false
+        }
+        return true
+      })
+
+      return noMissingFiles
+    },
+    buttonFunction: () => {
+      imageFileFunctions.updatePhotosWarning.popup.classList.add("d-none")
+    },
+  },
   startFunctions: () => {
     imageFileFunctions.mainImage.fileInput.addEventListener(
       "change",
@@ -193,6 +221,12 @@ const imageFileFunctions = {
       "click",
       imageFileFunctions.additionalImages.addButtonFunction
     )
+    imageFileFunctions.updatePhotosWarning.button.addEventListener(
+      "click",
+      imageFileFunctions.updatePhotosWarning.buttonFunction
+    )
+    imageFileFunctions.updatePhotosWarning.message.innerHTML =
+      imageFileFunctions.updatePhotosWarning.text
     document.addEventListener("click", imageFileFunctions.mainImage.xButtonFunction)
     document.addEventListener("click", imageFileFunctions.additionalImages.xButtonFunction)
   },
@@ -257,26 +291,29 @@ const imageFileFunctions = {
   manageImageFilesBeforeClassData: (_method, _data, _callback, _classID) => {
     //
     if (_method == "create") {
+      // TODO check photos
       let photosToPost = []
       let photoObjectsArray = []
       photosToPost.push(imageFileFunctions.mainImage.file)
       imageFileFunctions.additionalImages.array.forEach((item, index) => {
         photosToPost.push(item.file)
       })
-      imageFileFunctions.postImagesToServer(photosToPost, imageServerResponse => {
-        imageServerResponse.forEach((item, index) => {
-          let newPhotoObject = {}
-          newPhotoObject.src = item.Location
-          if (index === 0) {
-            newPhotoObject.alt = imageFileFunctions.mainImage.alt
-          } else {
-            newPhotoObject.alt = imageFileFunctions.additionalImages.array[index - 1].alt
-          }
-          photoObjectsArray.push(newPhotoObject)
+      if (imageFileFunctions.updatePhotosWarning.checkForMissingFilesMethod(photosToPost)) {
+        imageFileFunctions.postImagesToServer(photosToPost, imageServerResponse => {
+          imageServerResponse.forEach((item, index) => {
+            let newPhotoObject = {}
+            newPhotoObject.src = item.Location
+            if (index === 0) {
+              newPhotoObject.alt = imageFileFunctions.mainImage.alt
+            } else {
+              newPhotoObject.alt = imageFileFunctions.additionalImages.array[index - 1].alt
+            }
+            photoObjectsArray.push(newPhotoObject)
+          })
+          _data.photos = photoObjectsArray
+          postClass(_data, _callback)
         })
-        _data.photos = photoObjectsArray
-        postClass(_data, _callback)
-      })
+      }
     } else if (_method == "update") {
       console.log("update")
       let hasMainImageAlready = false

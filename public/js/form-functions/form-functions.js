@@ -199,7 +199,7 @@ const classForm = {
   },
   submitClassCallbackMethod: response => {
     window.scrollTo(0, 0)
-    classLoaderForm.newClassButtonFunction()
+    classLoaderForm.resetAllClassProperties()
     classLoaderForm.fetchData()
     classForm.hideOverlay()
   },
@@ -240,6 +240,8 @@ const classForm = {
     classForm.videoField.value = ""
     classForm.videoPreviewHolder.innerHTML = ""
     classForm.populateDefaultDisclaimer()
+    // reset changeChecker
+    changeChecker.resetCheckerFunction()
   },
   populateExistingClass: _classEntry => {
     classLoaderForm.currentClassDisplayName.innerHTML = _classEntry.name
@@ -303,18 +305,6 @@ const classForm = {
       }
     })
 
-    // add images
-    // imageForm.mainImageSubmit.srcInput.value = _classEntry.photos[0].src
-    // imageForm.mainImageSubmit.altInput.value = _classEntry.photos[0].alt
-    // imageForm.mainImageSubmit.method()
-    // if (_classEntry.photos.length > 1) {
-    //   for (let i = 1; i < _classEntry.photos.length; i++) {
-    //     imageForm.additionalImageSubmit.srcInput.value = _classEntry.photos[i].src
-    //     imageForm.additionalImageSubmit.altInput.value = _classEntry.photos[i].alt
-    //     imageForm.additionalImageSubmit.method()
-    //   }
-    // }
-
     // UPDATED add images
     imageFileFunctions.mainImage.populateFromExistingClassData(_classEntry)
     imageFileFunctions.additionalImages.populateFromExistingClassData(_classEntry)
@@ -332,6 +322,9 @@ const classForm = {
       categoryForm.determineIfCategoryHasBeenDeletedWhenLoadingClass(_classEntry.category)
       // categoryForm.createCategoryDisplayFromTemplate(_classEntry.category)
     }
+
+    // reset changeChecker
+    changeChecker.resetCheckerFunction()
   },
   enableButtonFunctions: () => {
     classForm.submitButton.addEventListener("click", classForm.submitButtonFunction)
