@@ -9,39 +9,37 @@ const startFunctionHelpers = {
   },
 }
 
-inputFieldLimiter.startFunction()
-categoryForm.fetchTotalCategories(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
-categoryForm.enableButtonFunctions()
-tagForm.enableButtonFunctions()
-tagForm.fetchTotalTags(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
-classForm.startFunctions()
-changeChecker.startFunctions()
+const formStartFunction = () => {
+  inputFieldLimiter.startFunction()
+  categoryForm.fetchTotalCategories(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
+  categoryForm.enableButtonFunctions()
+  tagForm.enableButtonFunctions()
+  tagForm.fetchTotalTags(startFunctionHelpers.synchronizeTagsAndCategoriesWithClasses)
+  classForm.startFunctions()
+  changeChecker.startFunctions()
 
-// imageForm.enableButtonFunctions()
-// TODO set as callback
-// classLoaderForm.enableButtonFunctions()
+  imageFileFunctions.startFunctions()
 
-imageFileFunctions.startFunctions()
+  // toggle price inputs
+  classForm.availableCheckboxes.virtual.addEventListener("change", e => {
+    classForm.availableCheckboxes.virtual.checked
+      ? classForm.toggle.virtualPrice.classList.remove(warning.hidingClass)
+      : classForm.toggle.virtualPrice.classList.add(warning.hidingClass)
+  })
+  classForm.availableCheckboxes.virtualNoKit.addEventListener("change", e => {
+    classForm.availableCheckboxes.virtualNoKit.checked
+      ? classForm.toggle.virtualNoKitPrice.classList.remove(warning.hidingClass)
+      : classForm.toggle.virtualNoKitPrice.classList.add(warning.hidingClass)
+  })
+  classForm.availableCheckboxes.inPerson.addEventListener("change", e => {
+    classForm.availableCheckboxes.inPerson.checked
+      ? classForm.toggle.inPersonPrice.classList.remove(warning.hidingClass)
+      : classForm.toggle.inPersonPrice.classList.add(warning.hidingClass)
+  })
 
-// toggle price inputs
-classForm.availableCheckboxes.virtual.addEventListener("change", e => {
-  classForm.availableCheckboxes.virtual.checked
-    ? classForm.toggle.virtualPrice.classList.remove(warning.hidingClass)
-    : classForm.toggle.virtualPrice.classList.add(warning.hidingClass)
-})
-classForm.availableCheckboxes.virtualNoKit.addEventListener("change", e => {
-  classForm.availableCheckboxes.virtualNoKit.checked
-    ? classForm.toggle.virtualNoKitPrice.classList.remove(warning.hidingClass)
-    : classForm.toggle.virtualNoKitPrice.classList.add(warning.hidingClass)
-})
-classForm.availableCheckboxes.inPerson.addEventListener("change", e => {
-  classForm.availableCheckboxes.inPerson.checked
-    ? classForm.toggle.inPersonPrice.classList.remove(warning.hidingClass)
-    : classForm.toggle.inPersonPrice.classList.add(warning.hidingClass)
-})
-
-document.querySelector("body").addEventListener("click", e => {
-  tagForm.xButtonFunction(e)
-  tagForm.displayButtonFunction(e)
-  classLoaderForm.classSelectButtonFunction(e)
-})
+  document.querySelector("body").addEventListener("click", e => {
+    tagForm.xButtonFunction(e)
+    tagForm.displayButtonFunction(e)
+    classLoaderForm.classSelectButtonFunction(e)
+  })
+}

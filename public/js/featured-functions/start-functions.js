@@ -1,3 +1,5 @@
-featuredDropdown.startFunctions()
-featuredSelected.startFunctions()
-dbSwapping.startFunctions()
+const featuredStartFunction = () => {
+  featuredDropdown.startFunctions()
+  featuredSelected.startFunctions()
+  dbSwapping.startFunctions()
+}

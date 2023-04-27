@@ -5,7 +5,7 @@ const getAllCategories = callback => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }
@@ -27,7 +27,7 @@ const postCategory = (_data, callback) => {
     data: postData,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }
@@ -45,7 +45,7 @@ const deleteCategory = (id, callback) => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }

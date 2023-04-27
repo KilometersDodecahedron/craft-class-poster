@@ -3,7 +3,6 @@ const postImages = (_data, callback) => {
   let target = _data.length
   let catcher = []
   _data.forEach((entry, index) => {
-    console.log(entry)
     fetch("/files/images/upload", {
       method: "POST",
       body: entry,

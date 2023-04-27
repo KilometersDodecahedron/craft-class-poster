@@ -3,6 +3,8 @@ var exphbs = require("express-handlebars")
 const mongoose = require("mongoose")
 const formData = require("express-form-data")
 
+// const session = require("express-session")
+
 //
 require("dotenv").config()
 
@@ -18,6 +20,19 @@ app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(formData.parse())
+// https://www.youtube.com/watch?v=IPAvfcodcI8
+// TODO finish tutorial on express-session
+// app.use(
+//   session({
+//     // TODO randomly change
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       sameSite: "strict",
+//     },
+//   })
+// )
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")

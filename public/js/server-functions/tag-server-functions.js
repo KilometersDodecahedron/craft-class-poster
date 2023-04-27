@@ -9,7 +9,7 @@ const postTag = (_data, _callback) => {
     data: postData,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (_callback) {
         _callback(data)
       }
@@ -24,7 +24,7 @@ const getAllTags = callback => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }
@@ -40,7 +40,7 @@ const updateTag = (newData, id, callback) => {
     data: newData,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }
@@ -55,7 +55,7 @@ const deleteTag = (id, callback) => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }

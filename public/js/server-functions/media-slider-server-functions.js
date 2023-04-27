@@ -5,7 +5,7 @@ const getAllFeatured = callback => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }
@@ -24,7 +24,7 @@ const postFeatured = (_data, callback) => {
     data: _data,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }
@@ -42,7 +42,7 @@ const deleteAllFeatured = callback => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }

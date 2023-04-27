@@ -1,0 +1,417 @@
+<div class="container-md">
+  <h1>ECB Class Uploader</h1>
+</div>
+<div class="container-md">
+  <div class="d-flex justify-content-start">
+    {{! Class Loader }}
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Load Existing Class
+      </button>
+      <ul
+        class="dropdown-menu"
+        aria-labelledby="dropdownMenuButton"
+        id="class-loader-dropdown-holder"
+      >
+        <li><div class="dropdown-item">Action</div></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+    <button class="btn btn-primary" id="new-class-button">
+      New Class
+    </button>
+  </div>
+</div>
+<div class="container-md">
+  <h2 id="current-class-display">Current Class: <span>None</span></h2>
+</div>
+
+<div class="container-md p-3">
+  <div>* hover an input field for a few seconds to see a tooltip</div>
+  <div id="error-explanation" class="d-none">
+    <div class="text-danger">*Field must be filled out (correctly)</div>
+    <div class="text-warning">*Must select at least 1 of the options</div>
+    <div class="text-info">*The field is optional, but has been filled out incorrectly</div>
+  </div>
+  <div class="row">
+    {{! name }}
+    <div class="input-group mb-2 col-lg" id="class-name">
+      <span class="input-group-text">Class Name</span>
+      <input
+        maxlength="200"
+        type="text"
+        class="form-control"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Name of the class"
+        placeholder="Learn to Fly"
+      />
+    </div>
+    {{! duration }}
+    <div class="input-group mb-2 col-lg" id="class-duration">
+      <span class="input-group-text">Duration</span>
+      <input
+        maxlength="50"
+        id="class-duration--text"
+        type="text"
+        class="form-control"
+        placeholder="For Description"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Text that goes in the actual description. Users WILL see this information."
+      />
+      <input
+        min="0"
+        max="10000"
+        id="class-duration--number"
+        type="number"
+        class="form-control"
+        placeholder="For Search"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The approximate duration of the class, in hours. This information is used internally by search and sort functions. Decimal values are allowed. Users will NOT see this information"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div
+      id="available-holder"
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="What are the options for taking the class? Must select at least one"
+    >
+      {{! virtual, virtual no kit, in person }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-virtual" />
+        <label class="form-check-label" for="available-virtual">Available Virtual with DIY Kit</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-virtual-no-kit" />
+        <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: Shopping List</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-in-person" />
+        <label class="form-check-label" for="available-in-person">Available In Person</label>
+      </div>
+    </div>
+    <div
+      id="age-holder"
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Which age groups are the class designed for? Must select at least one"
+    >
+      {{! adult, child, mixed }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-adult" />
+        <label class="form-check-label" for="age-adult">Age Group: Adult</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-child" />
+        <label class="form-check-label" for="age-child">Age Group: Children</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-mixed" />
+        <label class="form-check-label" for="age-mixed">Age Group: Mixed</label>
+      </div>
+    </div>
+    <div
+      id="location-holder"
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Physical locations available for the class. If 'In Person' is an option, you must select at least 1. Leave blank if Virtual only"
+    >
+      {{! physical location, if applicable }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="location-boutique" />
+        <label class="form-check-label" for="location-boutique">Location Option: Boutique</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="location-club" />
+        <label class="form-check-label" for="location-club">Location Option: Woman's Club</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="location-custom" />
+        <label class="form-check-label" for="location-custom">Location Option: Custom Venue</label>
+      </div>
+    </div>
+    {{! How difficult is the class? }}
+    <div
+      id="difficulty-holder"
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="How hard is the class? This is displayed in the preview"
+    >
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="difficulty"
+          id="difficulty-beginner"
+          value="Beginner"
+        />
+        <label class="form-check-label difficulty-label" for="difficulty-beginner">
+          Difficulty: Beginner
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="difficulty"
+          id="difficulty-intermediate"
+          value="Intermediate"
+        />
+        <label class="form-check-label difficulty-label" for="difficulty-intermediate">
+          Difficulty: Intermediate
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="difficulty"
+          id="difficulty-advanced"
+          value="Advanced"
+        />
+        <label class="form-check-label difficulty-label" for="difficulty-advanced">
+          Difficulty: Advanced
+        </label>
+      </div>
+    </div>
+  </div>
+  {{! price (internal) }}
+  <div class="row">
+    <div class="input-group mb-2 col-lg" id="price-sorting">
+      <span class="input-group-text">Price (Internal, and display on preview)</span>
+      <input
+        min="0"
+        max="100000000"
+        type="number"
+        class="form-control"
+        id="price-sorting--low"
+        placeholder="Low Range"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Lowest $ amount you would pay for this class. Make sure lower value is Actually lower than the higher one. Set them = is only one price. Value applied when sorting by lowest price. This will also be formatted in the thumbnail for the price range"
+      />
+      <input
+        min="0"
+        max="100000000"
+        type="number"
+        class="form-control"
+        id="price-sorting--high"
+        placeholder="High Range"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Highest $ amount you would pay for this class. Make sure higher value is Actually higher than the lower one. Set them = is only one price. Value applied when sorting by highest price. Internal only, users will NOT see this data"
+      />
+    </div>
+  </div>
+  {{! prices (display) }}
+  <div class="row">
+    <div class="input-group mb-2 d-none" id="price-display--virtual-kit">
+      <span class="input-group-text">Price for Virtual with Kit (Display)</span>
+      <input
+        maxlength="300"
+        type="text"
+        class="form-control"
+        placeholder="$135 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+    <div class="input-group mb-2 d-none" id="price-display--virtual-no-kit">
+      <span class="input-group-text">Price for Virtual with NO Kit (Display)</span>
+      <input
+        maxlength="300"
+        type="text"
+        class="form-control"
+        placeholder="$105 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+    <div class="input-group mb-2 d-none" id="price-display--in-person">
+      <span class="input-group-text">Price for In Person (Display)</span>
+      <input
+        maxlength="300"
+        type="text"
+        class="form-control"
+        placeholder="$85 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+    <div class="input-group mb-2" id="price-display--add-on">
+      <span class="input-group-text">Addons/Modifiers: leave blank if unapplicable (Display)</span>
+      <input
+        maxlength="300"
+        type="text"
+        class="form-control"
+        placeholder="+$35 for a basic tool kit"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
+  </div>
+  {{! minimum participants }}
+  <div class="row">
+
+    <div class="col">
+      <div class="input-group mb-2" id="minimum-paticipants--text">
+        <span class="input-group-text">Minimum Participants (Optional)</span>
+        <input
+          type="number"
+          min="0"
+          max="10000000000"
+          step="1"
+          class="form-control"
+          placeholder="5"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Minimum participants required. Leave blank if inapplicable"
+        />
+      </div>
+    </div>
+  </div>
+  {{! video link }}
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-2" id="video--text">
+        <span class="input-group-text">Video URL (Optional) (IMPORTANT: Check Tooltip)</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="https://www.youtube.com/embed/MpvLitYWUVU"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="To get the Embed URL off YouTube, 1. Click 'Share', 2. Click 'Embed', 3. Copy the URL that's displayed after 'src='"
+        />
+        <button class="btn-secondary" type="button">Preview</button>
+      </div>
+    </div>
+  </div>
+  <div id="preview-video-holder"></div>
+  {{! images }}
+  <div class="row">
+    {{> mainImageUpload}}
+    {{! diplay main image preview }}
+    <div class="row" id="main-card-holder">
+
+    </div>
+
+    {{> additionalImageUpload}}
+    {{! diplay additional image preview }}
+    <div class="row" id="additional-card-holder">
+
+    </div>
+  </div>
+  {{! description }}
+  <div class="row">
+    <div class="form-group">
+      <label id="description-label" for="description">Class Description</label>
+      <div
+        class="form-control"
+        id="description"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The class overview. DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  {{! description - what's included }}
+  <div class="row">
+    <div class="form-group">
+      <label id="description-whats-included-label" for="description-whats-included">What's included?</label>
+      <div
+        class="form-control"
+        id="description-whats-included"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="What will the participants recieve in their kits? DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  {{! description - what do participants need to bring }}
+  <div class="row">
+    <div class="form-group">
+      <label id="description-need-to-bring-label" for="description-need-to-bring">What do participants need to bring?</label>
+      <div
+        class="form-control"
+        id="description-need-to-bring"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="What will the participant need to privide for the class? [materials, tools, appliances, etc] DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <div class="input-group mb-2 col-lg" id="disclaimer">
+    <span class="input-group-text">Disclaimer (Optional)</span>
+    <input
+      type="text"
+      class="form-control"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Disclaimer about the class"
+      placeholder="Final product may appear different from images"
+    />
+  </div>
+
+  <div 
+    data-toggle="tooltip"
+    data-placement="top"
+    title="Check to have the class be featured on 'Best Sellers' on the website, displayed on the class DB landing page"
+    class="form-check"
+  >
+    <input class="form-check-input" type="checkbox" id="featured-checkbox" />
+    <label class="form-check-label" for="featured-checkbox">Feature on Best Sellers</label>
+  </div>
+
+
+  {{> categoryMenu}}
+  {{> tagMenu}}
+
+  <div class="d-inline-flex">
+    <button type="button" class="btn btn-primary" id="class-update-button" disabled>Update Existing
+      Class</button>
+    <button type="button" class="btn btn-primary" id="class-submit-button">Submit as New Class</button>
+    <button type="button" class="btn btn-primary" id="class-delete-button" disabled>Delete Current
+      Class</button>
+    <button type="button" class="btn btn-danger d-none" id="class-delete-doublecheck-button">That
+      wasn't a misclick, I want to delete this entry</button>
+  </div>
+  <br />
+  <br />
+</div>
+
+{{> overlayMessages}}
