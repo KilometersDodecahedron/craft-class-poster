@@ -9,7 +9,7 @@ const sendEmailToAuthServer = _email => {
     },
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => {
       console.warn(err)

@@ -132,7 +132,7 @@ const tagForm = {
       tagForm.selectedTagList = modifiedSelectedTagList
       tagForm.populateCurrentTags()
     })
-    console.log(tagForm.selectedTagList)
+    // console.log(tagForm.selectedTagList)
   },
   xButtonFunction: e => {
     if (e.target.classList.contains("tag-selected--x-button")) {
@@ -150,7 +150,7 @@ const tagForm = {
           // tagForm.selectedTagList.unshift(newMainTag)
           tagForm.selectedTagList = [...newMainTag, ...tagForm.selectedTagList]
           tagForm.populateCurrentTags()
-          console.log(tagForm.selectedTagList)
+          // console.log(tagForm.selectedTagList)
         }
       }
     }
@@ -158,8 +158,8 @@ const tagForm = {
   // called by form-functions
   determineWhichTagsHaveBeenDeleted: tagList => {
     let remainingTags = []
-    console.log(tagList)
-    console.log(tagForm.totalTagList)
+    // console.log(tagList)
+    // console.log(tagForm.totalTagList)
     for (let i = 0; i < tagList.length; i++) {
       if (
         tagForm.totalTagList.findIndex(obj => {
@@ -170,7 +170,7 @@ const tagForm = {
       }
     }
     tagForm.selectedTagList = remainingTags
-    console.log(remainingTags)
+    // console.log(remainingTags)
 
     if (tagForm.selectedTagList.length > 0) {
       tagForm.populateCurrentTags()

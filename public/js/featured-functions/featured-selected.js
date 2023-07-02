@@ -129,7 +129,7 @@ const featuredSelected = {
             return _category === item.value
           }) == -1
         ) {
-          console.log(featuredDropdown.categoryArray)
+          // console.log(featuredDropdown.categoryArray)
           invalidEntry = true
         }
       } else if (item.key === "tag") {

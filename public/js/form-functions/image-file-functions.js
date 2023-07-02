@@ -28,7 +28,7 @@ const imageFileFunctions = {
       imageFileFunctions.mainImage.file = files[0]
       let imageUrl = URL.createObjectURL(imageFileFunctions.mainImage.file)
       imageFileFunctions.mainImage.src = imageUrl
-      console.log(imageFileFunctions.mainImage)
+      // console.log(imageFileFunctions.mainImage)
     },
     selectButtonFunction: e => {
       if (imageFileFunctions.mainImage.src != "") {
@@ -247,7 +247,7 @@ const imageFileFunctions = {
     } else {
       postImages(processedData, response => {
         // TODO send this data to the database
-        console.log(response)
+        // console.log(response)
       })
     }
   },
@@ -284,7 +284,7 @@ const imageFileFunctions = {
     newFileName = newFileName.split(" ").join("")
 
     // TODO check against array that there isn't another file with this exact name
-    console.log(newFileName)
+    // console.log(newFileName)
     return newFileName
   },
   // TODO call from form-functions.js
@@ -315,7 +315,7 @@ const imageFileFunctions = {
         })
       }
     } else if (_method == "update") {
-      console.log("update")
+      // console.log("update")
       let hasMainImageAlready = false
       let photosToPost = []
       let photosToDelete = []
@@ -399,7 +399,7 @@ const imageFileFunctions = {
             photoObjectsArray.splice(newPhotoIndexArray[index], 0, newPhotoObject)
           })
           _data.photos = photoObjectsArray
-          console.log(_data.photos)
+          // console.log(_data.photos)
           updateClass(_data, _classID, _callback)
           if (photosToDelete.length > 0) {
             imageFileFunctions.deleteImagesFromServer({ nameArray: photosToDelete })
@@ -413,9 +413,9 @@ const imageFileFunctions = {
         updateClass(_data, _classID, _callback)
       }
     } else if (_method == "delete") {
-      console.log("delete")
+      // console.log("delete")
       let photosToDelete = []
-      console.log(_data.photos)
+      // console.log(_data.photos)
       _data.photos.forEach(entry => {
         if (entry.src.includes(imageFileFunctions.linkPrefix)) {
           photosToDelete.push(entry.src)
@@ -423,10 +423,10 @@ const imageFileFunctions = {
       })
       if (photosToDelete.length > 0) {
         let formattedDeleteObject = { nameArray: photosToDelete }
-        console.log(formattedDeleteObject)
+        // console.log(formattedDeleteObject)
 
         imageFileFunctions.deleteImagesFromServer(formattedDeleteObject, response => {
-          console.log(response)
+          // console.log(response)
           deleteClass(_classID, _callback)
         })
       } else {
@@ -444,9 +444,9 @@ const imageFileFunctions = {
     imageFileFunctions.mainImage.src = main.src
     imageFileFunctions.mainImage.alt = main.alt
     imageFileFunctions.additionalImages.array = [...photos]
-    console.log(imageFileFunctions.currentClassPhotos)
-    console.log(imageFileFunctions.mainImage)
-    console.log(imageFileFunctions.additionalImages)
+    // console.log(imageFileFunctions.currentClassPhotos)
+    // console.log(imageFileFunctions.mainImage)
+    // console.log(imageFileFunctions.additionalImages)
   },
   resetFunction: () => {
     imageFileFunctions.mainImage.reset()

@@ -14,7 +14,7 @@ const testImgRouter = () => {
 }
 
 const uploadImage = data => {
-  console.log(data)
+  // console.log(data)
   $.ajax({
     type: "POST",
     url: "/api/imgbb/upload",
@@ -25,7 +25,7 @@ const uploadImage = data => {
     async: true,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => {
       console.error(err)

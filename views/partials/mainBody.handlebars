@@ -34,6 +34,7 @@
 </div>
 
 <div class="container-md p-3">
+  <h2>CLASS INFO</h2>
   <div>* hover an input field for a few seconds to see a tooltip</div>
   <div id="error-explanation" class="d-none">
     <div class="text-danger">*Field must be filled out (correctly)</div>
@@ -54,6 +55,39 @@
         placeholder="Learn to Fly"
       />
     </div>
+  </div>
+  {{! description }}
+  <div class="row">
+    <div class="form-group">
+      <label id="description-label" for="description">Class Description</label>
+      <div
+        class="form-control"
+        id="description"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The class overview. DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <div class="input-group mb-2 col-lg" id="disclaimer">
+    <span class="input-group-text">Disclaimer (Optional)</span>
+    <input
+      type="text"
+      class="form-control"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Disclaimer about the class"
+      placeholder="Final product may appear different from images"
+    />
+  </div>
+  <br>
+  <h2>Availability Options</h2>
+  <div class="row">
     {{! duration }}
     <div class="input-group mb-2 col-lg" id="class-duration">
       <span class="input-group-text">Duration</span>
@@ -90,37 +124,16 @@
     >
       {{! virtual, virtual no kit, in person }}
       <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="available-in-person" />
+        <label class="form-check-label" for="available-in-person">Available In Person</label>
+      </div>
+      <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="available-virtual" />
         <label class="form-check-label" for="available-virtual">Available Virtual with DIY Kit</label>
       </div>
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="available-virtual-no-kit" />
         <label class="form-check-label" for="available-virtual-no-kit">Available Virtual: Shopping List</label>
-      </div>
-      <div class="form-check form-check">
-        <input class="form-check-input" type="checkbox" id="available-in-person" />
-        <label class="form-check-label" for="available-in-person">Available In Person</label>
-      </div>
-    </div>
-    <div
-      id="age-holder"
-      class="col"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Which age groups are the class designed for? Must select at least one"
-    >
-      {{! adult, child, mixed }}
-      <div class="form-check form-check">
-        <input class="form-check-input" type="checkbox" id="age-adult" />
-        <label class="form-check-label" for="age-adult">Age Group: Adult</label>
-      </div>
-      <div class="form-check form-check">
-        <input class="form-check-input" type="checkbox" id="age-child" />
-        <label class="form-check-label" for="age-child">Age Group: Children</label>
-      </div>
-      <div class="form-check form-check">
-        <input class="form-check-input" type="checkbox" id="age-mixed" />
-        <label class="form-check-label" for="age-mixed">Age Group: Mixed</label>
       </div>
     </div>
     <div
@@ -142,6 +155,31 @@
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="location-custom" />
         <label class="form-check-label" for="location-custom">Location Option: Custom Venue</label>
+      </div>
+    </div>
+    <div
+      id="age-holder"
+      class="col"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="Which age groups are the class designed for? Must select at least one"
+    >
+      {{! adult, teen, child, mixed }}
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-adult" />
+        <label class="form-check-label" for="age-adult">Age Group: Adult (21+)</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-teen" />
+        <label class="form-check-label" for="age-teen">Age Group: Teens (13 to 20)</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-child" />
+        <label class="form-check-label" for="age-child">Age Group: Children (5 to 12)</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-mixed" />
+        <label class="form-check-label" for="age-mixed">Age Group: Mixed</label>
       </div>
     </div>
     {{! How difficult is the class? }}
@@ -190,7 +228,28 @@
       </div>
     </div>
   </div>
-  {{! price (internal) }}
+  {{! minimum participants }}
+  <div class="row">
+
+    <div class="col">
+      <div class="input-group mb-2" id="minimum-paticipants--text">
+        <span class="input-group-text">Minimum Participants (Optional)</span>
+        <input
+          type="number"
+          min="0"
+          max="10000000000"
+          step="1"
+          class="form-control"
+          placeholder="5"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Minimum participants required. Leave blank if inapplicable"
+        />
+      </div>
+    </div>
+  </div>
+  <br>
+  <h2>PRICE</h2>
   <div class="row">
     <div class="input-group mb-2 col-lg" id="price-sorting">
       <span class="input-group-text">Price (Internal, and display on preview)</span>
@@ -220,6 +279,18 @@
   </div>
   {{! prices (display) }}
   <div class="row">
+    <div class="input-group mb-2 d-none" id="price-display--in-person">
+      <span class="input-group-text">Price for In Person (Display)</span>
+      <input
+        maxlength="300"
+        type="text"
+        class="form-control"
+        placeholder="$85 per participant"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
+      />
+    </div>
     <div class="input-group mb-2 d-none" id="price-display--virtual-kit">
       <span class="input-group-text">Price for Virtual with Kit (Display)</span>
       <input
@@ -244,101 +315,9 @@
         title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
       />
     </div>
-    <div class="input-group mb-2 d-none" id="price-display--in-person">
-      <span class="input-group-text">Price for In Person (Display)</span>
-      <input
-        maxlength="300"
-        type="text"
-        class="form-control"
-        placeholder="$85 per participant"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
-      />
-    </div>
-    <div class="input-group mb-2" id="price-display--add-on">
-      <span class="input-group-text">Addons/Modifiers: leave blank if unapplicable (Display)</span>
-      <input
-        maxlength="300"
-        type="text"
-        class="form-control"
-        placeholder="+$35 for a basic tool kit"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="The text that's displayed in the entry to tell them how much it costs. Users WILL see this"
-      />
-    </div>
   </div>
-  {{! minimum participants }}
-  <div class="row">
-
-    <div class="col">
-      <div class="input-group mb-2" id="minimum-paticipants--text">
-        <span class="input-group-text">Minimum Participants (Optional)</span>
-        <input
-          type="number"
-          min="0"
-          max="10000000000"
-          step="1"
-          class="form-control"
-          placeholder="5"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Minimum participants required. Leave blank if inapplicable"
-        />
-      </div>
-    </div>
-  </div>
-  {{! video link }}
-  <div class="row">
-    <div class="col">
-      <div class="input-group mb-2" id="video--text">
-        <span class="input-group-text">Video URL (Optional) (IMPORTANT: Check Tooltip)</span>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="https://www.youtube.com/embed/MpvLitYWUVU"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="To get the Embed URL off YouTube, 1. Click 'Share', 2. Click 'Embed', 3. Copy the URL that's displayed after 'src='"
-        />
-        <button class="btn-secondary" type="button">Preview</button>
-      </div>
-    </div>
-  </div>
-  <div id="preview-video-holder"></div>
-  {{! images }}
-  <div class="row">
-    {{> mainImageUpload}}
-    {{! diplay main image preview }}
-    <div class="row" id="main-card-holder">
-
-    </div>
-
-    {{> additionalImageUpload}}
-    {{! diplay additional image preview }}
-    <div class="row" id="additional-card-holder">
-
-    </div>
-  </div>
-  {{! description }}
-  <div class="row">
-    <div class="form-group">
-      <label id="description-label" for="description">Class Description</label>
-      <div
-        class="form-control"
-        id="description"
-        rows="8"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="The class overview. DON'T USE H1 HEADERS"
-      >
-      </div>
-    </div>
-  </div>
-  <br />
-  <br />
-  <br />
+  <br>
+  <h2>Additional Information</h2>
   {{! description - what's included }}
   <div class="row">
     <div class="form-group">
@@ -375,18 +354,62 @@
   <br />
   <br />
   <br />
-  <div class="input-group mb-2 col-lg" id="disclaimer">
-    <span class="input-group-text">Disclaimer (Optional)</span>
-    <input
-      type="text"
-      class="form-control"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Disclaimer about the class"
-      placeholder="Final product may appear different from images"
-    />
+  <div class="row">
+    <div class="form-group">
+      <label id="description-addons-and-modifiers-label" for="description-addons-and-modifiers">Addons/Modifiers: leave blank if unapplicable (Display)</label>
+      <div
+        class="form-control"
+        id="description-addons-and-modifiers"
+        rows="8"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="What addons do they have the option to purchase? DON'T USE H1 HEADERS"
+      >
+      </div>
+    </div>
   </div>
+  <br>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <h2>CLASS MEDIA</h2>
+  {{! video link }}
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-2" id="video--text">
+        <span class="input-group-text">Video URL (Optional) (IMPORTANT: Check Tooltip)</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="https://www.youtube.com/embed/MpvLitYWUVU"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="To get the Embed URL off YouTube, 1. Click 'Share', 2. Click 'Embed', 3. Copy the URL that's displayed after 'src='"
+        />
+        <button class="btn-secondary" type="button">Preview</button>
+      </div>
+    </div>
+  </div>
+  <div id="preview-video-holder"></div>
+  {{! images }}
+  <div class="row">
+    {{> mainImageUpload}}
+    {{! diplay main image preview }}
+    <div class="row" id="main-card-holder">
 
+    </div>
+
+    {{> additionalImageUpload}}
+    {{! diplay additional image preview }}
+    <div class="row" id="additional-card-holder">
+
+    </div>
+  </div>
+  
+  <br>
+  <h2>CLASS CATEGORIES + TAGS</h2>
   <div 
     data-toggle="tooltip"
     data-placement="top"

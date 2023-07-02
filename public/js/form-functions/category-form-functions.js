@@ -70,10 +70,10 @@ const categoryForm = {
       }) > -1
     ) {
       categoryForm.createCategoryDisplayFromTemplate(selectedCategory)
-      console.log("Category Exists")
+      // console.log("Category Exists")
     } else {
       categoryForm.createDeletedCategoryWarning(selectedCategory)
-      console.log("Category No Longer Exists")
+      // console.log("Category No Longer Exists")
     }
   },
   // called by determineIfCategoryHasBeenDeletedWhenLoadingClass

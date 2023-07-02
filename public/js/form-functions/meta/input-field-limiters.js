@@ -4,6 +4,7 @@ const inputFieldLimiter = {
     description: 2000,
     whatsIncluded: 2000,
     whatDoParticipantsNeedToBring: 2000,
+    addonsAndModifiers: 2000,
     disclaimer: 1000,
     // for both high and low ranges
     priceRangeMax: 10000000,
@@ -34,7 +35,7 @@ const inputFieldLimiter = {
           .querySelector("#price-display--virtual-no-kit")
           .querySelector("input"),
         inPerson: document.querySelector("#price-display--in-person").querySelector("input"),
-        addOn: document.querySelector("#price-display--add-on").querySelector("input"),
+        // addOn: document.querySelector("#price-display--add-on").querySelector("input"),
       },
     },
     minimumParticipantsField: document
@@ -71,6 +72,14 @@ const inputFieldLimiter = {
         )
       }
     })
+    quillAddonsAndModifiers.on("text-change", () => {
+      if (quillAddonsAndModifiers.getLength() > inputFieldLimiter.limits.addonsAndModifiers) {
+        quillAddonsAndModifiers.deleteText(
+          inputFieldLimiter.limits.addonsAndModifiers,
+          quillAddonsAndModifiers.getLength()
+        )
+      }
+    })
   },
   applyLimits: () => {
     inputFieldLimiter.inputs.classNameInput.maxLength = inputFieldLimiter.limits.className
@@ -86,8 +95,6 @@ const inputFieldLimiter = {
     inputFieldLimiter.inputs.priceFields.multiplePrices.virtualNoKit.maxLength =
       inputFieldLimiter.limits.priceDescription
     inputFieldLimiter.inputs.priceFields.multiplePrices.inPerson.maxLength =
-      inputFieldLimiter.limits.priceDescription
-    inputFieldLimiter.inputs.priceFields.multiplePrices.addOn.maxLength =
       inputFieldLimiter.limits.priceDescription
     inputFieldLimiter.inputs.minimumParticipantsField.min = 0
     inputFieldLimiter.inputs.minimumParticipantsField.max =

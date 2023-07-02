@@ -25,6 +25,7 @@ const classForm = {
   },
   ageCheckboxes: {
     adult: document.querySelector("#age-adult"),
+    teen: document.querySelector("#age-teen"),
     child: document.querySelector("#age-child"),
     mixed: document.querySelector("#age-mixed"),
   },
@@ -43,7 +44,9 @@ const classForm = {
       virtual: document.querySelector("#price-display--virtual-kit").querySelector("input"),
       virtualNoKit: document.querySelector("#price-display--virtual-no-kit").querySelector("input"),
       inPerson: document.querySelector("#price-display--in-person").querySelector("input"),
-      addOn: document.querySelector("#price-display--add-on").querySelector("input"),
+      addOn: document
+        .querySelector("#description-addons-and-modifiers")
+        .querySelector(".ql-editor"),
     },
   },
   minimumParticipantsField: document
@@ -123,7 +126,7 @@ const classForm = {
         },
         addOn: {
           available: classForm.priceFields.multiplePrices.addOn.value != "",
-          price: classForm.priceFields.multiplePrices.addOn.value,
+          price: classForm.priceFields.multiplePrices.addOn.innerHTML,
         },
       },
     }
@@ -133,6 +136,7 @@ const classForm = {
     }
     newClass.ageGroup = {
       adult: classForm.ageCheckboxes.adult.checked,
+      teen: classForm.ageCheckboxes.teen.checked,
       child: classForm.ageCheckboxes.child.checked,
       mixed: classForm.ageCheckboxes.mixed.checked,
     }
@@ -218,6 +222,7 @@ const classForm = {
     classForm.availableCheckboxes.virtualNoKit.checked = false
     classForm.availableCheckboxes.inPerson.checked = false
     classForm.ageCheckboxes.adult.checked = false
+    classForm.ageCheckboxes.teen.checked = false
     classForm.ageCheckboxes.child.checked = false
     classForm.ageCheckboxes.mixed.checked = false
     classForm.locationCheckboxes.boutique.checked = false
@@ -235,7 +240,7 @@ const classForm = {
     classForm.priceFields.multiplePrices.virtual.value = ""
     classForm.priceFields.multiplePrices.virtualNoKit.value = ""
     classForm.priceFields.multiplePrices.inPerson.value = ""
-    classForm.priceFields.multiplePrices.addOn.value = ""
+    classForm.priceFields.multiplePrices.addOn.innerHTML = ""
     classForm.minimumParticipantsField.value = ""
     classForm.videoField.value = ""
     classForm.videoPreviewHolder.innerHTML = ""
@@ -263,6 +268,7 @@ const classForm = {
     classForm.availableCheckboxes.inPerson.checked = _classEntry.availability.inPerson
     classForm.toggleDisplaysMethod()
     classForm.ageCheckboxes.adult.checked = _classEntry.ageGroup.adult
+    classForm.ageCheckboxes.teen.checked = _classEntry.ageGroup?.teen
     classForm.ageCheckboxes.child.checked = _classEntry.ageGroup.child
     classForm.ageCheckboxes.mixed.checked = _classEntry.ageGroup.mixed
     classForm.locationCheckboxes.boutique.checked = _classEntry.allowedLocations.boutique
@@ -285,7 +291,7 @@ const classForm = {
     classForm.priceFields.multiplePrices.inPerson.value =
       _classEntry.price.multiplePrices.inPerson.price
     if (_classEntry?.price?.multiplePrices?.addOn?.price) {
-      classForm.priceFields.multiplePrices.addOn.value =
+      classForm.priceFields.multiplePrices.addOn.innerHTML =
         _classEntry?.price?.multiplePrices?.addOn?.price
     }
     if (_classEntry.minimumParticipants.hasMinimum) {

@@ -20,7 +20,7 @@ const testGet = () => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => console.log(err))
 }
@@ -33,7 +33,7 @@ const testGetByID = () => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => console.log(err))
 }
@@ -46,7 +46,7 @@ const testUpdate = () => {
     data: { name: "not first" },
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => console.log(err))
 }
@@ -58,7 +58,7 @@ const testDelete = () => {
     context: this,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => console.log(err))
 }

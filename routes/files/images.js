@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
   },
   // have to give file a unique name to prevent errors
   filename: (req, file, callback) => {
-    console.log(file)
+    // console.log(file)
     callback(null, Date.now() + Math.round(Math.random() * 1e9) + path.extname(file.originalname))
   },
 })
@@ -35,7 +35,7 @@ router.route("/primary").post(primary.single("uploaded_file"), (req, res) => {
 
   // Save this data to a database probably
 
-  console.log(description, imagePath)
+  // console.log(description, imagePath)
   res.send({ description, imagePath })
 })
 
@@ -46,16 +46,16 @@ router.route("/secondary").post(secondary.single("uploaded_file"), (req, res) =>
 
   // Save this data to a database probably
 
-  console.log(description, imagePath)
+  // console.log(description, imagePath)
   res.send({ description, imagePath })
 })
 
 router.route("/storemain").post((req, res) => {
   const filePath = "primary/" + req.body.newName
-  console.log(req.body.newName)
+  // console.log(req.body.newName)
 
   fs.writeFile(filePath, req.files.image.path, (err, data) => {
-    console.log(data)
+    // console.log(data)
     res.send(req.body)
   })
 })
@@ -64,16 +64,16 @@ router.route("/upload").post((req, res) => {
   const image = req.files.image
   const newName = req.body.newName
   uploadImageFunction(image, newName, (err, data) => {
-    console.log(data)
+    // console.log(data)
     res.send(data)
   })
   // res.send(files)
 })
 
 router.route("/delete").delete((req, res) => {
-  console.log(req.params)
-  console.log(req.body)
-  console.log(req.files)
+  // console.log(req.params)
+  // console.log(req.body)
+  // console.log(req.files)
   const names = req.body.nameArray
   deleteImagesFunction(names, (err, data) => {
     if (err) res.send(err)
@@ -95,7 +95,7 @@ const uploadImageFunction = (file, newName, callback) => {
 }
 
 const deleteImagesFunction = (nameArray, callback) => {
-  console.log(nameArray)
+  // console.log(nameArray)
   const objects = []
   nameArray.forEach(name => {
     // remove location to get the file key
@@ -111,7 +111,7 @@ const deleteImagesFunction = (nameArray, callback) => {
       Objects: objects,
     },
   }
-  console.log(bucketParams)
+  // console.log(bucketParams)
 
   s3.deleteObjects(bucketParams, callback)
 }
@@ -130,7 +130,7 @@ async function uploadFile(fileName, fileKey) {
       if (s3Err) {
         reject(s3Err)
       }
-      console.log(`File uploaded successfully at ${data.Location}`)
+      // console.log(`File uploaded successfully at ${data.Location}`)
       resolve(data.Location)
     })
   })

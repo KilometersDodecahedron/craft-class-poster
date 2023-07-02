@@ -58,7 +58,7 @@ const warning = {
     if (formData.category == "" || formData.category == undefined) {
       noErrors = false
       warning.category.classList.add(warning.mandatoryColor)
-      console.log("no category")
+      // console.log("no category")
     }
 
     // has at least 1 tag
@@ -88,7 +88,12 @@ const warning = {
       })
     }
     // at least 1 age group checked
-    if (!formData.ageGroup.adult && !formData.ageGroup.child && !formData.ageGroup.mixed) {
+    if (
+      !formData.ageGroup.adult &&
+      !formData.ageGroup.teen &&
+      !formData.ageGroup.child &&
+      !formData.ageGroup.mixed
+    ) {
       noErrors = false
       warning.ageGroupArray.forEach(item => {
         item.classList.add(warning.atLeastOneColor)

@@ -12,7 +12,7 @@ const postImages = (_data, callback) => {
         data.index = index
         catcher.push(data)
         tracker++
-        console.log(tracker)
+        // console.log(tracker)
         if (tracker === target) {
           catcher.sort((a, b) => (a.index > b.index ? 1 : -1))
           callback(catcher)
@@ -30,7 +30,7 @@ const deleteImages = (nameArray, callback) => {
     data: nameArray,
   })
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (callback) {
         callback(data)
       }

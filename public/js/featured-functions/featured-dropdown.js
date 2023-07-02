@@ -91,7 +91,7 @@ const featuredDropdown = {
       })
     },
     other: _target => {
-      console.log("other")
+      // console.log("other")
       number = _target.dataset.number
       featuredSelected.addToDisplayArray({
         key: key,
@@ -120,7 +120,7 @@ const featuredDropdown = {
         .querySelector("[data-value='Best Sellers']")
         .setAttribute("data-number", numberOfFeatured)
 
-      console.log(document.querySelector("[data-value='Best Sellers']"))
+      // console.log(document.querySelector("[data-value='Best Sellers']"))
 
       getAllCategories(_categoryData => {
         featuredDropdown.categoryHolder.innerHTML = ""

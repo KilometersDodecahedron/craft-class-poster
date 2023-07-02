@@ -13,7 +13,7 @@ const changeChecker = {
     document.querySelector("#price-display--virtual-kit").querySelector("input"),
     document.querySelector("#price-display--virtual-no-kit").querySelector("input"),
     document.querySelector("#price-display--in-person").querySelector("input"),
-    document.querySelector("#price-display--add-on").querySelector("input"),
+    // document.querySelector("#price-display--add-on").querySelector("input"),
     document.querySelector("#minimum-paticipants--text").querySelector("input"),
     document.querySelector("#video--text").querySelector("input"),
     document.querySelector("#disclaimer").querySelector("input"),
@@ -23,6 +23,7 @@ const changeChecker = {
     document.querySelector("#available-virtual-no-kit"),
     document.querySelector("#available-in-person"),
     document.querySelector("#age-adult"),
+    document.querySelector("#age-teen"),
     document.querySelector("#age-child"),
     document.querySelector("#age-mixed"),
     document.querySelector("#location-boutique"),
@@ -31,7 +32,12 @@ const changeChecker = {
     ...document.querySelectorAll("input[name='difficulty']"),
     document.querySelector("#featured-checkbox"),
   ],
-  quillEditorArray: [quillDescription, quillWhatsIncluded, quillNeedToBring],
+  quillEditorArray: [
+    quillDescription,
+    quillWhatsIncluded,
+    quillNeedToBring,
+    quillAddonsAndModifiers,
+  ],
   // called by imageFileFunctions.mainImage.selectButtonFunction in image-file-functions.js
   // called by imageFileFunctions.mainImage.xButtonFunction in image-file-functions.js
   // called by imageFileFunctions.additionalImages.preview in image-file-functions.js
@@ -79,7 +85,7 @@ const changeChecker = {
     }
   },
   startFunctions: () => {
-    console.log(changeChecker)
+    // console.log(changeChecker)
     changeChecker.cancelButton.addEventListener("click", changeChecker.cancelButtonFunction)
     changeChecker.leaveButton.addEventListener("click", changeChecker.leaveButtonFunction)
     changeChecker.quillEditorArray.forEach(field => {
