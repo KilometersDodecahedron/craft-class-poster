@@ -39,3 +39,8 @@ const HELPER_resizeText = ({
     el.style.fontSize = `${i - step}${unit}`
   })
 }
+
+const HELPER_removeExtraLineBreaks = _text => {
+  let newText = _text.replaceAll("<p><br></p>", "")
+  return newText
+}

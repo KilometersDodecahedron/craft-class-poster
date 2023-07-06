@@ -77,9 +77,11 @@ const classForm = {
     let newClass = {}
     newClass.name = classForm.classNameInput.value
     // check against '<p><br></p>' to see if empty
-    newClass.description = classForm.description.innerHTML
-    newClass.whatsIncluded = classForm.whatsIncluded.innerHTML
-    newClass.whatDoParticipantsNeedToBring = classForm.whatDoParticipantsNeedToBring.innerHTML
+    newClass.description = HELPER_removeExtraLineBreaks(classForm.description.innerHTML)
+    newClass.whatsIncluded = HELPER_removeExtraLineBreaks(classForm.whatsIncluded.innerHTML)
+    newClass.whatDoParticipantsNeedToBring = HELPER_removeExtraLineBreaks(
+      classForm.whatDoParticipantsNeedToBring.innerHTML
+    )
     newClass.duration = {
       string: classForm.durationFields.string.value,
       num: classForm.durationFields.num.value,
@@ -128,7 +130,7 @@ const classForm = {
           available:
             classForm.priceFields.multiplePrices.addOn.value != "" &&
             classForm.priceFields.multiplePrices.addOn.value != "<p><br></p>",
-          price: classForm.priceFields.multiplePrices.addOn.innerHTML,
+          price: HELPER_removeExtraLineBreaks(classForm.priceFields.multiplePrices.addOn.innerHTML),
         },
       },
     }
