@@ -125,7 +125,9 @@ const classForm = {
           price: classForm.priceFields.multiplePrices.inPerson.value,
         },
         addOn: {
-          available: classForm.priceFields.multiplePrices.addOn.value != "",
+          available:
+            classForm.priceFields.multiplePrices.addOn.value != "" &&
+            classForm.priceFields.multiplePrices.addOn.value != "<p><br></p>",
           price: classForm.priceFields.multiplePrices.addOn.innerHTML,
         },
       },
