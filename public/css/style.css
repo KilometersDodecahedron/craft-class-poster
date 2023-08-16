@@ -112,3 +112,7 @@ em {
   height: calc((800px * 9) / 16);
 }
 
+.dropdown-menu {
+  max-height: 500px;
+  overflow-y: scroll;
+}

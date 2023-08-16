@@ -1,10 +1,13 @@
 const classLoaderForm = {
   currentClassID: "",
   loadedClasses: [],
+  searchBar: document.querySelector("#class-search-bar"),
+  searchBarDropdown: document.querySelector("#search-bar-dropdown-holder"),
   classLoaderDropdownHolder: document.querySelector("#class-loader-dropdown-holder"),
   newClassButton: document.querySelector("#new-class-button"),
   currentClassDisplayName: document.querySelector("#current-class-display").querySelector("span"),
   templateClassDropdownOpen: document.querySelector("#template-class-dropdown-option"),
+  templateSearchDropdown: document.querySelector("#template-searchbar-option"),
   newClassButtonFunction: () => {
     changeChecker.checkForUnsavedChanges(() => {
       classLoaderForm.resetAllClassProperties()
@@ -99,5 +102,39 @@ const classLoaderForm = {
   enableButtonFunctions: () => {
     classLoaderForm.newClassButton.addEventListener("click", classLoaderForm.newClassButtonFunction)
     classLoaderForm.fetchData()
+    classLoaderForm.searchBar.addEventListener("input", e => {
+      console.log(e.target.value)
+      let searchArray = classLoaderForm.loadedClasses.filter(entry =>
+        entry.name.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+      console.log(searchArray)
+      classLoaderForm.searchBarDropdown.innerHTML = []
+      searchArray.forEach(item => {
+        let newItem = classLoaderForm.templateSearchDropdown.content.cloneNode(true)
+        let eTarget = newItem.querySelector(".dropdown-item")
+
+        eTarget.innerHTML = item.name
+        eTarget.dataset.id = item._id
+
+        if (classLoaderForm.checkClassFormMissingCategoryOrTag(item)) {
+          eTarget.classList.add("dropdown-item--warning")
+        }
+
+        classLoaderForm.searchBarDropdown.append(newItem)
+      })
+    })
+    document.addEventListener("click", e => {
+      if (!e.target.classList.contains("searchbar-dropdown-item")) {
+        return
+      }
+      let _selectedClass = classLoaderForm.loadedClasses.filter(
+        item => item._id == e.target.dataset.id
+      )
+      classForm.populateExistingClass(_selectedClass[0])
+      classLoaderForm.searchBar.value = ""
+      classLoaderForm.searchBarDropdown.innerHTML = ""
+    })
   },
 }
+
+console.log(classLoaderForm.searchBar)

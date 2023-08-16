@@ -2,6 +2,29 @@
   <h1>ECB Class Uploader</h1>
 </div>
 <div class="container-md">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Search Existing Classes</span>
+    </div>
+    <input 
+      data-bs-toggle="dropdown" 
+      id="class-search-bar" 
+      type="text" 
+      class="form-control" 
+      placeholder="Name of class to search" 
+      aria-label="search" 
+      aria-describedby="basic-addon1"
+    >
+    <ul
+        class="dropdown-menu"
+        aria-labelledby="dropdownMenuButton"
+        id="search-bar-dropdown-holder"
+      >
+        {{!-- <li><div class="dropdown-item searchbar-dropdown-item" data-id="i">Action</div></li>
+        <li><div class="dropdown-item searchbar-dropdown-item" data-id="i">Action</div></li>
+        <li><div class="dropdown-item searchbar-dropdown-item" data-id="i">Action</div></li> --}}
+    </ul>
+  </div>
   <div class="d-flex justify-content-start">
     {{! Class Loader }}
     <div class="dropdown">
