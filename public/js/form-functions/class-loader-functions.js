@@ -32,7 +32,10 @@ const classLoaderForm = {
     imageFileFunctions.resetFunction()
   },
   classSelectButtonFunction: e => {
-    if (!e.target.classList.contains("class-select-dropdown-item")) {
+    if (
+      !e.target.classList.contains("class-select-dropdown-item") &&
+      !e.target.classList.contains("searchbar-dropdown-item")
+    ) {
       return
     }
     changeChecker.checkForUnsavedChanges(() => {
@@ -42,6 +45,8 @@ const classLoaderForm = {
           classForm.populateExistingClass({ ...classLoaderForm.loadedClasses[i] })
           classForm.updateButton.disabled = false
           classForm.deleteButton.disabled = false
+          classLoaderForm.searchBar.value = ""
+          classLoaderForm.searchBarDropdown.innerHTML = ""
           classForm.deleteDoublecheckButton.classList.add("d-none")
           // for images
           // imageFileFunctions.setCurrentClassPhotos({ ...classLoaderForm.loadedClasses[i] })
@@ -120,17 +125,6 @@ const classLoaderForm = {
 
         classLoaderForm.searchBarDropdown.append(newItem)
       })
-    })
-    document.addEventListener("click", e => {
-      if (!e.target.classList.contains("searchbar-dropdown-item")) {
-        return
-      }
-      let _selectedClass = classLoaderForm.loadedClasses.filter(
-        item => item._id == e.target.dataset.id
-      )
-      classForm.populateExistingClass(_selectedClass[0])
-      classLoaderForm.searchBar.value = ""
-      classLoaderForm.searchBarDropdown.innerHTML = ""
     })
   },
 }
