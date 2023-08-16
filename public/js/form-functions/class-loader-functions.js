@@ -103,11 +103,9 @@ const classLoaderForm = {
     classLoaderForm.newClassButton.addEventListener("click", classLoaderForm.newClassButtonFunction)
     classLoaderForm.fetchData()
     classLoaderForm.searchBar.addEventListener("input", e => {
-      console.log(e.target.value)
       let searchArray = classLoaderForm.loadedClasses.filter(entry =>
         entry.name.toLowerCase().includes(e.target.value.toLowerCase())
       )
-      console.log(searchArray)
       classLoaderForm.searchBarDropdown.innerHTML = []
       searchArray.forEach(item => {
         let newItem = classLoaderForm.templateSearchDropdown.content.cloneNode(true)
@@ -136,5 +134,3 @@ const classLoaderForm = {
     })
   },
 }
-
-console.log(classLoaderForm.searchBar)
