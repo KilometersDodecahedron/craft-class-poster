@@ -57,6 +57,44 @@ const updateClass = (newData, id, callback) => {
     })
 }
 
+const updateClassTags = (newData, callback) => {
+  $.ajax({
+    type: "PUT",
+    url: "/api/craft_class/update_tags/",
+    context: this,
+    data: newData,
+  })
+    .then(data => {
+      // console.log(data)
+      if (callback) {
+        callback(data)
+      }
+    })
+    .catch(err => {
+      console.warn(err)
+      callback()
+    })
+}
+
+const updateClassCategories = (newData, callback) => {
+  $.ajax({
+    type: "PUT",
+    url: "/api/craft_class/update_categories/",
+    context: this,
+    data: newData,
+  })
+    .then(data => {
+      // console.log(data)
+      if (callback) {
+        callback(data)
+      }
+    })
+    .catch(err => {
+      console.warn(err)
+      callback()
+    })
+}
+
 const deleteClass = (id, callback) => {
   $.ajax({
     type: "DELETE",

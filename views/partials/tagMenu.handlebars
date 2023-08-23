@@ -44,10 +44,33 @@
         </select>
         <button class="btn-primary" type="button">Delete</button>
       </div>
+      <div class="input-group mb-2" id="tag-rename">
+        <span class="input-group-text">Rename Existing Tag</span>
+        <select
+          class="form-select"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Select the tag to rename. This will also update the name of the tag across the website."
+        >
+          <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="New Name"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Enter the new name for the tag. This will also update the name of the tag across the website."
+        />
+        <button class="btn-primary" type="button">Rename</button>
+      </div>
     </div>
     <nav class="navbar">
       <button class="navbar-toggler bg-dark text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#tag-collapse" aria-controls="tag-collapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="">Add/Delete Tags</span>
+        <span class="">Add/Delete/Rename Tags</span>
       </button>
     </nav>
   </div>

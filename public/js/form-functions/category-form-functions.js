@@ -4,6 +4,7 @@ const categoryForm = {
   select: document.querySelector("#category-select"),
   submit: document.querySelector("#category-submit"),
   delete: document.querySelector("#category-delete"),
+  rename: document.querySelector("#category-rename"),
   displayHolder: document.querySelector("#category-selected--holder"),
   categoryDisplayTemplate: document.querySelector("#template-category-selected"),
   categoryMissingDisplayTemplate: document.querySelector("#template-category-missing-warning"),
@@ -19,8 +20,10 @@ const categoryForm = {
   populateOptions: () => {
     let optionListHolder = categoryForm.select.querySelector(".form-select")
     let optionDeleteHolder = categoryForm.delete.querySelector(".form-select")
+    let optionRenameHolder = categoryForm.rename.querySelector(".form-select")
     optionListHolder.innerHTML = ""
     optionDeleteHolder.innerHTML = ""
+    optionRenameHolder.innerHTML = ""
 
     let placeholderOption = document.createElement("option")
     placeholderOption.innerHTML = "Choose..."
@@ -31,6 +34,11 @@ const categoryForm = {
     placeholderOptionDelete.innerHTML = "Choose..."
     placeholderOptionDelete.value = "Choose..."
     optionDeleteHolder.append(placeholderOptionDelete)
+
+    let placeholderOptionRename = document.createElement("option")
+    placeholderOptionRename.innerHTML = "Choose..."
+    placeholderOptionRename.value = "Choose..."
+    optionRenameHolder.append(placeholderOptionRename)
 
     for (let i = 0; i < categoryForm.totalCategoryList.length; i++) {
       let newOption = document.createElement("option")
@@ -44,6 +52,12 @@ const categoryForm = {
       newOptionDelete.value = categoryForm.totalCategoryList[i]._id
       newOptionDelete.setAttribute("data-id", categoryForm.totalCategoryList[i]._id)
       optionDeleteHolder.append(newOptionDelete)
+
+      let newOptionRename = document.createElement("option")
+      newOptionRename.innerHTML = categoryForm.totalCategoryList[i].name
+      newOptionRename.value = categoryForm.totalCategoryList[i]._id
+      newOptionRename.setAttribute("data-id", categoryForm.totalCategoryList[i]._id)
+      optionRenameHolder.append(newOptionRename)
     }
   },
   selectCategoryMethod: () => {
@@ -153,6 +167,47 @@ const categoryForm = {
       categoryForm.dbCallbackMethod()
     })
   },
+  updateCategoryMethod: () => {
+    const updateDropdown = categoryForm.rename.querySelector("select")
+    const updateTextField = categoryForm.rename.querySelector("input")
+    const newCategoryName = updateTextField.value
+    const selectedCategoryID = updateDropdown.value
+    if (selectedCategoryID == "Choose..." || newCategoryName == "") {
+      return
+    }
+    if (categoryForm.totalCategoryList.findIndex(obj => obj.name == newCategoryName) != -1) {
+      alert("A Category with that name already exists")
+      return
+    }
+
+    const oldCategoryName = updateDropdown.querySelector(
+      `[value="${selectedCategoryID}"]`
+    ).innerHTML
+
+    const structuredData = {
+      newName: newCategoryName,
+      oldName: oldCategoryName,
+    }
+
+    changeChecker.checkForUnsavedChanges(() => {
+      updateClassCategories(structuredData, data => {
+        let newData = {
+          name: newCategoryName,
+        }
+        updateCategory(newData, selectedCategoryID, data => {
+          updateDropdown.value = "Choose..."
+          updateTextField.value = ""
+          categoryForm.fetchTotalCategories()
+          categoryForm.dbCallbackMethod()
+          // let modifiedSelectedTagList = []
+          // tagForm.selectedTagList = modifiedSelectedTagList
+          // tagForm.populateCurrentTags()
+          classLoaderForm.resetAllClassProperties()
+          classLoaderForm.fetchData()
+        })
+      })
+    })
+  },
   enableButtonFunctions: () => {
     categoryForm.select.addEventListener("click", categoryForm.selectCategoryMethod)
     categoryForm.submit
@@ -162,6 +217,9 @@ const categoryForm = {
       .querySelector("button")
       .addEventListener("click", categoryForm.deleteCategoryMethod)
     document.addEventListener("click", categoryForm.xButtonFunction)
+    categoryForm.rename
+      .querySelector("button")
+      .addEventListener("click", categoryForm.updateCategoryMethod)
   },
   resetCategory: () => {
     categoryForm.displayHolder.innerHTML = ""

@@ -38,6 +38,22 @@ const postCategory = (_data, callback) => {
     })
 }
 
+const updateCategory = (newData, id, callback) => {
+  $.ajax({
+    type: "PUT",
+    url: "/api/category/update/" + id,
+    context: this,
+    data: newData,
+  })
+    .then(data => {
+      // console.log(data)
+      if (callback) {
+        callback(data)
+      }
+    })
+    .catch(err => console.log(err))
+}
+
 const deleteCategory = (id, callback) => {
   $.ajax({
     type: "DELETE",

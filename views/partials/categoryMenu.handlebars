@@ -45,10 +45,33 @@
         </select>
         <button class="btn-primary" type="button">Delete</button>
       </div>
+      <div class="input-group mb-2" id="category-rename">
+        <span class="input-group-text">Rename Existing Category</span>
+        <select
+          class="form-select"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Select the category to rename. This will also update the name of the category across the website."
+        >
+          <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="New Name"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Enter the new name for the category. This will also update the name of the category across the website."
+        />
+        <button class="btn-primary" type="button">Rename</button>
+      </div>
     </div>
     <nav class="navbar">
       <button class="navbar-toggler bg-dark text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-controls="category-collapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="">Add/Delete Categories</span>
+        <span class="">Add/Delete/Rename Categories</span>
       </button>
     </nav>
   </div>

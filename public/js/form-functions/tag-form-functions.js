@@ -4,6 +4,7 @@ const tagForm = {
   select: document.querySelector("#tag-select"),
   submit: document.querySelector("#tag-submit"),
   delete: document.querySelector("#tag-delete"),
+  rename: document.querySelector("#tag-rename"),
   displayHolder: document.querySelector("#tag-selected--holder"),
   tagDisplayTemplate: document.querySelector("#template-tag-selected"),
   tagMissingDisplayTemplate: document.querySelector("#template-tag-missing-warning"),
@@ -19,8 +20,10 @@ const tagForm = {
   populateOptions: () => {
     let optionListHolder = tagForm.select.querySelector(".form-select")
     let optionDeleteHolder = tagForm.delete.querySelector(".form-select")
+    let optionRenameHolder = tagForm.rename.querySelector(".form-select")
     optionListHolder.innerHTML = ""
     optionDeleteHolder.innerHTML = ""
+    optionRenameHolder.innerHTML = ""
 
     let placeholderOption = document.createElement("option")
     placeholderOption.innerHTML = "Choose..."
@@ -31,6 +34,11 @@ const tagForm = {
     placeholderOptionDelete.innerHTML = "Choose..."
     placeholderOptionDelete.value = "Choose..."
     optionDeleteHolder.append(placeholderOptionDelete)
+
+    let placeholderOptionRename = document.createElement("option")
+    placeholderOptionRename.innerHTML = "Choose..."
+    placeholderOptionRename.value = "Choose..."
+    optionRenameHolder.append(placeholderOptionRename)
 
     for (let i = 0; i < tagForm.totalTagList.length; i++) {
       let newOption = document.createElement("option")
@@ -44,6 +52,12 @@ const tagForm = {
       newOptionDelete.value = tagForm.totalTagList[i]._id
       newOptionDelete.setAttribute("data-id", tagForm.totalTagList[i]._id)
       optionDeleteHolder.append(newOptionDelete)
+
+      let newOptionRename = document.createElement("option")
+      newOptionRename.innerHTML = tagForm.totalTagList[i].name
+      newOptionRename.value = tagForm.totalTagList[i]._id
+      newOptionRename.setAttribute("data-id", tagForm.totalTagList[i]._id)
+      optionRenameHolder.append(newOptionRename)
     }
   },
   selectTagMethod: () => {
@@ -134,6 +148,45 @@ const tagForm = {
     })
     // console.log(tagForm.selectedTagList)
   },
+  updateTagMethod: () => {
+    const updateDropdown = tagForm.rename.querySelector("select")
+    const updateTextField = tagForm.rename.querySelector("input")
+    const newTagName = updateTextField.value
+    const selectedTagID = updateDropdown.value
+    if (selectedTagID == "Choose..." || newTagName == "") {
+      return
+    }
+    if (tagForm.totalTagList.findIndex(obj => obj.name == newTagName) != -1) {
+      alert("A Tag with that name already exists")
+      return
+    }
+    const oldTagName = updateDropdown.querySelector(`[value="${selectedTagID}"]`).innerHTML
+
+    const structuredData = {
+      newName: newTagName,
+      oldName: oldTagName,
+    }
+
+    changeChecker.checkForUnsavedChanges(() => {
+      updateClassTags(structuredData, data => {
+        // console.log(data)
+        let newData = {
+          name: newTagName,
+        }
+        updateTag(newData, selectedTagID, data => {
+          updateDropdown.value = "Choose..."
+          updateTextField.value = ""
+          tagForm.fetchTotalTags()
+          tagForm.dbCallbackMethod()
+          // let modifiedSelectedTagList = []
+          // tagForm.selectedTagList = modifiedSelectedTagList
+          tagForm.populateCurrentTags()
+          classLoaderForm.resetAllClassProperties()
+          classLoaderForm.fetchData()
+        })
+      })
+    })
+  },
   xButtonFunction: e => {
     if (e.target.classList.contains("tag-selected--x-button")) {
       const tagHolder = e.target.parentElement
@@ -158,8 +211,6 @@ const tagForm = {
   // called by form-functions
   determineWhichTagsHaveBeenDeleted: tagList => {
     let remainingTags = []
-    // console.log(tagList)
-    // console.log(tagForm.totalTagList)
     for (let i = 0; i < tagList.length; i++) {
       if (
         tagForm.totalTagList.findIndex(obj => {
@@ -195,6 +246,7 @@ const tagForm = {
     tagForm.select.querySelector("button").addEventListener("click", tagForm.selectTagMethod)
     tagForm.submit.querySelector("button").addEventListener("click", tagForm.submitTagMethod)
     tagForm.delete.querySelector("button").addEventListener("click", tagForm.deleteTagMethod)
+    tagForm.rename.querySelector("button").addEventListener("click", tagForm.updateTagMethod)
   },
   // data for the currently selected entry
   addCurrentTag: tagToAdd => {
