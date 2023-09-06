@@ -67,6 +67,7 @@ const classSchema = new Schema({
     adult: Boolean,
     teen: Boolean,
     child: Boolean,
+    babyAndMe: Boolean,
     mixed: Boolean,
   },
   photos: [PhotoSchema],
@@ -81,6 +82,10 @@ const classSchema = new Schema({
   tags: [String],
   numberOfInquiriesSent: Number,
   featured: {
+    type: Boolean,
+    default: false,
+  },
+  hidden: {
     type: Boolean,
     default: false,
   },

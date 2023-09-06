@@ -27,6 +27,7 @@ const classForm = {
     adult: document.querySelector("#age-adult"),
     teen: document.querySelector("#age-teen"),
     child: document.querySelector("#age-child"),
+    babyAndMe: document.querySelector("#age-baby"),
     mixed: document.querySelector("#age-mixed"),
   },
   locationCheckboxes: {
@@ -61,6 +62,7 @@ const classForm = {
   deleteButton: document.querySelector("#class-delete-button"),
   deleteDoublecheckButton: document.querySelector("#class-delete-doublecheck-button"),
   featuredToggle: document.querySelector("#featured-checkbox"),
+  hideClassCheckbox: document.querySelector("#hide-class-checkbox"),
   toggleDisplaysMethod: () => {
     classForm.availableCheckboxes.virtual.checked
       ? classForm.toggle.virtualPrice.classList.remove(warning.hidingClass)
@@ -142,6 +144,7 @@ const classForm = {
       adult: classForm.ageCheckboxes.adult.checked,
       teen: classForm.ageCheckboxes.teen.checked,
       child: classForm.ageCheckboxes.child.checked,
+      babyAndMe: classForm.ageCheckboxes.babyAndMe.checked,
       mixed: classForm.ageCheckboxes.mixed.checked,
     }
     newClass.video = {
@@ -158,6 +161,7 @@ const classForm = {
     //   })
     // }
     newClass.featured = classForm.featuredToggle.checked
+    newClass.hidden = classForm.hideClassCheckbox.checked
     warning.checkFormDataIsFormatted(newClass, isUpdate)
   },
   rejectClassUpload: problem => {
@@ -233,6 +237,7 @@ const classForm = {
     classForm.locationCheckboxes.montclairWomanClub.checked = false
     classForm.locationCheckboxes.customVenue.checked = false
     classForm.featuredToggle.checked = false
+    classForm.hideClassCheckbox.checked = false
 
     // difficulty
     classForm.difficultyRadioButtons.forEach(_input => {
@@ -274,6 +279,7 @@ const classForm = {
     classForm.ageCheckboxes.adult.checked = _classEntry.ageGroup.adult
     classForm.ageCheckboxes.teen.checked = _classEntry.ageGroup?.teen
     classForm.ageCheckboxes.child.checked = _classEntry.ageGroup.child
+    classForm.ageCheckboxes.babyAndMe.checked = _classEntry.ageGroup.babyAndMe
     classForm.ageCheckboxes.mixed.checked = _classEntry.ageGroup.mixed
     classForm.locationCheckboxes.boutique.checked = _classEntry.allowedLocations.boutique
     classForm.locationCheckboxes.montclairWomanClub.checked =
@@ -307,6 +313,7 @@ const classForm = {
     }
 
     classForm.featuredToggle.checked = _classEntry.featured
+    classForm.hideClassCheckbox.checked = _classEntry.hidden
 
     // difficulty
     classForm.difficultyRadioButtons.forEach(_input => {

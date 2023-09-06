@@ -87,11 +87,32 @@ const warning = {
         item.classList.add(warning.atLeastOneColor)
       })
     }
+    // make sure location and avaiability match
+    if (
+      formData.allowedLocations.montclairWomanClub &&
+      !formData.availability.virtual &&
+      !formData.availability.virtualNoKit
+    ) {
+      noErrors = false
+      warning.availableArray.forEach(item => {
+        item.classList.add(warning.atLeastOneColor)
+      })
+    }
+    if (
+      (formData.allowedLocations.boutique && !formData.availability.inPerson) ||
+      (formData.allowedLocations.customVenue && !formData.availability.inPerson)
+    ) {
+      noErrors = false
+      warning.availableArray.forEach(item => {
+        item.classList.add(warning.atLeastOneColor)
+      })
+    }
     // at least 1 age group checked
     if (
       !formData.ageGroup.adult &&
       !formData.ageGroup.teen &&
       !formData.ageGroup.child &&
+      !formData.ageGroup.babyAndMe &&
       !formData.ageGroup.mixed
     ) {
       noErrors = false
@@ -101,6 +122,32 @@ const warning = {
     }
     // at least 1 location IF "in person" is an option
     if (formData.availability.inPerson && formData.allowedLocations.virtualOnly) {
+      noErrors = false
+      warning.locationArray.forEach(item => {
+        item.classList.add(warning.atLeastOneColor)
+      })
+    }
+    if (
+      formData.availability.inPerson &&
+      !formData.allowedLocations.boutique &&
+      !formData.allowedLocations.customVenue
+    ) {
+      noErrors = false
+      warning.locationArray.forEach(item => {
+        item.classList.add(warning.atLeastOneColor)
+      })
+    }
+    if (
+      (formData.availability.virtual && !formData.allowedLocations.montclairWomanClub) ||
+      (formData.availability.virtualNoKit && !formData.allowedLocations.montclairWomanClub)
+    ) {
+      noErrors = false
+      warning.locationArray.forEach(item => {
+        item.classList.add(warning.atLeastOneColor)
+      })
+    }
+    // must pick at least 1 location
+    if (formData.allowedLocations.virtualOnly) {
       noErrors = false
       warning.locationArray.forEach(item => {
         item.classList.add(warning.atLeastOneColor)

@@ -202,6 +202,8 @@ const featuredSelected = {
           return x.ageGroup.adult === true
         } else if (_newDisplay.parameter == "child") {
           return x.ageGroup.child === true
+        } else if (_newDisplay.parameter == "Baby and Me") {
+          return x.ageGroup.babyAndMe === true
         } else if (_newDisplay.parameter == "mixed") {
           return x.ageGroup.mixed === true
         }
@@ -254,6 +256,8 @@ const featuredSelected = {
           return x.ageGroup.adult === true
         } else if (entry.parameter == "child") {
           return x.ageGroup.child === true
+        } else if (entry.parameter == "Baby and Me") {
+          return x.ageGroup.babyAndMe === true
         } else if (entry.parameter == "mixed") {
           return x.ageGroup.mixed === true
         }
@@ -450,6 +454,10 @@ const featuredSelected = {
       childOption.value = "child"
       childOption.innerHTML = "Child"
       dropdown.append(childOption)
+      let babyAndMeOption = document.createElement("option")
+      babyAndMeOption.value = "Baby and Me"
+      babyAndMeOption.innerHTML = "Baby and Me"
+      dropdown.append(babyAndMeOption)
       let mixedOption = document.createElement("option")
       mixedOption.value = "mixed"
       mixedOption.innerHTML = "Mixed"
@@ -466,6 +474,10 @@ const featuredSelected = {
             adultOption.selected = false
             childOption.selected = true
             return x.ageGroup.child === true
+          } else if (entry.parameter == "Baby and Me") {
+            adultOption.selected = false
+            babyAndMeOption.selected = true
+            return x.ageGroup.mixed === true
           } else if (entry.parameter == "mixed") {
             adultOption.selected = false
             mixedOption.selected = true

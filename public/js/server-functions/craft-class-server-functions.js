@@ -27,7 +27,7 @@ const getAllClasses = callback => {
     context: this,
   })
     .then(data => {
-      // console.log(data)
+      console.log(data)
       if (callback) {
         callback(data)
       }

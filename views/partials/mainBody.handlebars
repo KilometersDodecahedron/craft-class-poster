@@ -173,7 +173,7 @@
       </div>
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="location-club" />
-        <label class="form-check-label" for="location-club">Location Option: Woman's Club</label>
+        <label class="form-check-label" for="location-club">Location Option: Virtual</label>
       </div>
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="location-custom" />
@@ -187,7 +187,7 @@
       data-placement="top"
       title="Which age groups are the class designed for? Must select at least one"
     >
-      {{! adult, teen, child, mixed }}
+      {{! adult, teen, child, baby and me, mixed }}
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="age-adult" />
         <label class="form-check-label" for="age-adult">Age Group: Adult (21+)</label>
@@ -199,6 +199,10 @@
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="age-child" />
         <label class="form-check-label" for="age-child">Age Group: Children (5 to 12)</label>
+      </div>
+      <div class="form-check form-check">
+        <input class="form-check-input" type="checkbox" id="age-baby" />
+        <label class="form-check-label" for="age-baby">Age Group: Baby and Me</label>
       </div>
       <div class="form-check form-check">
         <input class="form-check-input" type="checkbox" id="age-mixed" />
@@ -443,6 +447,15 @@
     <label class="form-check-label" for="featured-checkbox">Feature on Best Sellers</label>
   </div>
 
+  <div 
+    data-toggle="tooltip"
+    data-placement="top"
+    title="When this box is checked, the class will NOT display on the website."
+    class="form-check"
+  >
+    <input class="form-check-input" type="checkbox" id="hide-class-checkbox" />
+    <label class="form-check-label" for="featured-checkbox">Hide this class. (Checking this box means the class will NOT appear on the website.)</label>
+  </div>
 
   {{> categoryMenu}}
   {{> tagMenu}}
